@@ -3,7 +3,7 @@ Repozytorium zespołu "DevSharks" - Projekt Zespołowy Billenium
 
 # Temat projektu: Interaktywna tablica Kanban
 
-#Członkowie zespołu:
+Członkowie zespołu:
 - Konrad Zięba
 - Arkadiusz Witasik
 - Michał Ziółkowski
