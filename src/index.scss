@@ -1,0 +1,28 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Lato', sans-serif;
+}
+
+body {
+	background-color: #212121;
+	color: #e4e4e4;
+	position: relative;
+}
+
+.kanban-board {
+	height: 300px;
+	position: fixed;
+	bottom: 0;
+	z-index: -1;
+}
+
+.kanban-knowlege {
+	height: 300px;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+	z-index: -1;
+	transform: scaleX(-1);
+}

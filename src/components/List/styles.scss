@@ -1,0 +1,75 @@
+.list-cards {
+	background-color: #383838;
+	padding: 5px;
+	width: 400px;
+	border-top-right-radius: 20px;
+	border-bottom-left-radius: 20px;
+
+	.container-cards {
+		.pool {
+			padding: 10px 0;
+
+			.pool-title {
+				padding-left: 10px;
+				position: relative;
+				font-size: 24px;
+				display: flex;
+				justify-content: flex-start;
+				align-items: center;
+
+				.relative {
+					position: relative;
+					.pool-title-delete-btn {
+						position: absolute;
+						top: -10px;
+						left: 237px;
+						background: none;
+						border: none;
+						padding: 0 3px;
+						cursor: pointer;
+					}
+	
+					.pool-title-wrap-btn {
+						position: absolute;
+						top: -10px;
+						left: 5px;
+						background: none;
+						border: none;
+						cursor: pointer;
+						padding: 0 3px;
+					}
+	
+					.pool-title-edit-btn {
+						position: absolute;
+						top: -10px;
+						left: 203px;
+						background: none;
+						border: none;
+						padding: 0 3px;
+						cursor: pointer;
+					}
+				}
+			}
+			.pool-task-container {
+				position: relative;
+				margin-top: 5px;
+				padding: 20px 0;
+				border-top-right-radius: 20px;
+				border-bottom-left-radius: 20px;
+				// transition: cubic-bezier(0.165, 0.84, 0.44, 1) 0.1s;
+
+				.card-container {
+					min-height: 100px;
+				}
+			}
+		}
+	}
+}
+
+.list-opacity {
+	opacity: 0.8;
+}
+
+.pool-wrapped {
+	height: 30px;
+}
