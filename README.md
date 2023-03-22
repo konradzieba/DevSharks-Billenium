@@ -26,7 +26,7 @@ Projekt uruchomi się pod adresem http://localhost:3000/
 ## Funkcjonalności 
 ### Tworzenie kolumny
 Nową kolumnę tworzymy przy przyciśnięciu przycisku **'Dodaj kolumnę'**.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Dodaj%20kolumne.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Dodaj%20kolumne.gif)
 
 ### Zmiana nazwy kolumny
 Nazwę kolumny zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę.
@@ -34,28 +34,28 @@ Nazwę kolumny zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy no
 
 ### Zmiana limitu zadań w kolumnie
 Limit zadań w kolumnie zmieniamy poprzez wybranie ikony ustawień i w pop-up wpisujemy lub wybieramy nowy limit. Wybranie 0 spowoduje ustawienie braku limitu.\
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Zmiana%20limitu.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana%20nazwy%20kolumny.gif)
 
 ### Tworzenie grupy
 Nową grupę tworzymy przy przyciśnięciu przycisku **'Dodaj grupę'** i w pop-up wpisujemy nową unikalną nazwę grupy.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Tworzenie%20grupy.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Tworzenie%20grupy.gif)
 
 ### Zmiana nazwy grupy
 Nazwę grupy zmienamiy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową unikalną nazwę.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Zmiana%20nazwy%20grupy.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana%20nazwy%20grupy.gif)
 
 ### Tworzenie zadania
 Nowe zadanie tworzymy w każdej grupie w pierwszej kolumnie przyciskając przycisk **'Dodaj zadanie'**.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Tworzenie%20zadania.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Tworzenie%20zadania.gif)
 
 ### Zmiana nazwy zadania
 Nazwę zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę zadania.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Zmiana%20nazwy%20zadania.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana%20nazwy%20zadania.gif)
 
 
 ### Usuwanie kolumny, grupy i zadania
 Kolumnę, grupę i zadanie możemy usunąć wybierając ikonę usunięcia i potwierdzając dzialanie w pop-up.
-![](https://github.com/ArkadiuszWitasik/test-pod-readme/blob/main/Documentation/media/Usuwanie.gif)
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Usuwanie.gif)
 
 ## Członkowie zespołu
 [Haszek Tymon](https://github.com/Tymon-bot)\
