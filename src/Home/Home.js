@@ -301,7 +301,13 @@ export default function Home() {
 			const docRef = doc.ref
 			const cards = doc.data().cards
 
-			const updatedCards = cards.filter(card => card.owner !== group.name)
+			// const updatedCards = cards.filter(card => card.owner !== group.name)
+			const updatedCards = cards.map(card => {
+				if (card.owner === group.name) {
+					return { ...card, owner: 'Nieprzypisane' }
+				}
+				return card
+			})
 			updateDoc(docRef, { cards: updatedCards })
 		})
 		const updatedGroups = groups.filter(g => g.id !== group.id)
