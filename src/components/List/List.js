@@ -5,7 +5,7 @@ import Card from '../Card/Card'
 import './styles.scss'
 import CreateTask from '../CreateTask/CreateTask'
 import { IconSquareArrowUp, IconX, IconPencil, IconArrowBarToUp } from '@tabler/icons-react'
-
+const UNSIGNED_GROUP_ID = 'QFzlKyV24rq8Vtmyz6Ai'
 export default function List({
 	list,
 	index,
@@ -90,34 +90,38 @@ export default function List({
 															color={'white'}
 															style={{
 																transform: group.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
-																transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s'
+																transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
 															}}
 														/>
 													</button>
 												</div>
-												<div className='relative'>
-													<button
-														onClick={() => {
-															setRenameGroupId(group)
-															setOldGroupName(group.name)
-															setRenameGroupListId(list.id)
-															setRenameGroupModalOpened(true)
-														}}
-														className='pool-title-edit-btn'>
-														<IconPencil size={24} color={'white'} />
-													</button>
-												</div>
-												<div className='relative'>
-													<button
-														onClick={() => {
-															setDeleteGroupId(group)
-															setDeleteGroupListId(list.id)
-															setDeleteGroupModalOpened(true)
-														}}
-														className='pool-title-delete-btn'>
-														<IconX size={24} strokeWidth={2} color={'white'} />
-													</button>
-												</div>
+												{group.id !== UNSIGNED_GROUP_ID && (
+													<>
+														<div className='relative'>
+															<button
+																onClick={() => {
+																	setRenameGroupId(group)
+																	setOldGroupName(group.name)
+																	setRenameGroupListId(list.id)
+																	setRenameGroupModalOpened(true)
+																}}
+																className='pool-title-edit-btn'>
+																<IconPencil size={24} color={'white'} />
+															</button>
+														</div>
+														<div className='relative'>
+															<button
+																onClick={() => {
+																	setDeleteGroupId(group)
+																	setDeleteGroupListId(list.id)
+																	setDeleteGroupModalOpened(true)
+																}}
+																className='pool-title-delete-btn'>
+																<IconX size={24} strokeWidth={2} color={'white'} />
+															</button>
+														</div>
+													</>
+												)}
 											</div>
 										) : (
 											<div className='pool-wrapped'></div>
