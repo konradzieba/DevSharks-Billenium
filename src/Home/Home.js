@@ -202,6 +202,14 @@ export default function Home() {
 	}
 
 	const deleteList = async listId => {
+		const listRef = doc(db, 'tests', listId)
+		const list = lists.find(list => list.id === listId)
+		const cards = list.cards
+		const defaultListRef = doc(db, 'tests', 'JDFaQcxiM4CmBnEYcVQ4')
+		await updateDoc(defaultListRef, {
+			cards: arrayUnion(...cards),
+		})
+
 		await deleteDoc(doc(db, 'tests', listId))
 	}
 
