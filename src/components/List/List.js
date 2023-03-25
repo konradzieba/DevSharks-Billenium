@@ -36,6 +36,7 @@ export default function List({
 	setRenameGroupId,
 	setOldGroupName,
 	setRenameGroupListId,
+	setCardColor,
 }) {
 	const calculateHeight = group => {
 		const max = lists
@@ -148,6 +149,7 @@ export default function List({
 																	setRenameCardId={setRenameCardId}
 																	setRenameCardListId={setRenameCardListId}
 																	setOldCardTitle={setOldCardTitle}
+																	setCardColor={setCardColor}
 																/>
 															))}
 														{provided.placeholder}
