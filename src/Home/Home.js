@@ -48,6 +48,7 @@ export default function Home() {
 	const [renameCardId, setRenameCardId] = useState(null)
 	const [renameCardListId, setRenameCardListId] = useState(null)
 	const [oldCardTitle, setOldCardTitle] = useState('')
+	const [cardColor, setCardColor] = useState('')
 	// UPDATE LIST LIMIT
 	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] = useState(false)
 	const [updateListLimitId, setUpdateListLimitId] = useState(null)
@@ -105,6 +106,7 @@ export default function Home() {
 			id: uuid(),
 			title: 'Nowe zadanie',
 			owner: group,
+			color: '#6dc773',
 		}
 		const listRef = doc(db, 'tests', listId)
 
@@ -146,7 +148,9 @@ export default function Home() {
 		})
 	}
 
-	const updateCardTitle = async (title, listId, cardId) => {
+
+
+	const updateCardTitle = async (title, listId, cardId, color) => {
 		const listRef = doc(db, 'tests', listId)
 
 		const listIndex = lists.findIndex(list => list.id === listId)
@@ -161,7 +165,7 @@ export default function Home() {
 
 		lists[listIndex].cards[cardIndex].title = title
 		await updateDoc(listRef, {
-			cards: lists[listIndex].cards.map(card => (card.id === cardId ? { ...card, title } : card)),
+			cards: lists[listIndex].cards.map(card => (card.id === cardId ? { ...card, title, color } : card)),
 		})
 
 		return lists[listIndex].cards[cardIndex]
@@ -418,6 +422,8 @@ export default function Home() {
 						setRenameCardListId={setRenameCardListId}
 						renameCardId={renameCardId}
 						renameCardListId={renameCardListId}
+						cardColor={cardColor}
+						setCardColor={setCardColor}
 					/>
 				)}
 
@@ -513,6 +519,7 @@ export default function Home() {
 												setRenameGroupId={setRenameGroupId}
 												setOldGroupName={setOldGroupName}
 												setRenameGroupListId={setRenameGroupListId}
+												setCardColor={setCardColor}
 											/>
 										)
 									})}

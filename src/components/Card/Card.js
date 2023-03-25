@@ -16,6 +16,7 @@ export default function Card({
 	setRenameCardListId,
 	setOldCardTitle,
 	group,
+	setCardColor,
 }) {
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
@@ -34,11 +35,15 @@ export default function Card({
 					{...provided.dragHandleProps}
 					{...provided.draggableProps}
 				>
-					<div className={`card-wrap ${snapshot.isDragging && 'card-opacity'}`}>
+					<div className={`card-wrap ${snapshot.isDragging && 'card-opacity'}`} 
+					style={{
+						borderLeft: `10px solid ${card.color}`
+					}}>
 						<div className='card-title'>{card.title}</div>
 						<button
 							className='card-edit-name-btn'
 							onClick={() => {
+								setCardColor(card.color);
 								setRenameCardId(card.id);
 								setRenameCardListId(listId);
 								setOldCardTitle(card.title);
