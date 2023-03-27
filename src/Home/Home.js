@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { MantineProvider } from '@mantine/core'
-import { v4 as uuid } from 'uuid'
-import { DragDropContext, Droppable } from 'react-beautiful-dnd'
-import List from '../components/List/List'
-import StoreApi from '../utils/storeApi'
-import './styles.scss'
-import { db, timestamp } from '../firebase'
+import React, { useEffect, useState } from 'react';
+import { MantineProvider } from '@mantine/core';
+import { v4 as uuid } from 'uuid';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import List from '../components/List/List';
+import StoreApi from '../utils/storeApi';
+import './styles.scss';
+import { db, timestamp } from '../firebase';
 import {
 	addDoc,
 	arrayUnion,
@@ -18,88 +18,106 @@ import {
 	updateDoc,
 	writeBatch,
 	getDocs,
-} from 'firebase/firestore'
-import CreateColumn from '../components/CreateColumn/CreateColumn'
-import DeleteListModal from '../components/Modal/DeleteList'
-import DeleteCardModal from '../components/Modal/DeleteCard'
-import RenameListModal from '../components/Modal/RenameList'
-import RenameCardModal from '../components/Modal/RenameCard'
-import UpdateListLimitModal from '../components/Modal/UpdateListLimit'
-import DeleteGroupModal from '../components/Modal/DeleteGroup'
-import AddGroupModal from '../components/Modal/AddGroup'
-import RenameGroupModal from '../components/Modal/RenameGroup'
+} from 'firebase/firestore';
+import CreateColumn from '../components/CreateColumn/CreateColumn';
+import DeleteListModal from '../components/Modal/DeleteList';
+import DeleteCardModal from '../components/Modal/DeleteCard';
+import RenameListModal from '../components/Modal/RenameList';
+import RenameCardModal from '../components/Modal/RenameCard';
+import UpdateListLimitModal from '../components/Modal/UpdateListLimit';
+import DeleteGroupModal from '../components/Modal/DeleteGroup';
+import AddGroupModal from '../components/Modal/AddGroup';
+import RenameGroupModal from '../components/Modal/RenameGroup';
+import Avatar from '../components/User/Avatar';
+import AssignUserModal from '../components/Modal/AssignUser';
 
 export default function Home() {
-	const [lists, setLists] = useState([])
-	const [groups, setGroups] = useState([])
+	const [lists, setLists] = useState([]);
+	const [groups, setGroups] = useState([]);
+	const [usersList, setUsersList] = useState([]);
 	// DELETE LIST MODAL
-	const [deleteListModalOpened, setDeleteListModalOpened] = useState(false)
-	const [deleteListId, setDeleteListId] = useState(null)
+	const [deleteListModalOpened, setDeleteListModalOpened] = useState(false);
+	const [deleteListId, setDeleteListId] = useState(null);
 	//DELETE CARD MODAL
-	const [deleteCardModalOpened, setDeleteCardModalOpened] = useState(false)
-	const [deleteCardId, setDeleteCardId] = useState(null)
-	const [deleteCardListId, setDeleteCardListId] = useState(null)
+	const [deleteCardModalOpened, setDeleteCardModalOpened] = useState(false);
+	const [deleteCardId, setDeleteCardId] = useState(null);
+	const [deleteCardListId, setDeleteCardListId] = useState(null);
 	//RENAME LIST MODAL
-	const [renameListModalOpened, setRenameListModalOpened] = useState(false)
-	const [renameListId, setRenameListId] = useState(null)
-	const [oldListTitle, setOldListTitle] = useState('')
+	const [renameListModalOpened, setRenameListModalOpened] = useState(false);
+	const [renameListId, setRenameListId] = useState(null);
+	const [oldListTitle, setOldListTitle] = useState('');
 	//RENAME CARD MODAL
-	const [renameCardModalOpened, setRenameCardModalOpened] = useState(false)
-	const [renameCardId, setRenameCardId] = useState(null)
-	const [renameCardListId, setRenameCardListId] = useState(null)
-	const [oldCardTitle, setOldCardTitle] = useState('')
-	const [cardColor, setCardColor] = useState('')
+	const [renameCardModalOpened, setRenameCardModalOpened] = useState(false);
+	const [renameCardId, setRenameCardId] = useState(null);
+	const [renameCardListId, setRenameCardListId] = useState(null);
+	const [oldCardTitle, setOldCardTitle] = useState('');
+	const [cardColor, setCardColor] = useState('');
 	// UPDATE LIST LIMIT
-	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] = useState(false)
-	const [updateListLimitId, setUpdateListLimitId] = useState(null)
-	const [oldListLimit, setOldListLimit] = useState(null)
+	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] =
+		useState(false);
+	const [updateListLimitId, setUpdateListLimitId] = useState(null);
+	const [oldListLimit, setOldListLimit] = useState(null);
 	//ERROR ANIMATION
-	const [limitErrorListId, setLimitErrorListId] = useState(null)
+	const [limitErrorListId, setLimitErrorListId] = useState(null);
 	// DELETE GROUP MODAL
-	const [deleteGroupModalOpened, setDeleteGroupModalOpened] = useState(false)
-	const [deleteGroupId, setDeleteGroupId] = useState(null)
-	const [deleteGroupListId, setDeleteGroupListId] = useState(null)
+	const [deleteGroupModalOpened, setDeleteGroupModalOpened] = useState(false);
+	const [deleteGroupId, setDeleteGroupId] = useState(null);
+	const [deleteGroupListId, setDeleteGroupListId] = useState(null);
 	// ADD GROUP MODAL
-	const [addGroupModalOpened, setAddGroupModalOpened] = useState(false)
-	const [newGroupName, setNewGroupName] = useState('')
+	const [addGroupModalOpened, setAddGroupModalOpened] = useState(false);
+	const [newGroupName, setNewGroupName] = useState('');
 	// RENAME GROUP MODAL
-	const [renameGroupModalOpened, setRenameGroupModalOpened] = useState(false)
-	const [renameGroupId, setRenameGroupId] = useState(null)
-	const [renameGroupListId, setRenameGroupListId] = useState(null)
-	const [oldGroupName, setOldGroupName] = useState('')
+	const [renameGroupModalOpened, setRenameGroupModalOpened] = useState(false);
+	const [renameGroupId, setRenameGroupId] = useState(null);
+	const [renameGroupListId, setRenameGroupListId] = useState(null);
+	const [oldGroupName, setOldGroupName] = useState('');
+	// ASSIGN USER TO TASK MODAL
+	const [assignUserModalOpened, setAssignUserModalOpened] = useState(false);
+	const [assignUserId, setAssignUserId] = useState(null);
 
 	useEffect(() => {
-		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'))
-		const q2 = query(collection(db, 'groups'), orderBy('timestamp', 'asc'))
-		onSnapshot(q, snapShot => {
+		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'));
+		const q2 = query(collection(db, 'groups'), orderBy('timestamp', 'asc'));
+		const users = query(collection(db, 'users'));
+		onSnapshot(q, (snapShot) => {
 			setLists(
-				snapShot.docs.map(doc => {
+				snapShot.docs.map((doc) => {
 					return {
 						id: doc.id,
 						...doc.data(),
-					}
+					};
 				})
-			)
-		})
-		onSnapshot(q2, snapShot => {
+			);
+		});
+		onSnapshot(q2, (snapShot) => {
 			setGroups(
-				snapShot.docs.map(doc => {
+				snapShot.docs.map((doc) => {
 					return {
 						id: doc.id,
 						...doc.data(),
-					}
+					};
 				})
-			)
-		})
-	}, [])
+			);
+		});
+		onSnapshot(users, (snapShot) => {
+			setUsersList(
+				snapShot.docs.map((doc) => {
+					return {
+						id: doc.id,
+						...doc.data(),
+					};
+				})
+			);
+		});
+	}, []);
 
-	const handleToggleCollapse = async id => {
+	const handleToggleCollapse = async (id) => {
 		// const groupRef = doc(db, 'tests', id);
 		// await updateDoc(groupRef, { isCollapsed: !group.collapsed });
-		const groupRef = doc(db, 'groups', id)
-		const group = groups.find(group => group.id === id)
-		await updateDoc(groupRef, { isCollapsed: !group.isCollapsed })
-	}
+		const groupRef = doc(db, 'groups', id);
+		const group = groups.find((group) => group.id === id);
+		await updateDoc(groupRef, { isCollapsed: !group.isCollapsed });
+	};
 
 	const addMoreCard = async (title, listId, group) => {
 		const newCard = {
@@ -107,69 +125,72 @@ export default function Home() {
 			title: 'Nowe zadanie',
 			owner: group,
 			color: '#6dc773',
-		}
-		const listRef = doc(db, 'tests', listId)
+			assignedUser: '',
+		};
+		const listRef = doc(db, 'tests', listId);
 
 		await updateDoc(listRef, {
 			cards: arrayUnion(newCard),
-		})
-	}
+		});
+	};
 	const removeCard = async (listId, cardId) => {
-		const listRef = doc(db, 'tests', listId)
-		const updatedLists = lists.map(list => {
+		const listRef = doc(db, 'tests', listId);
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.filter(card => card.id !== cardId),
-				}
+					cards: list.cards.filter((card) => card.id !== cardId),
+				};
 			}
-			return list
-		})
-		setLists(updatedLists)
+			return list;
+		});
+		setLists(updatedLists);
 		await updateDoc(listRef, {
-			cards: updatedLists.find(list => list.id === listId).cards,
-		})
-	}
+			cards: updatedLists.find((list) => list.id === listId).cards,
+		});
+	};
 
 	const updateListLimit = async (listId, limit) => {
-		const listRef = doc(db, 'tests', listId)
-		const updatedLists = lists.map(list => {
+		const listRef = doc(db, 'tests', listId);
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
 					limit: limit,
-				}
+				};
 			}
-			return list
-		})
-		setLists(updatedLists)
+			return list;
+		});
+		setLists(updatedLists);
 		await updateDoc(listRef, {
-			limit: updatedLists.find(list => list.id === listId).limit,
-		})
-	}
-
-
+			limit: updatedLists.find((list) => list.id === listId).limit,
+		});
+	};
 
 	const updateCardTitle = async (title, listId, cardId, color) => {
-		const listRef = doc(db, 'tests', listId)
+		const listRef = doc(db, 'tests', listId);
 
-		const listIndex = lists.findIndex(list => list.id === listId)
+		const listIndex = lists.findIndex((list) => list.id === listId);
 		if (listIndex < 0) {
-			return
+			return;
 		}
 
-		const cardIndex = lists[listIndex].cards.findIndex(card => card.id === cardId)
+		const cardIndex = lists[listIndex].cards.findIndex(
+			(card) => card.id === cardId
+		);
 		if (cardIndex < 0) {
-			return
+			return;
 		}
 
-		lists[listIndex].cards[cardIndex].title = title
+		lists[listIndex].cards[cardIndex].title = title;
 		await updateDoc(listRef, {
-			cards: lists[listIndex].cards.map(card => (card.id === cardId ? { ...card, title, color } : card)),
-		})
+			cards: lists[listIndex].cards.map((card) =>
+				card.id === cardId ? { ...card, title, color } : card
+			),
+		});
 
-		return lists[listIndex].cards[cardIndex]
-	}
+		return lists[listIndex].cards[cardIndex];
+	};
 
 	const addMoreList = async () => {
 		await addDoc(collection(db, 'tests'), {
@@ -177,56 +198,56 @@ export default function Home() {
 			cards: [],
 			limit: 3,
 			timestamp,
-		})
-	}
+		});
+	};
 
-	const addMoreGroup = async groupName => {
+	const addMoreGroup = async (groupName) => {
 		await addDoc(collection(db, 'groups'), {
 			isCollapsed: false,
 			name: groupName,
 			timestamp,
-		})
-	}
+		});
+	};
 
 	const updateListTitle = async (title, listId) => {
-		const listRef = doc(db, 'tests', listId)
-		const index = lists.findIndex(list => list.id === listId)
+		const listRef = doc(db, 'tests', listId);
+		const index = lists.findIndex((list) => list.id === listId);
 		if (index < 0) {
-			return
+			return;
 		}
 
-		lists[index].title = title
-		await updateDoc(listRef, { title })
+		lists[index].title = title;
+		await updateDoc(listRef, { title });
 
-		return lists[index]
-	}
+		return lists[index];
+	};
 
-	const deleteList = async listId => {
-		const listRef = doc(db, 'tests', listId)
-		const list = lists.find(list => list.id === listId)
-		const cards = list.cards
-		const defaultListRef = doc(db, 'tests', 'JDFaQcxiM4CmBnEYcVQ4')
+	const deleteList = async (listId) => {
+		const listRef = doc(db, 'tests', listId);
+		const list = lists.find((list) => list.id === listId);
+		const cards = list.cards;
+		const defaultListRef = doc(db, 'tests', 'JDFaQcxiM4CmBnEYcVQ4');
 		await updateDoc(defaultListRef, {
 			cards: arrayUnion(...cards),
-		})
+		});
 
-		await deleteDoc(doc(db, 'tests', listId))
-	}
+		await deleteDoc(doc(db, 'tests', listId));
+	};
 
-	const onDragEnd = async result => {
-		const { destination, source, draggableId, type } = result
+	const onDragEnd = async (result) => {
+		const { destination, source, draggableId, type } = result;
 		if (!destination) {
-			return
+			return;
 		}
 
 		if (type === 'list') {
-			const updatedLists = [...lists]
-			const [removedList] = updatedLists.splice(source.index, 1)
-			updatedLists.splice(destination.index, 0, removedList)
+			const updatedLists = [...lists];
+			const [removedList] = updatedLists.splice(source.index, 1);
+			updatedLists.splice(destination.index, 0, removedList);
 
-			const batch = writeBatch(db)
-			const sourceRef = doc(db, 'tests', lists[source.index].id)
-			const destinationRef = doc(db, 'tests', lists[destination.index].id)
+			const batch = writeBatch(db);
+			const sourceRef = doc(db, 'tests', lists[source.index].id);
+			const destinationRef = doc(db, 'tests', lists[destination.index].id);
 
 			batch
 				.update(destinationRef, {
@@ -234,151 +255,195 @@ export default function Home() {
 				})
 				.update(sourceRef, {
 					timestamp: lists[destination.index].timestamp,
-				})
+				});
 
-			setLists(updatedLists)
-			await batch.commit()
-			return
+			setLists(updatedLists);
+			await batch.commit();
+			return;
 		}
-		const splittedSource = source.droppableId.split(':')
-		const splittedDestination = destination.droppableId.split(':')
+		const splittedSource = source.droppableId.split(':');
+		const splittedDestination = destination.droppableId.split(':');
 
-		const sourceTask = lists.find(list => list.id === splittedSource[0])
+		const sourceTask = lists.find((list) => list.id === splittedSource[0]);
 		if (splittedSource[0] === splittedDestination[0]) {
-			const list = lists.find(list => list.id === splittedSource[0])
-			const updatedCards = Array.from(list.cards)
-			const [removedCard] = updatedCards.splice(source.index, 1)
-			updatedCards.splice(destination.index, 0, removedCard)
-			updatedCards.map(card => {
-				if (splittedSource[1] === card.owner && card.id === sourceTask.cards.find(card => card.id === draggableId).id) {
-					card.owner = splittedDestination[1]
+			const list = lists.find((list) => list.id === splittedSource[0]);
+			const updatedCards = Array.from(list.cards);
+			const [removedCard] = updatedCards.splice(source.index, 1);
+			updatedCards.splice(destination.index, 0, removedCard);
+			updatedCards.map((card) => {
+				if (
+					splittedSource[1] === card.owner &&
+					card.id === sourceTask.cards.find((card) => card.id === draggableId).id
+				) {
+					card.owner = splittedDestination[1];
 				}
-				return card
-			})
+				return card;
+			});
 
-			const listRef = doc(db, 'tests', splittedDestination[0])
-			await updateDoc(listRef, { cards: updatedCards })
+			const listRef = doc(db, 'tests', splittedDestination[0]);
+			await updateDoc(listRef, { cards: updatedCards });
 
-			const updatedLists = lists.map(list => {
+			const updatedLists = lists.map((list) => {
 				if (list.id === splittedSource[0]) {
-					return { ...list, cards: updatedCards }
+					return { ...list, cards: updatedCards };
 				}
-				return list
-			})
+				return list;
+			});
 
-			setLists(updatedLists)
+			setLists(updatedLists);
 		} else {
-			const sourceListRef = doc(db, 'tests', source.droppableId.split(':')[0])
-			const destinationListRef = doc(db, 'tests', destination.droppableId.split(':')[0])
+			const sourceListRef = doc(db, 'tests', source.droppableId.split(':')[0]);
+			const destinationListRef = doc(
+				db,
+				'tests',
+				destination.droppableId.split(':')[0]
+			);
 
-			const batch = writeBatch(db)
-			const sourceList = lists.find(list => list.id === source.droppableId.split(':')[0])
-			const destinationList = lists.find(list => list.id === destination.droppableId.split(':')[0])
-			const draggingCardPrev = sourceList.cards.find(card => card.id === draggableId)
+			const batch = writeBatch(db);
+			const sourceList = lists.find(
+				(list) => list.id === source.droppableId.split(':')[0]
+			);
+			const destinationList = lists.find(
+				(list) => list.id === destination.droppableId.split(':')[0]
+			);
+			const draggingCardPrev = sourceList.cards.find(
+				(card) => card.id === draggableId
+			);
 
 			const draggingCard = {
 				...draggingCardPrev,
 				owner: destination.droppableId.split(':')[1],
-			}
+			};
 
-			sourceList.cards = sourceList.cards.filter(card => card.id !== draggableId)
-			destinationList.cards.splice(destination.index, 0, draggingCard)
-			batch.update(sourceListRef, { cards: sourceList.cards })
-			batch.update(destinationListRef, { cards: destinationList.cards })
+			sourceList.cards = sourceList.cards.filter(
+				(card) => card.id !== draggableId
+			);
+			destinationList.cards.splice(destination.index, 0, draggingCard);
+			batch.update(sourceListRef, { cards: sourceList.cards });
+			batch.update(destinationListRef, { cards: destinationList.cards });
 
-			const updatedLists = lists.map(list => {
+			const updatedLists = lists.map((list) => {
 				if (list.id === source.droppableId) {
-					return { ...list, cards: sourceList.cards }
+					return { ...list, cards: sourceList.cards };
 				}
 				if (list.id === destination.droppableId) {
-					return { ...list, cards: destinationList.cards }
+					return { ...list, cards: destinationList.cards };
 				}
-				return list
-			})
+				return list;
+			});
 
-			setLists(updatedLists)
-			await batch.commit()
+			setLists(updatedLists);
+			await batch.commit();
 		}
-	}
+	};
 
 	const removeGroup = async (listId, group) => {
-		const collectionRef = collection(db, 'tests')
-		const querySnapshot = await getDocs(collectionRef)
+		const collectionRef = collection(db, 'tests');
+		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
-			const docRef = doc.ref
-			const cards = doc.data().cards
+		querySnapshot.forEach((doc) => {
+			const docRef = doc.ref;
+			const cards = doc.data().cards;
 
 			// const updatedCards = cards.filter(card => card.owner !== group.name)
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.owner === group.name) {
-					return { ...card, owner: 'Nieprzypisane' }
+					return { ...card, owner: 'Nieprzypisane' };
 				}
-				return card
-			})
-			updateDoc(docRef, { cards: updatedCards })
-		})
-		const updatedGroups = groups.filter(g => g.id !== group.id)
-		setGroups(updatedGroups)
+				return card;
+			});
+			updateDoc(docRef, { cards: updatedCards });
+		});
+		const updatedGroups = groups.filter((g) => g.id !== group.id);
+		setGroups(updatedGroups);
 
-		await deleteDoc(doc(db, 'groups', group.id))
-	}
+		await deleteDoc(doc(db, 'groups', group.id));
+	};
 
 	const renameGroup = async (listId, group, newName) => {
-		const collectionRef = collection(db, 'tests')
-		const querySnapshot = await getDocs(collectionRef)
+		const collectionRef = collection(db, 'tests');
+		const querySnapshot = await getDocs(collectionRef);
 
-		setLists(lists => {
-			return lists.map(list => {
+		setLists((lists) => {
+			return lists.map((list) => {
 				if (list.id === listId) {
 					return {
 						...list,
-						cards: list.cards.map(card => {
+						cards: list.cards.map((card) => {
 							if (card.owner === group.name) {
-								return { ...card, owner: newName }
+								return { ...card, owner: newName };
 							}
-							return card
+							return card;
 						}),
-					}
+					};
 				}
-				return list
-			})
-		})
+				return list;
+			});
+		});
 
-		setGroups(groups => {
-			return groups.map(g => {
+		setGroups((groups) => {
+			return groups.map((g) => {
 				if (g.id === group.id) {
-					return { ...g, name: newName }
+					return { ...g, name: newName };
 				}
-				return g
-			})
-		})
+				return g;
+			});
+		});
 
-		querySnapshot.forEach(doc => {
-			const docRef = doc.ref
-			const cards = doc.data().cards
+		querySnapshot.forEach((doc) => {
+			const docRef = doc.ref;
+			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.owner === group.name) {
-					card.owner = newName
+					card.owner = newName;
 				}
-				return card
-			})
+				return card;
+			});
 
-			updateDoc(docRef, { cards: updatedCards })
-		})
+			updateDoc(docRef, { cards: updatedCards });
+		});
 
-		const updatedGroups = groups.map(g => {
-			if (g.id === group.id) {
-				return { ...g, name: newName }
+		const groupRef = doc(db, 'groups', group.id);
+
+		await updateDoc(groupRef, { name: newName });
+	};
+
+	const assignUserToCard = async (listIdToAssign, cardIdToAssign, userId) => {
+		const updatedLists = lists.map((list) => {
+			if (list.id === listIdToAssign) {
+				return {
+					...list,
+					cards: list.cards.map((card) => {
+						if (card.id === cardIdToAssign) {
+							return { ...card, assignedUser: userId };
+						}
+						return card;
+					}),
+				};
 			}
-			return g
-		})
+			return list;
+		});
 
-		const groupRef = doc(db, 'groups', group.id)
+		setLists(updatedLists);
 
-		await updateDoc(groupRef, { name: newName })
-	}
+		const collectionRef = collection(db, 'tests');
+		const querySnapshot = await getDocs(collectionRef);
+
+		querySnapshot.forEach((doc) => {
+			const docRef = doc.ref;
+			const cards = doc.data().cards;
+
+			const updatedCards = cards.map((card) => {
+				if (card.id === cardIdToAssign) {
+					card.assignedUser = userId;
+				}
+				return card;
+			});
+
+			updateDoc(docRef, { cards: updatedCards });
+		});
+	};
 
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
@@ -393,7 +458,8 @@ export default function Home() {
 					setDeleteListModalOpened,
 					setDeleteListId,
 					setRenameCardModalOpened,
-				}}>
+				}}
+			>
 				{deleteListModalOpened && (
 					<DeleteListModal
 						deleteListModalOpened={deleteListModalOpened}
@@ -450,7 +516,9 @@ export default function Home() {
 						updateListLimitId={updateListLimitId}
 						setUpdateListLimitId={setUpdateListLimitId}
 						setOldListLimit={setOldListLimit}
-						minValue={lists.find(list => list.id === updateListLimitId).cards.length || 0}
+						minValue={
+							lists.find((list) => list.id === updateListLimitId).cards.length || 0
+						}
 					/>
 				)}
 				{deleteGroupModalOpened && (
@@ -484,18 +552,61 @@ export default function Home() {
 						renameGroupListId={renameGroupListId}
 					/>
 				)}
+				{assignUserModalOpened && (
+					<AssignUserModal
+						setAssignUserModalOpened={setAssignUserModalOpened}
+						users={usersList}
+						cardId={renameCardId}
+						listId={renameCardListId}
+						setCardId={setRenameCardId}
+						setListId={setRenameCardListId}
+						assignUserId={assignUserId}
+						setAssignUserId={setAssignUserId}
+						assignUserToCard={assignUserToCard}
+					/>
+				)}
 
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='app' type='list' direction='horizontal'>
-						{provided => (
-							<div className='wrapper' ref={provided.innerRef} {...provided.droppableProps}>
+						{(provided) => (
+							<div
+								className='wrapper'
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+							>
 								<div className='wrapper-buttons'>
 									<div className='create-btn'>
 										<CreateColumn type='list' />
 									</div>
 									<div className='create-btn'>
-										<button onClick={() => setAddGroupModalOpened(true)}>Dodaj grupę</button>
+										<button onClick={() => setAddGroupModalOpened(true)}>
+											Dodaj grupę
+										</button>
 									</div>
+								</div>
+
+								<div
+									style={{
+										width: '80%',
+										border: '1px solid white',
+										height: '60px',
+										color: 'black',
+										display: 'flex',
+										alignItems: 'center',
+										justifyContent: 'center',
+										gap: '10px',
+									}}
+								>
+									{usersList.map((user, userIndex) => {
+										return (
+											<Avatar
+												firstName={user.firstName}
+												lastName={user.lastName}
+												avatarColor={user.avatarColor}
+												key={user.id}
+											/>
+										);
+									})}
 								</div>
 
 								<div className='cards'>
@@ -534,8 +645,10 @@ export default function Home() {
 												setOldGroupName={setOldGroupName}
 												setRenameGroupListId={setRenameGroupListId}
 												setCardColor={setCardColor}
+												setAssignUserModalOpened={setAssignUserModalOpened}
+												usersList={usersList}
 											/>
-										)
+										);
 									})}
 									{provided.placeholder}
 								</div>
@@ -545,5 +658,5 @@ export default function Home() {
 				</DragDropContext>
 			</StoreApi.Provider>
 		</MantineProvider>
-	)
+	);
 }
