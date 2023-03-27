@@ -61,4 +61,4 @@ Kolumnę, grupę i zadanie możemy usunąć wybierając ikonę usunięcia i potw
 [Haszek Tymon](https://github.com/Tymon-bot)\
 [Witasik Arkadiusz](https://github.com/ArkadiuszWitasik)\
 [Zięba Konrad](https://github.com/konradzieba)\
-[Ziółkowski Michał](https://github.com/MichalZZZZ)\
+[Ziółkowski Michał](https://github.com/MichalZZZZ)
