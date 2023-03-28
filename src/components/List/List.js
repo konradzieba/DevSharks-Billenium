@@ -43,7 +43,8 @@ export default function List({
 	setRenameGroupListId,
 	setCardColor,
 	setAssignUserModalOpened,
-	usersList
+	usersList,
+	setOldAssignedUser,
 }) {
 	const calculateHeight = (group) => {
 		const max = lists
@@ -179,6 +180,7 @@ export default function List({
 																	setCardColor={setCardColor}
 																	setAssignUserModalOpened={setAssignUserModalOpened}
 																	usersList={usersList}
+																	setOldAssignedUser={setOldAssignedUser}
 																/>
 															))}
 														{provided.placeholder}

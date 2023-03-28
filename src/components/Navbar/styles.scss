@@ -1,26 +1,27 @@
 nav {
-    height: 4rem;
-    margin-bottom: 1rem;
-    position: static;
+	height: 4rem;
+	margin-bottom: 1rem;
+	position: static;
 
-    .container {
-        width: 100%;
-        height: 100%;
-        margin: 0 auto;
-        padding: 0 1.5rem;
-        display: flex;
-        align-items: center;
+	.container {
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		padding: 0 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-        div {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-grow: 1;
+		div {
+			display: flex;
+			align-items: center;
+			// justify-content: center;x
+			// flex-grow: 1;
 
-            h1 {
-                font-size: 2rem;
-                color: #e4e4e4;
-            }
-        }
-    }
+			h1 {
+				font-size: 2rem;
+				color: #e4e4e4;
+			}
+		}
+	}
 }
