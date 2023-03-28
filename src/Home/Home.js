@@ -74,6 +74,7 @@ export default function Home() {
 	// ASSIGN USER TO TASK MODAL
 	const [assignUserModalOpened, setAssignUserModalOpened] = useState(false);
 	const [assignUserId, setAssignUserId] = useState(null);
+	const [oldAssignedUser, setOldAssignedUser] = useState(null);
 
 	useEffect(() => {
 		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'));
@@ -563,6 +564,8 @@ export default function Home() {
 						assignUserId={assignUserId}
 						setAssignUserId={setAssignUserId}
 						assignUserToCard={assignUserToCard}
+						oldAssignedUser={oldAssignedUser}
+						setOldAssignedUser={setOldAssignedUser}
 					/>
 				)}
 
@@ -647,6 +650,7 @@ export default function Home() {
 												setCardColor={setCardColor}
 												setAssignUserModalOpened={setAssignUserModalOpened}
 												usersList={usersList}
+												setOldAssignedUser={setOldAssignedUser}
 											/>
 										);
 									})}

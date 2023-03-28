@@ -25,7 +25,7 @@ const App = () => {
 						path='/kanban'
 						element={
 							<ProtectedRoute>
-								<Navbar /> <Home />
+								<Navbar  /> <Home />
 							</ProtectedRoute>
 						}
 					/>

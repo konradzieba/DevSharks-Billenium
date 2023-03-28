@@ -20,6 +20,7 @@ export default function Card({
 	setCardColor,
 	setAssignUserModalOpened,
 	usersList,
+	setOldAssignedUser,
 }) {
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
@@ -78,6 +79,7 @@ export default function Card({
 							onClick={() => {
 								setRenameCardId(card.id);
 								setRenameCardListId(listId);
+								setOldAssignedUser(card.assignedUser);
 								setAssignUserModalOpened(true);
 							}}
 						>

@@ -9,16 +9,18 @@ const AssignUserModal = ({
 	listId,
 	setCardId,
 	setListId,
-    assignUserToCard,
-    assignUserId,
-    setAssignUserId,
+	assignUserToCard,
+	assignUserId,
+	setAssignUserId,
+	setOldAssignedUser,
+	oldAssignedUser,
 }) => {
 	const [isOpened, setIsOpened] = useState(false);
 	// const [selectedUser, setSelectedUser] = useState('');
 	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
-
-
-	const data = users.map((user) => {
+	// console.log(oldAssignedUser);
+	// console.log(oldUser.firstName + oldUser.lastName);
+	const prevData = users.map((user) => {
 		return {
 			label: `${user.firstName} ${user.lastName}`,
 			value: user.id,
@@ -27,6 +29,17 @@ const AssignUserModal = ({
 			avatarColor: user.avatarColor.toString(),
 		};
 	});
+
+	const data = [
+		{
+			label: 'Brak przypisania',
+			value: '',
+			firstName: '',
+			lastName: '',
+			avatarColor: '',
+		},
+		...prevData,
+	];
 
 	const SelectItem = forwardRef(
 		({ firstName, lastName, avatarColor, label, ...others }, ref) => (
@@ -57,8 +70,9 @@ const AssignUserModal = ({
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
 				<Select
 					placeholder='Brak przypisania'
+					value={oldAssignedUser}
 					onChange={(value) => {
-						setAssignUserId(value);
+						setOldAssignedUser(value);
 					}}
 					onKeyUp={(e) => {
 						const user = data.find((user) =>
@@ -98,8 +112,8 @@ const AssignUserModal = ({
 					setAssignUserId('');
 					setListId(null);
 					setCardId(null);
-					// console.log(listId, cardId, selectedUser);
-					assignUserToCard(listId, cardId, assignUserId);
+					setOldAssignedUser(null);
+					assignUserToCard(listId, cardId, oldAssignedUser);
 					setAssignUserModalOpened(false);
 				}}
 				disabled={notFoundUserInData}
