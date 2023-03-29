@@ -30,7 +30,7 @@ Logowanie się by uzyskać dostęp do tablicy kanban.\
 ![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Logowanie.gif)
 
 ### Rejestracja
-Zarejestorwanie się użytkownika by uzyskać dostęp do tablicy kanban, po prawidłowej rejestracji strona przekieruje do ekranu tablicy kanban.
+Zarejestorwanie się użytkownika by uzyskać dostęp do tablicy kanban, po prawidłowej rejestracji strona przekieruje do ekranu tablicy kanban.\
 ![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Rejestracja.gif)
 
 ### Przypisanie zdjęcia 
