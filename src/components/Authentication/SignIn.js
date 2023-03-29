@@ -24,8 +24,6 @@ const SignIn = () => {
 	const navigate = useNavigate();
 	const { signIn } = UserAuth();
 
-	// create boolean const to check if email is in database
-	// create boolean const to check if password is in database
 	const invalidEmailError =
 		error === 'Firebase: Error (auth/invalid-email).'
 			? 'Nieprawidłowy e-mail'
@@ -43,14 +41,12 @@ const SignIn = () => {
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('hej');
 		setError('');
 		try {
 			await signIn(email, password);
 			navigate('/kanban');
 		} catch (e) {
 			setError(e.message);
-			console.log(e.message);
 		}
 	};
 	return (
