@@ -15,62 +15,76 @@ import {
 	Autocomplete,
 	TextInput,
 } from '@mantine/core';
+import { useForm } from '@mantine/form';
 
 const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange'];
 
 const SignUp = () => {
-	const [input, setInput] = useState({
-		firstName: '',
-		lastName: '',
-		email: '',
-		password: '',
-		password2: '',
-	});
-	const [error, setError] = useState({
-		firstName: null,
-		lastName: null,
-		email: null,
-		password: null,
-		password2: null,
+	const form = useForm({
+		initialValues: {
+			firstName: '',
+			lastName: '',
+			email: '',
+			password: '',
+			password2: '',
+		},
+		validate: (values) => ({
+			firstName:
+				values.firstName.trim().length < 2 &&
+				'Imię musi zawierać co najmniej 2 znaki',
+			lastName:
+				values.lastName.trim().length < 2 &&
+				'Nazwisko musi zawierać co najmniej 2 znaki',
+
+			email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
+				? null
+				: 'Invalid email',
+
+			password:
+				values.password.trim().length < 6 &&
+				'Hasło musi zawierać co najmniej 6 znaków',
+			password2:
+				values.password2 === values.password
+					? null
+					: 'Podane hasła nie są takie same',
+		}),
 	});
 
 	const navigate = useNavigate();
 	const { createUser } = UserAuth();
 
 	const suggestedEmails =
-		input.email.trim().length > 0 && !input.email.includes('@')
+		form.values.email.trim().length > 0 && !form.values.email.includes('@')
 			? ['gmail.com', 'outlook.com', 'yahoo.com', 'wp.pl', 'o2.pl'].map(
-					(provider) => `${input.email}@${provider}`
+					(provider) => `${form.values.email}@${provider}`
 			  )
 			: [];
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
-		setError({
-			firstName: null,
-			lastName: null,
-			email: null,
-			password: null,
-			password2: null,
-		});
+	const handleSubmit = async (values) => {
 		try {
-			await createUser(input.email, input.password);
+			await createUser(form.values.email, form.values.password);
 			await addDoc(collection(db, 'users'), {
-				email: input.email,
-				firstName: input.firstName,
-				lastName: input.lastName,
+				email: values.email,
+				firstName: values.firstName,
+				lastName: values.lastName,
 				avatarUrl: '',
 				avatarColor: avatarColors[Math.floor(Math.random() * avatarColors.length)],
 			});
 			navigate('/kanban');
 		} catch (e) {
-			setError(e.message);
-			console.log(e.message);
+			e.message === 'Firebase: Error (auth/email-already-in-use).' &&
+				form.setErrors({ email: 'Użytkownik o takim adresie już istnieje' });
 		}
 	};
+
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
-			<form onSubmit={handleSubmit}>
+			<form
+				onSubmit={form.onSubmit((values) => {
+					form.setValues(values);
+					handleSubmit(values);
+				})}
+			>
 				<Container size={420} py={100}>
 					<Title
 						align='center'
@@ -95,52 +109,39 @@ const SignUp = () => {
 							placeholder='Wpisz imię'
 							required
 							mt='md'
-							onChange={(e) => {
-								setInput({ ...input, firstName: e.target.value });
-							}}
+							{...form.getInputProps('firstName')}
 						/>
 						<TextInput
 							label='Nazwisko'
 							placeholder='Wpisz nazwisko'
 							required
 							mt='md'
-							onChange={(e) => {
-								setInput({ ...input, lastName: e.target.value });
-							}}
+							{...form.getInputProps('lastName')}
 						/>
 						<Autocomplete
-							value={input.email}
-							onChange={(value) => {
-								setInput({ ...input, email: value });
-							}}
 							label='Email'
 							placeholder='Wpisz e-mail'
 							mt='md'
 							required
 							data={suggestedEmails}
 							maxDropdownHeight={125}
-							// error={userNotFoundError || invalidEmailError}
+							{...form.getInputProps('email')}
 						/>
 						<PasswordInput
 							label='Hasło'
 							placeholder='Wpisz hasło'
 							required
 							mt='md'
-							onChange={(e) => {
-								setInput({ ...input, password: e.target.value });
-							}}
-							// error={passwordError}
+							onChange={(e) => {}}
+							{...form.getInputProps('password')}
 						/>
 						<PasswordInput
 							label='Potwierdź hasło'
 							placeholder='Potwierdz hasło'
 							required
 							mt='md'
-							onChange={(e) => {
-								setError('');
-								setInput({ ...input, password2: e.target.value });
-							}}
-							// error={passwordError}
+							onChange={(e) => {}}
+							{...form.getInputProps('password2')}
 						/>
 						<Button type='submit' fullWidth mt='xl'>
 							Zarejestruj się
