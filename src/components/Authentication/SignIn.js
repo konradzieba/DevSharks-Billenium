@@ -7,22 +7,25 @@ import {
 	Text,
 	Anchor,
 	Paper,
-	TextInput,
 	PasswordInput,
-	Group,
-	Checkbox,
 	Button,
 	MantineProvider,
+	Autocomplete,
 } from '@mantine/core';
 
 const SignIn = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-	const [isEmailValid, setIsEmailValid] = useState(true);
-	const [isPasswordValid, setIsPasswordValid] = useState(true);
 	const [error, setError] = useState('');
 	const navigate = useNavigate();
 	const { signIn } = UserAuth();
+
+	const suggestedEmails =
+		email.trim().length > 0 && !email.includes('@')
+			? ['gmail.com', 'outlook.com', 'yahoo.com', 'wp.pl', 'o2.pl'].map(
+					(provider) => `${email}@${provider}`
+			  )
+			: [];
 
 	const invalidEmailError =
 		error === 'Firebase: Error (auth/invalid-email).'
@@ -52,7 +55,7 @@ const SignIn = () => {
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
 			<form onSubmit={handleSubmit}>
-				<Container size={420} my={100}>
+				<Container size={420} py={100}>
 					<Title
 						align='center'
 						sx={(theme) => ({
@@ -70,16 +73,18 @@ const SignIn = () => {
 							</Anchor>
 						</Link>
 					</Text>
-
 					<Paper withBorder shadow='md' p={30} mt={20} radius='md'>
-						<TextInput
-							label='Email'
-							placeholder='Wpisz e-mail'
-							required
-							onChange={(e) => {
+						<Autocomplete
+							value={email}
+							onChange={(value) => {
 								setError('');
-								setEmail(e.target.value);
+								setEmail(value);
 							}}
+							label='Email'
+							required
+							placeholder='Wpisz e-mail'
+							data={suggestedEmails}
+							maxDropdownHeight={125}
 							error={userNotFoundError || invalidEmailError}
 						/>
 						<PasswordInput
