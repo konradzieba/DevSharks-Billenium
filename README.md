@@ -26,56 +26,56 @@ Projekt uruchomi się pod adresem http://localhost:3000/
 ## Funkcjonalności 
 
 ### Logowanie
-Logowanie się by uzyskać dostęp do tablicy kanban.
-![]()
+Logowanie się by uzyskać dostęp do tablicy kanban.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Logowanie.gif)
 
 ### Rejestracja
 Zarejestorwanie się użytkownika by uzyskać dostęp do tablicy kanban, po prawidłowej rejestracji strona przekieruje do ekranu tablicy kanban.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Rejestracja.gif)
 
 ### Przypisanie zdjęcia 
-Przypisać zdjęcie możemy będąc zalogowanym użytkownikiem i w prawym roku wybieramy swoje zdjęcie i z menu rozwijanego wybieramy opcję **'Zmień avatar'**.
-![]()
+Przypisać zdjęcie możemy będąc zalogowanym użytkownikiem i w prawym roku wybieramy swoje zdjęcie i z menu rozwijanego wybieramy opcję **'Zmień avatar'**.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_avatara.gif)
 
 ### Tworzenie kolumny
 Nową kolumnę tworzymy przy przyciśnięciu przycisku **'Dodaj kolumnę'**.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Tworzenie_kolumny.gif)
 
 ### Zmiana nazwy kolumny
 Nazwę kolumny zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_nazwy_kolumny.gif)
 
 ### Zmiana limitu zadań w kolumnie
 Limit zadań w kolumnie zmieniamy poprzez wybranie ikony ustawień i w pop-up wpisujemy lub wybieramy nowy limit. Wybranie 0 spowoduje ustawienie braku limitu.\
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_limitu.gif)
 
 ### Tworzenie grupy
 Nową grupę tworzymy przy przyciśnięciu przycisku **'Dodaj grupę'** i w pop-up wpisujemy nową unikalną nazwę grupy.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Tworznie_grupy.gif)
 
 ### Zmiana nazwy grupy
 Nazwę grupy zmienamiy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową unikalną nazwę.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_nazwy_grupy.gif)
 
 ### Tworzenie zadania
 Nowe zadanie tworzymy w każdej grupie w pierwszej kolumnie przyciskając przycisk **'Dodaj zadanie'**.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Tworznie_zadania.gif)
 
 ### Zmiana nazwy zadania
 Nazwę zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę zadania.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_nazwy_zadania.gif)
 
 ### Zmiana koloru zadania
-Kolor zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wybieramy jeden z czterach dostepnych kolorów, które oznaczają poziom ważności zadania.
-![]()
+Kolor zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wybieramy jeden z czterach dostepnych kolorów, które oznaczają poziom ważności zadania.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_koloru_zadania.gif)
 
 ### Przypisanie użytkownika do zadania
-Przypisujemy użytkownika do zadania poprzez kliknięcie w ikonkę plusa i w pop-up wybieramy z listy użytkownika, którego chcemy przypisać do zadania.
-![]()
+Przypisujemy użytkownika do zadania poprzez kliknięcie w ikonkę plusa i w pop-up wybieramy z listy użytkownika, którego chcemy przypisać do zadania.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Przypisanie_uzytkownika_do_zadania.gif)
 
 ### Usuwanie kolumny, grupy i zadania
 Kolumnę, grupę i zadanie możemy usunąć wybierając ikonę usunięcia i potwierdzając dzialanie w pop-up.
-![]()
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Usuwanie.gif)
 
 ## Członkowie zespołu
 [Haszek Tymon](https://github.com/Tymon-bot)\
