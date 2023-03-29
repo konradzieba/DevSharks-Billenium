@@ -27,6 +27,7 @@ const AssignUserModal = ({
 			firstName: user.firstName.toString(),
 			lastName: user.lastName.toString(),
 			avatarColor: user.avatarColor.toString(),
+			avatarUrl: user.avatarUrl.toString(),
 		};
 	});
 
@@ -37,18 +38,21 @@ const AssignUserModal = ({
 			firstName: '',
 			lastName: '',
 			avatarColor: '',
+			avatarUrl: '',
 		},
 		...prevData,
 	];
 
 	const SelectItem = forwardRef(
-		({ firstName, lastName, avatarColor, label, ...others }, ref) => (
+		({ firstName, lastName, avatarColor, label, avatarUrl, ...others }, ref) => (
 			<div ref={ref} {...others}>
 				<Group noWrap>
 					<Avatar
 						firstName={firstName}
 						lastName={lastName}
 						avatarColor={avatarColor}
+						avatarUrl={avatarUrl}
+						enabledTooltip={false}
 					/>
 					<div>
 						<Text size='sm'>{label}</Text>

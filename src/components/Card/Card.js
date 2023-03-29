@@ -103,6 +103,7 @@ export default function Card({
 												firstName={user.firstName}
 												lastName={user.lastName}
 												avatarColor={user.avatarColor}
+												avatarUrl={user.avatarUrl}
 											/>
 										);
 									}

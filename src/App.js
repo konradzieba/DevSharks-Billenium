@@ -12,11 +12,9 @@ import { AuthContextProvider } from './context/AuthContext'
 
 const App = () => {
 	return (
-		<div style={{ height: '100vh' }}>
-			{/* <Navbar />
-			<Home /> */}
-			<img className='kanban-board' src={kanbanBoard} alt='two people standing next to kanbanboard'></img>
-			<img className='kanban-knowlege' src={kanbanKnowlege} alt='two people standing next to kanbanboard'></img>
+		<div>
+			{/* <img className='kanban-board' src={kanbanBoard} alt='two people standing next to kanbanboard'></img>
+			<img className='kanban-knowlege' src={kanbanKnowlege} alt='two people standing next to kanbanboard'></img> */}
 			<AuthContextProvider>
 				<Routes>
 					<Route path='/' element={<SignIn />} />
@@ -25,7 +23,7 @@ const App = () => {
 						path='/kanban'
 						element={
 							<ProtectedRoute>
-								<Navbar  /> <Home />
+									<Home />
 							</ProtectedRoute>
 						}
 					/>
