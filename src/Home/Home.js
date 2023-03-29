@@ -546,7 +546,6 @@ export default function Home() {
 						setOldAssignedUser={setOldAssignedUser}
 					/>
 				)}
-				{/* <Navbar /> */}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='app' type='list' direction='horizontal'>
 						{provided => (
@@ -571,7 +570,7 @@ export default function Home() {
 											justifyContent: 'center',
 											gap: '10px',
 										}}>
-										{usersList.map((user, userIndex) => {
+										{usersList.map((user) => {
 											return (
 												<Avatar
 													firstName={user.firstName}

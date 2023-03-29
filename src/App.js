@@ -1,14 +1,14 @@
-import React from 'react'
-import Navbar from './components/Navbar/Navbar'
-import Home from './Home/Home'
-import './index.scss'
-import kanbanBoard from './components/img/kanban-board.svg'
-import kanbanKnowlege from './components/img/kanban-knowlege.svg'
-import { Routes, Route } from 'react-router-dom'
-import SignIn from './components/Authentication/SignIn'
-import SignUp from './components/Authentication/SignUp'
-import ProtectedRoute from './components/Authentication/ProtectedRoute'
-import { AuthContextProvider } from './context/AuthContext'
+import React from 'react';
+import Navbar from './components/Navbar/Navbar';
+import Home from './Home/Home';
+import './index.scss';
+import kanbanBoard from './components/img/kanban-board.svg';
+import kanbanKnowlege from './components/img/kanban-knowlege.svg';
+import { Routes, Route } from 'react-router-dom';
+import SignIn from './components/Authentication/SignIn';
+import SignUp from './components/Authentication/SignUp';
+import ProtectedRoute from './components/Authentication/ProtectedRoute';
+import { AuthContextProvider } from './context/AuthContext';
 
 const App = () => {
 	return (
@@ -23,14 +23,14 @@ const App = () => {
 						path='/kanban'
 						element={
 							<ProtectedRoute>
-									<Home />
+								<Home />
 							</ProtectedRoute>
 						}
 					/>
 				</Routes>
 			</AuthContextProvider>
 		</div>
-	)
-}
+	);
+};
 
-export default App
+export default App;
