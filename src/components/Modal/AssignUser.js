@@ -1,5 +1,6 @@
 import { forwardRef, useState } from 'react';
 import { Modal, Button, Group, Text, Select } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 import Avatar from '../User/Avatar';
 
 const AssignUserModal = ({
@@ -10,16 +11,13 @@ const AssignUserModal = ({
 	setCardId,
 	setListId,
 	assignUserToCard,
-	assignUserId,
 	setAssignUserId,
 	setOldAssignedUser,
 	oldAssignedUser,
 }) => {
+	const { t } = useTranslation();
 	const [isOpened, setIsOpened] = useState(false);
-	// const [selectedUser, setSelectedUser] = useState('');
 	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
-	// console.log(oldAssignedUser);
-	// console.log(oldUser.firstName + oldUser.lastName);
 	const prevData = users.map((user) => {
 		return {
 			label: `${user.firstName} ${user.lastName}`,
@@ -33,7 +31,7 @@ const AssignUserModal = ({
 
 	const data = [
 		{
-			label: 'Brak przypisania',
+			label: t('assignUserModalNoAssign'),
 			value: '',
 			firstName: '',
 			lastName: '',
@@ -66,14 +64,14 @@ const AssignUserModal = ({
 		<Modal
 			opened
 			onClose={() => setAssignUserModalOpened(false)}
-			title='Przypisywanie użytkownika do zadania'
+			title={t('assignUserModalTitle')}
 			overlayProps={{ blur: 3 }}
 			radius='md'
 			closeOnEscape={() => setAssignUserModalOpened(false)}
 		>
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
 				<Select
-					placeholder='Brak przypisania'
+					placeholder={t('assignUserModalPlaceholder')}
 					value={oldAssignedUser}
 					onChange={(value) => {
 						setOldAssignedUser(value);
@@ -88,12 +86,12 @@ const AssignUserModal = ({
 							setNotFoundUserInData(true);
 						}
 					}}
-					label='Wybierz użytkownika'
+					label={t('assignUserModalSelectLabel')}
 					data={data}
 					itemComponent={SelectItem}
 					searchable={true}
 					maxDropdownHeight={175}
-					nothingFound='Brak użytkowników do przypisania'
+					nothingFound={t('assignUserModalNothingFound')}
 					dropdownPosition='bottom'
 					selectOnBlur
 					allowDeselect
@@ -122,7 +120,7 @@ const AssignUserModal = ({
 				}}
 				disabled={notFoundUserInData}
 			>
-				Przypisz
+				{t('assignUserModalBtn')}
 			</Button>
 		</Modal>
 	);

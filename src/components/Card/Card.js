@@ -22,6 +22,7 @@ export default function Card({
 	usersList,
 	setOldAssignedUser,
 }) {
+
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
 	const { updateCardTitle, setRenameCardModalOpened } = useContext(storeApi);

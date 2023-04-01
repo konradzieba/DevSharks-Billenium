@@ -6,11 +6,10 @@ import {
 	MantineProvider,
 	Flex,
 	FileButton,
-	Button,
-	UnstyledButton,
 	Text,
 } from '@mantine/core';
 import { IconUpload, IconLogout } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
 const UserPanel = ({
 	loggedUserInfo,
@@ -24,6 +23,8 @@ const UserPanel = ({
 			uploadUserAvatar(loggedUserInfo.id);
 		}
 	}, [file, loggedUserInfo.id]);
+
+	const { t } = useTranslation();
 
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark', fontFamily: 'Lato' }}>
@@ -76,7 +77,7 @@ const UserPanel = ({
 										{...props}
 										icon={<IconUpload size={rem(16)} />}
 									>
-										Zmień avatar
+										{t('changeAvatar')}
 									</Menu.Item>
 								)}
 							</FileButton>
@@ -85,7 +86,7 @@ const UserPanel = ({
 								onClick={handleLogout}
 								icon={<IconLogout size={rem(16)} />}
 							>
-								Wyloguj się
+								{t('logout')}
 							</Menu.Item>
 						</Flex>
 					</Menu.Dropdown>
