@@ -1,10 +1,11 @@
 import React, { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { IconX, IconPencil, IconPlus } from '@tabler/icons-react';
+import { IconX, IconPencil, IconPlus, IconBug } from '@tabler/icons-react';
 import storeApi from '../../utils/storeApi';
 
 import './styles.scss';
 import Avatar from '../User/Avatar';
+import BuggedStatus from './BuggedStatus';
 
 export default function Card({
 	card,
@@ -16,13 +17,12 @@ export default function Card({
 	setRenameCardId,
 	setRenameCardListId,
 	setOldCardTitle,
-	group,
 	setCardColor,
 	setAssignUserModalOpened,
 	usersList,
 	setOldAssignedUser,
+	setIsBugged,
 }) {
-
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
 	const { updateCardTitle, setRenameCardModalOpened } = useContext(storeApi);
@@ -47,6 +47,7 @@ export default function Card({
 						}}
 					>
 						<div className='card-title'>{card.title}</div>
+						{card.isBugged && <BuggedStatus />}
 						<button
 							className='card-edit-name-btn'
 							onClick={() => {
@@ -54,6 +55,7 @@ export default function Card({
 								setRenameCardId(card.id);
 								setRenameCardListId(listId);
 								setOldCardTitle(card.title);
+								setIsBugged(card.isBugged);
 								setRenameCardModalOpened(true);
 							}}
 						>
