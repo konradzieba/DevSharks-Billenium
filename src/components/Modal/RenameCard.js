@@ -1,4 +1,13 @@
-import { Modal, TextInput, Button, Box, Text } from '@mantine/core';
+import {
+	Modal,
+	TextInput,
+	Button,
+	Box,
+	Text,
+	Group,
+	Switch,
+} from '@mantine/core';
+import { IconBug } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -14,11 +23,15 @@ const RenameCardModal = ({
 	renameCardListId,
 	setCardColor,
 	cardColor,
+	bugged,
 }) => {
 	const { t } = useTranslation();
 	const selectedColumnInfo = <p>{t('renameCardModalTitle')}</p>;
 	const [actualInputValue, setActualInputValue] = useState('');
 	const [choosenColor, setChoosenColor] = useState(cardColor);
+	const [isBugged, setIsBugged] = useState(bugged);
+	console.log(isBugged);
+
 	const isValid = oldCardTitle.trim().length > 0;
 	const colors = ['#8DC44F', '#FFC718', '#FF9E0F', '#DA483B'];
 	const inputDynamicProps = {
@@ -37,7 +50,13 @@ const RenameCardModal = ({
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		updateCardTitle(oldCardTitle, renameCardListId, renameCardId, choosenColor);
+		updateCardTitle(
+			oldCardTitle,
+			renameCardListId,
+			renameCardId,
+			choosenColor,
+			isBugged
+		);
 		setRenameCardModalOpened(false);
 		setOldCardTitle('');
 		setRenameCardId('');
@@ -84,6 +103,18 @@ const RenameCardModal = ({
 						></button>
 					))}
 				</Box>
+				<Text mt={10}>Zawiera błąd:</Text>
+				<Switch
+					checked={isBugged}
+					ml={4}
+					mt={3}
+					size='md'
+					color='red.8'
+					onLabel={<IconBug size='1.1rem' stroke={2} color='white' />}
+					onChange={() => {
+						setIsBugged((prevState) => !isBugged);
+					}}
+				/>
 				<Button
 					{...buttonDynamicProps}
 					onClick={handleSubmit}

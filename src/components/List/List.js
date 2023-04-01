@@ -40,6 +40,7 @@ export default function List({
 	setAssignUserModalOpened,
 	usersList,
 	setOldAssignedUser,
+	setIsBugged,
 }) {
   const { t } = useTranslation();
 
@@ -174,6 +175,7 @@ export default function List({
 																	setAssignUserModalOpened={setAssignUserModalOpened}
 																	usersList={usersList}
 																	setOldAssignedUser={setOldAssignedUser}
+																	setIsBugged={setIsBugged}
 																/>
 															))}
 														{provided.placeholder}

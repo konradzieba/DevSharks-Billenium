@@ -33,7 +33,7 @@ import Avatar from '../components/User/Avatar';
 import AssignUserModal from '../components/Modal/AssignUser';
 import { useTranslation } from 'react-i18next';
 import i18n from '../translations/i18n';
-import LanguageSelector from '../components/User/LanguageSelector';
+import BuggedMoveNotification from '../components/notifications/BuggedMoveNotification';
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -61,6 +61,7 @@ export default function Home() {
 	const [renameCardListId, setRenameCardListId] = useState(null);
 	const [oldCardTitle, setOldCardTitle] = useState('');
 	const [cardColor, setCardColor] = useState('');
+	const [isBugged, setIsBugged] = useState(null);
 	// UPDATE LIST LIMIT
 	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] =
 		useState(false);
@@ -83,6 +84,8 @@ export default function Home() {
 	const [assignUserModalOpened, setAssignUserModalOpened] = useState(false);
 	const [assignUserId, setAssignUserId] = useState(null);
 	const [oldAssignedUser, setOldAssignedUser] = useState(null);
+	// NOTIFICATIONS
+	const [bugMovedNotification, setBugMovedNotification] = useState(false);
 
 	useEffect(() => {
 		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'));
@@ -120,6 +123,18 @@ export default function Home() {
 		});
 	}, []);
 
+	useEffect(() => {
+		if (bugMovedNotification) {
+			setTimeout(() => {
+				setBugMovedNotification(false);
+			}, 3000);
+		}
+
+		return () => {
+			clearTimeout();
+		};
+	}, [bugMovedNotification]);
+
 	const handleToggleCollapse = async (id) => {
 		const groupRef = doc(db, 'groups', id);
 		const group = groups.find((group) => group.id === id);
@@ -133,6 +148,7 @@ export default function Home() {
 			owner: group,
 			color: '#6dc773',
 			assignedUser: '',
+			isBugged: false,
 		};
 		const listRef = doc(db, 'tests', listId);
 
@@ -174,7 +190,7 @@ export default function Home() {
 		});
 	};
 
-	const updateCardTitle = async (title, listId, cardId, color) => {
+	const updateCardTitle = async (title, listId, cardId, color, isBugged) => {
 		const listRef = doc(db, 'tests', listId);
 
 		const listIndex = lists.findIndex((list) => list.id === listId);
@@ -192,7 +208,7 @@ export default function Home() {
 		lists[listIndex].cards[cardIndex].title = title;
 		await updateDoc(listRef, {
 			cards: lists[listIndex].cards.map((card) =>
-				card.id === cardId ? { ...card, title, color } : card
+				card.id === cardId ? { ...card, title, color, isBugged } : card
 			),
 		});
 
@@ -270,6 +286,17 @@ export default function Home() {
 		}
 		const splittedSource = source.droppableId.split(':');
 		const splittedDestination = destination.droppableId.split(':');
+
+		const cardBugFlag = lists
+			.find((list) => list.id === splittedSource[0])
+			.cards.find((card) => card.id === draggableId);
+		if (
+			cardBugFlag.isBugged &&
+			splittedDestination[0] === 'HE79KxdSDne6hCCGbz45'
+		) {
+			setBugMovedNotification(true);
+			return;
+		}
 
 		const sourceTask = lists.find((list) => list.id === splittedSource[0]);
 		if (splittedSource[0] === splittedDestination[0]) {
@@ -511,6 +538,7 @@ export default function Home() {
 						renameCardListId={renameCardListId}
 						cardColor={cardColor}
 						setCardColor={setCardColor}
+						bugged={isBugged}
 					/>
 				)}
 
@@ -665,6 +693,7 @@ export default function Home() {
 												setAssignUserModalOpened={setAssignUserModalOpened}
 												usersList={usersList}
 												setOldAssignedUser={setOldAssignedUser}
+												setIsBugged={setIsBugged}
 											/>
 										);
 									})}
@@ -675,6 +704,7 @@ export default function Home() {
 					</Droppable>
 				</DragDropContext>
 			</StoreApi.Provider>
+			{bugMovedNotification && <BuggedMoveNotification />}
 		</MantineProvider>
 	);
 }
