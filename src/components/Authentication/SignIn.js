@@ -12,8 +12,15 @@ import {
 	MantineProvider,
 	Autocomplete,
 } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../translations/i18n';
 
 const SignIn = () => {
+	const { t } = useTranslation();
+	const changeLanguage = (lng) => {
+		i18n.changeLanguage(lng);
+	};
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [error, setError] = useState('');
@@ -29,17 +36,17 @@ const SignIn = () => {
 
 	const invalidEmailError =
 		error === 'Firebase: Error (auth/invalid-email).'
-			? 'Nieprawidłowy e-mail'
+			? t('signInInvalidEmailError')
 			: false;
 
 	const userNotFoundError =
 		error === 'Firebase: Error (auth/user-not-found).'
-			? 'Użytkownik o takim adresie e-mail nie istnieje.'
+			? t('signInUserNotFoundError')
 			: false;
 
 	const passwordError =
 		error === 'Firebase: Error (auth/wrong-password).'
-			? 'Nieprawidłowe hasło'
+			? t('signInPasswordError')
 			: false;
 
 	const handleSubmit = async (e) => {
@@ -63,13 +70,13 @@ const SignIn = () => {
 							fontWeight: 700,
 						})}
 					>
-						Panel logowania
+						{t('loginPanelTitle')}
 					</Title>
 					<Text color='dimmed' size='sm' align='center' mt={5}>
-						Nie masz konta?{' '}
+						{t('noAccount')}{' '}
 						<Link to='/signup'>
 							<Anchor size='sm' component='button'>
-								Utwórz konto
+								{t('createAccount')}
 							</Anchor>
 						</Link>
 					</Text>
@@ -80,16 +87,16 @@ const SignIn = () => {
 								setError('');
 								setEmail(value);
 							}}
-							label='Email'
+							label={t('email')}
 							required
-							placeholder='Wpisz e-mail'
+							placeholder={t('emailPlaceholder')}
 							data={suggestedEmails}
 							maxDropdownHeight={125}
 							error={userNotFoundError || invalidEmailError}
 						/>
 						<PasswordInput
-							label='Hasło'
-							placeholder='Wpisz hasło'
+							label={t('password')}
+							placeholder={t('passwordPlaceholder')}
 							required
 							mt='md'
 							onChange={(e) => {
@@ -99,7 +106,7 @@ const SignIn = () => {
 							error={passwordError}
 						/>
 						<Button type='submit' fullWidth mt='xl'>
-							Zaloguj się
+							{t('loginBtn')}
 						</Button>
 					</Paper>
 				</Container>

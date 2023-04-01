@@ -1,18 +1,21 @@
 import { Modal, Button } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+
 const DeleteListModal = ({
 	deleteListModalOpened,
 	setDeleteListModalOpened,
 	deleteList,
 	setDeleteListId,
-	deleteListId
+	deleteListId,
 }) => {
-	const modalTitle = <p>Czy na pewno chcesz usunąć kolumnę?</p>;
+	const { t } = useTranslation();
+	const modalTitle = <p>{t('deleteListModalTitle')}</p>;
 	return (
 		<Modal
 			opened={deleteListModalOpened}
 			onClose={() => setDeleteListModalOpened(false)}
 			title={modalTitle}
-			overlayProps={{blur: 3}}
+			overlayProps={{ blur: 3 }}
 			radius='md'
 			closeOnEscape={() => setDeleteListModalOpened(false)}
 		>
@@ -24,7 +27,7 @@ const DeleteListModal = ({
 					style={{ fontWeight: 'normal' }}
 					onClick={() => setDeleteListModalOpened(false)}
 				>
-					Anuluj
+					{t('deleteListModalCancelBtn')}
 				</Button>
 				<Button
 					color='red'
@@ -38,7 +41,7 @@ const DeleteListModal = ({
 						setDeleteListModalOpened(false);
 					}}
 				>
-					Usuń
+					{t('deleteListModalDeleteBtn')}
 				</Button>
 			</div>
 		</Modal>

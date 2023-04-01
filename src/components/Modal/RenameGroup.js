@@ -1,5 +1,5 @@
-import { Modal, TextInput, Button } from '@mantine/core'
-
+import { Modal, TextInput, Button } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 const RenameGroupModal = ({
 	setRenameGroupModalOpened,
 	groups,
@@ -10,17 +10,20 @@ const RenameGroupModal = ({
 	setRenameGroupId,
 	renameGroupListId,
 }) => {
-	const selectedColumnInfo = <p>Zmień nazwę grupy</p>
+	const { t } = useTranslation();
+	const selectedColumnInfo = <p>{t('renameGroupModalTitle')}</p>;
 	const isUnique = groups.every(
-		group => group.id === renameGroupId.id || group.name.toLowerCase() !== oldGroupName.toLowerCase()
-	)
-	const isValid = oldGroupName.trim().length > 0
+		(group) =>
+			group.id === renameGroupId.id ||
+			group.name.toLowerCase() !== oldGroupName.toLowerCase()
+	);
+	const isValid = oldGroupName.trim().length > 0;
 
 	const inputDynamicProps = {
-		label: 'Nazwa nowej grupy:',
+		label: t('renameGroupModalInputLabel'),
 		size: 'md',
-		...(!isUnique && { error: 'Taka nazwa już istnieje. Wybierz inną' }),
-	}
+		...(!isUnique && { error: t('renameGroupModalExistsError') }),
+	};
 	const buttonDynamicProps = {
 		type: 'submit',
 		variant: 'default',
@@ -29,15 +32,15 @@ const RenameGroupModal = ({
 		size: 'sm',
 		...(!isUnique && { disabled: true }),
 		...(!isValid && { disabled: true }),
-	}
+	};
 
-	const handleSubmit = e => {
-		e.preventDefault()
-		renameGroup(renameGroupListId, renameGroupId, oldGroupName)
-		setOldGroupName('')
-		setRenameGroupId(null)
-		setRenameGroupModalOpened(false)
-	}
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		renameGroup(renameGroupListId, renameGroupId, oldGroupName);
+		setOldGroupName('');
+		setRenameGroupId(null);
+		setRenameGroupModalOpened(false);
+	};
 
 	return (
 		<Modal
@@ -46,24 +49,26 @@ const RenameGroupModal = ({
 			title={selectedColumnInfo}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setRenameGroupModalOpened(false)}>
+			closeOnEscape={() => setRenameGroupModalOpened(false)}
+		>
 			<form>
 				<TextInput
 					{...inputDynamicProps}
 					value={oldGroupName}
-					onChange={e => {
-						setOldGroupName(e.target.value)
+					onChange={(e) => {
+						setOldGroupName(e.target.value);
 					}}
 				/>
 				<Button
 					{...buttonDynamicProps}
 					onClick={handleSubmit}
-					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}>
-					Zmień nazwę
+					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}
+				>
+					{t('renameGroupModalBtn')}
 				</Button>
 			</form>
 		</Modal>
-	)
-}
+	);
+};
 
-export default RenameGroupModal
+export default RenameGroupModal;

@@ -9,12 +9,16 @@ import SignIn from './components/Authentication/SignIn';
 import SignUp from './components/Authentication/SignUp';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
+import LanguageSelector from './components/User/LanguageSelector';
 
 const App = () => {
 	return (
 		<div>
 			{/* <img className='kanban-board' src={kanbanBoard} alt='two people standing next to kanbanboard'></img>
 			<img className='kanban-knowlege' src={kanbanKnowlege} alt='two people standing next to kanbanboard'></img> */}
+			<LanguageSelector
+				style={{ position: 'absolute', top: '1%', left: '1%', zIndex: '1' }}
+			/>
 			<AuthContextProvider>
 				<Routes>
 					<Route path='/' element={<SignIn />} />

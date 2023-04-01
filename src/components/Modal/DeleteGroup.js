@@ -1,4 +1,6 @@
 import { Modal, Button } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
+
 const DeleteGroupModal = ({
 	deleteGroupModalOpened,
 	setDeleteGroupModalOpened,
@@ -8,6 +10,7 @@ const DeleteGroupModal = ({
 	setDeleteGroupId,
 	setDeleteGroupListId,
 }) => {
+	const { t } = useTranslation();
 	const handleDelete = () => {
 		removeGroup(deleteGroupListId, deleteGroupId);
 		setDeleteGroupModalOpened(false);
@@ -18,7 +21,7 @@ const DeleteGroupModal = ({
 		<Modal
 			opened
 			onClose={() => setDeleteGroupModalOpened(false)}
-			title='Usuwanie grupy'
+			title={t('deleteGroupModalTitle')}
 			overlayProps={{ blur: 3 }}
 			radius='md'
 			closeOnEscape={() => setDeleteGroupModalOpened(false)}
@@ -31,11 +34,16 @@ const DeleteGroupModal = ({
 					style={{ fontWeight: 'normal' }}
 					onClick={() => setDeleteGroupModalOpened(false)}
 				>
-					Anuluj
+					{t('deleteGroupModalCancelBtn')}
 				</Button>
-				<Button color='red' radius='md' size='sm' onClick={handleDelete}
-				style={{ fontWeight: 'normal' }} >
-					Usuń
+				<Button
+					color='red'
+					radius='md'
+					size='sm'
+					onClick={handleDelete}
+					style={{ fontWeight: 'normal' }}
+				>
+					{t('deleteGroupModalDeleteBtn')}
 				</Button>
 			</div>
 		</Modal>

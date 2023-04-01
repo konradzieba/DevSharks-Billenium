@@ -16,10 +16,14 @@ import {
 	TextInput,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
+import { useTranslation } from 'react-i18next';
+import i18n from '../../translations/i18n';
 
 const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange'];
 
 const SignUp = () => {
+	const { t } = useTranslation();
+
 	const form = useForm({
 		initialValues: {
 			firstName: '',
@@ -29,24 +33,16 @@ const SignUp = () => {
 			password2: '',
 		},
 		validate: (values) => ({
-			firstName:
-				values.firstName.trim().length < 2 &&
-				'Imię musi zawierać co najmniej 2 znaki',
-			lastName:
-				values.lastName.trim().length < 2 &&
-				'Nazwisko musi zawierać co najmniej 2 znaki',
+			firstName: values.firstName.trim().length < 2 && t('signUpFirstNameError'),
+			lastName: values.lastName.trim().length < 2 && t('signUpLastNameError'),
 
 			email: /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(values.email)
 				? null
-				: 'Invalid email',
+				: t('signUpEmailError'),
 
-			password:
-				values.password.trim().length < 6 &&
-				'Hasło musi zawierać co najmniej 6 znaków',
+			password: values.password.trim().length < 6 && t('signUpPasswordError'),
 			password2:
-				values.password2 === values.password
-					? null
-					: 'Podane hasła nie są takie same',
+				values.password2 === values.password ? null : t('signUpPassword2Error'),
 		}),
 	});
 
@@ -73,7 +69,7 @@ const SignUp = () => {
 			navigate('/kanban');
 		} catch (e) {
 			e.message === 'Firebase: Error (auth/email-already-in-use).' &&
-				form.setErrors({ email: 'Użytkownik o takim adresie już istnieje' });
+				form.setErrors({ email: t('signUpEmailExistsError') });
 		}
 	};
 
@@ -93,34 +89,34 @@ const SignUp = () => {
 							fontWeight: 700,
 						})}
 					>
-						Panel rejestracji
+						{t('registerPanelTitle')}
 					</Title>
 					<Text color='dimmed' size='sm' align='center' mt={5}>
-						Masz już konto?{' '}
+						{t('gotAccount')}{' '}
 						<Link to='/'>
 							<Anchor size='sm' component='button'>
-								Zaloguj się
+								{t('signIn')}
 							</Anchor>
 						</Link>
 					</Text>
 					<Paper withBorder shadow='md' p={30} mt={20} radius='md'>
 						<TextInput
-							label='Imię'
-							placeholder='Wpisz imię'
+							label={t('firstName')}
+							placeholder={t('firstNamePlaceholder')}
 							required
 							mt='md'
 							{...form.getInputProps('firstName')}
 						/>
 						<TextInput
-							label='Nazwisko'
-							placeholder='Wpisz nazwisko'
+							label={t('lastName')}
+							placeholder={t('lastNamePlaceholder')}
 							required
 							mt='md'
 							{...form.getInputProps('lastName')}
 						/>
 						<Autocomplete
-							label='Email'
-							placeholder='Wpisz e-mail'
+							label={t('email')}
+							placeholder={t('emailPlaceholder')}
 							mt='md'
 							required
 							data={suggestedEmails}
@@ -128,23 +124,23 @@ const SignUp = () => {
 							{...form.getInputProps('email')}
 						/>
 						<PasswordInput
-							label='Hasło'
-							placeholder='Wpisz hasło'
+							label={t('password')}
+							placeholder={t('passwordPlaceholder')}
 							required
 							mt='md'
 							onChange={(e) => {}}
 							{...form.getInputProps('password')}
 						/>
 						<PasswordInput
-							label='Potwierdź hasło'
-							placeholder='Potwierdz hasło'
+							label={t('passwordConfirm')}
+							placeholder={t('passwordConfirmPlaceholder')}
 							required
 							mt='md'
 							onChange={(e) => {}}
 							{...form.getInputProps('password2')}
 						/>
 						<Button type='submit' fullWidth mt='xl'>
-							Zarejestruj się
+							{t('registerBtn')}
 						</Button>
 					</Paper>
 				</Container>
