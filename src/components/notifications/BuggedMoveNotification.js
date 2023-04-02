@@ -1,6 +1,8 @@
 import { IconX } from '@tabler/icons-react';
 import { Text, Notification } from '@mantine/core';
+import { useTranslation } from 'react-i18next';
 const BuggedMoveNotification = () => {
+	const { t } = useTranslation();
 	return (
 		<Notification
 			style={{
@@ -13,9 +15,9 @@ const BuggedMoveNotification = () => {
 			withCloseButton={false}
 			color='red.9'
 		>
-			Nie można przenieść zadania w to miejsce, ponieważ posiada status{' '}
+			{t('notyficationBuggedMove')}{' '}
 			<Text color='red.6' display={'inline-block'}>
-				Bugged
+			{t('notyficationBuggedMoveStatus')}
 			</Text>
 		</Notification>
 	);

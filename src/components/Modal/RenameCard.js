@@ -103,7 +103,7 @@ const RenameCardModal = ({
 						></button>
 					))}
 				</Box>
-				<Text mt={10}>Zawiera błąd:</Text>
+				<Text mt={10}>{t('renameCardModalIsBugged')}</Text>
 				<Switch
 					checked={isBugged}
 					ml={4}

@@ -9,6 +9,10 @@
 		.pool {
 			padding: 10px 0;
 
+			.pool-name-dropdown {
+				display: flex;
+				// border: 1px solid black;
+			}
 			.pool-title {
 				padding-left: 10px;
 				position: relative;
@@ -19,7 +23,7 @@
 				.pool-title-delete-btn {
 					background: none;
 					border: none;
-					padding: 0 3px;
+					padding: 3px 3px;
 					cursor: pointer;
 				}
 
@@ -27,7 +31,7 @@
 					background: none;
 					border: none;
 					cursor: pointer;
-					padding: 0 3px;
+					padding: 3px 3px;
 				}
 
 				.pool-title-edit-btn {

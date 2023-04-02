@@ -17,9 +17,10 @@ const LanguageSelector = ({ className, style }) => {
 
 	const changeLanguage = (lng) => {
 		i18n.changeLanguage(lng);
+		localStorage.setItem('lng', lng);
 	};
 	// console.log(i18n.language);
-	console.log(i18n.languages[i18n.language]);
+	// console.log(i18n.languages[i18n.language]);
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark', fontFamily: 'Lato' }}>
 			<div className={className} style={style}>

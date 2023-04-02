@@ -12,6 +12,11 @@ const resources = {
 			usersList: 'Users:',
 			noLimit: 'No limit',
 			limit: 'Limit',
+			firstColumn: 'To do',
+			lastColumn: 'Done',
+			defaultGroup: 'Unassigned',
+			newTaskTitle: 'New task',
+			newColumnTitle: 'New column',
 			// User panel
 			changeAvatar: 'Change avatar',
 			logout: 'Logout',
@@ -70,11 +75,12 @@ const resources = {
 			deleteListModalCancelBtn: 'Cancel',
 			deleteListModalDeleteBtn: 'Delete',
 			// rename card modal
-			renameCardModalTitle: 'Rename task',
+			renameCardModalTitle: 'Update task',
 			renameCardModalInputLabel: 'New task name:',
 			renameCardModalInvalidInputError: 'Check validity of the task name',
 			renameCardModalSelectColor: 'Select color:',
-			renameCardModalBtn: 'Rename task',
+			renameCardModalIsBugged: 'Is bugged:',
+			renameCardModalBtn: 'Update',
 			// rename list modal
 			renameListModalTitle: 'Rename column',
 			renameListModalInputLabel: 'New column name:',
@@ -92,6 +98,9 @@ const resources = {
 			updateListLimitModalInputLabel: 'New limit:',
 			updateListLimitModalPlaceholder: 'Enter new limit',
 			updateListLimitModalBtn: 'Update limit',
+			// notyfications
+			notyficationBuggedMove: 'The task cannot be moved here because it has a status',
+			notyficationBuggedMoveStatus: 'Bugged',
 		},
 	},
 	pl: {
@@ -104,6 +113,11 @@ const resources = {
 			usersList: 'Użytkownicy:',
 			noLimit: 'Brak limitu',
 			limit: 'Limit',
+			firstColumn: 'Do zrobienia',
+			lastColumn: 'Skończone',
+			defaultGroup: 'Nieprzypisane',
+			newTaskTitle: 'Nowe zadanie',
+			newColumnTitle: 'Nowa kolumna',
 			// User panel
 			changeAvatar: 'Zmień avatar',
 			logout: 'Wyloguj się',
@@ -162,11 +176,12 @@ const resources = {
 			deleteListModalCancelBtn: 'Anuluj',
 			deleteListModalDeleteBtn: 'Usuń',
 			// rename card modal
-			renameCardModalTitle: 'Zmień nazwę zadania',
+			renameCardModalTitle: 'Zaktualizuj zadanie',
 			renameCardModalInputLabel: 'Nowa nazwa zadania:',
 			renameCardModalInvalidInputError: 'Sprawdź poprawność nazwy zadania',
 			renameCardModalSelectColor: 'Wybierz kolor:',
-			renameCardModalBtn: 'Zmień nazwę',
+			renameCardModalIsBugged: 'Zawiera błąd:',
+			renameCardModalBtn: 'Zaktualizuj',
 			// rename list modal
 			renameListModalTitle: 'Zmień nazwę kolumny',
 			renameListModalInputLabel: 'Nowa nazwa kolumny:',
@@ -184,6 +199,9 @@ const resources = {
 			updateListLimitModalInputLabel: 'Nowy limit:',
 			updateListLimitModalPlaceholder: 'Wprawdź nowy limit',
 			updateListLimitModalBtn: 'Zmień limit',
+			// notyfications
+			notyficationBuggedMove: 'Nie można przenieść zadania w to miejsce, ponieważ posiada status',
+			notyficationBuggedMoveStatus: 'Zbugowany',
 		},
 	},
 	es: {
@@ -196,6 +214,11 @@ const resources = {
 			usersList: 'Lista de usuarios:',
 			noLimit: 'Sin límite',
 			limit: 'Límite',
+			firstColumn: 'Hacer',
+			lastColumn: 'Hecho',
+			defaultGroup: 'Sin asignar',
+			newTaskTitle: 'Nueva tarea',
+			newColumnTitle: 'Nueva columna',
 			// User panel
 			changeAvatar: 'Cambiar avatar',
 			logout: 'Cerrar sesión',
@@ -254,11 +277,12 @@ const resources = {
 			deleteListModalCancelBtn: 'Cancelar',
 			deleteListModalDeleteBtn: 'Eliminar',
 			// rename card modal
-			renameCardModalTitle: 'Cambiar nombre de la tarea',
+			renameCardModalTitle: 'Actualizar tarea',
 			renameCardModalInputLabel: 'Nuevo nombre de la tarea:',
 			renameCardModalInvalidInputError: 'Comprueba el nombre de la tarea',
 			renameCardModalSelectColor: 'Seleccionar color:',
-			renameCardModalBtn: 'Cambiar nombre',
+			renameCardModalIsBugged: 'Está intervenido:',
+			renameCardModalBtn: 'Actualizar',
 			// rename list modal
 			renameListModalTitle: 'Cambiar nombre de la columna',
 			renameListModalInputLabel: 'Nuevo nombre de la columna:',
@@ -276,6 +300,9 @@ const resources = {
 			updateListLimitModalInputLabel: 'Nuevo límite:',
 			updateListLimitModalPlaceholder: 'Escribe nuevo límite',
 			updateListLimitModalBtn: 'Cambiar límite',
+			// notyfications
+			notyficationBuggedMove: 'La tarea no se puede mover aquí porque tiene un estado',
+			notyficationBuggedMoveStatus: 'Con errores',
 		},
 	},
 	fr: {
@@ -288,6 +315,11 @@ const resources = {
 			usersList: 'Liste des utilisateurs:',
 			noLimit: 'Pas de limite',
 			limit: 'Limite',
+			firstColumn: 'Faire',
+			lastColumn: 'Fait',
+			defaultGroup: 'Non attribué',
+			newTaskTitle: 'Nouvelle tâche',
+			newColumnTitle: 'Nouvelle colonne',
 			// User panel
 			changeAvatar: "Changer l'avatar",
 			logout: 'Se déconnecter',
@@ -346,11 +378,12 @@ const resources = {
 			deleteListModalCancelBtn: 'Annuler',
 			deleteListModalDeleteBtn: 'Supprimer',
 			// rename card modal
-			renameCardModalTitle: 'Renommer la tâche',
+			renameCardModalTitle: 'Tâche de mise à jour',
 			renameCardModalInputLabel: 'Nouveau nom de la tâche:',
 			renameCardModalInvalidInputError: 'Vérifiez la validité du nom de la tâche',
 			renameCardModalSelectColor: 'Choisir une couleur:',
-			renameCardModalBtn: 'Renommer',
+			renameCardModalIsBugged: 'Est buggé:',
+			renameCardModalBtn: 'Mise à jour',
 			// rename list modal
 			renameListModalTitle: 'Renommer la colonne',
 			renameListModalInputLabel: 'Nouveau nom de la colonne:',
@@ -369,6 +402,9 @@ const resources = {
 			updateListLimitModalInputLabel: 'Nouvelle limite:',
 			updateListLimitModalPlaceholder: 'Entrez une nouvelle limite',
 			updateListLimitModalBtn: 'Définir une limite',
+			// notyfications
+			notyficationBuggedMove: 'La tâche ne peut pas être déplacée ici car elle a un statut',
+			notyficationBuggedMoveStatus: 'Buggé',
 		},
 	},
 	ua: {
@@ -381,6 +417,11 @@ const resources = {
 			usersList: 'Список користувачів:',
 			noLimit: 'Без обмежень',
 			limit: 'Обмеження',
+			firstColumn: 'Зробити',
+			lastColumn: 'Готово',
+			defaultGroup: 'Непризначений',
+			newTaskTitle: 'Нове завдання',
+			newColumnTitle: 'Нова колонка',
 			// User panel
 			changeAvatar: 'Змінити аватар',
 			logout: 'Вийти',
@@ -439,11 +480,12 @@ const resources = {
 			deleteListModalCancelBtn: 'Скасувати',
 			deleteListModalDeleteBtn: 'Видалити',
 			// rename card modal
-			renameCardModalTitle: 'Перейменувати задачу',
+			renameCardModalTitle: 'Оновити завдання',
 			renameCardModalInputLabel: 'Нова назва задачі:',
 			renameCardModalInvalidInputError: 'Перевірте правильність назви задачі',
 			renameCardModalSelectColor: 'Виберіть колір',
-			renameCardModalBtn: 'Перейменувати задачу',
+			renameCardModalIsBugged: 'Прослуховується:',
+			renameCardModalBtn: 'оновлення',
 			// rename list modal
 			renameListModalTitle: 'Перейменувати колонку',
 			renameListModalInputLabel: 'Нова назва колонки:',
@@ -461,6 +503,9 @@ const resources = {
 			updateListLimitModalInputLabel: 'Новий ліміт:',
 			updateListLimitModalPlaceholder: 'Введіть ліміт',
 			updateListLimitModalBtn: 'Встановити ліміт',
+			// notyfications
+			notyficationBuggedMove: 'Завдання не можна перемістити сюди, оскільки воно має статус',
+			notyficationBuggedMoveStatus: 'Прослуховується',
 		},
 	},
 	zh: {
@@ -473,6 +518,11 @@ const resources = {
 			usersList: '用户列表:',
 			noLimit: '无限制',
 			limit: '限制',
+			firstColumn: '去做',
+			lastColumn: '完毕',
+			defaultGroup: '未分配',
+			newTaskTitle: '新任务',
+			newColumnTitle: '新列',
 			// User panel
 			changeAvatar: '更改头像',
 			logout: '退出',
@@ -530,11 +580,12 @@ const resources = {
 			deleteListModalCancelBtn: '取消',
 			deleteListModalDeleteBtn: '删除',
 			// rename card modal
-			renameCardModalTitle: '重命名任务',
+			renameCardModalTitle: '更新任务',
 			renameCardModalInputLabel: '新任务名称:',
 			renameCardModalInvalidInputError: '检查任务名称的有效性',
 			renameCardModalSelectColor: '选择颜色',
-			renameCardModalBtn: '重命名任务',
+			renameCardModalIsBugged: '被窃听:',
+			renameCardModalBtn: '更新',
 			// rename list modal
 			renameListModalTitle: '重命名列',
 			renameListModalInputLabel: '新列名称:',
@@ -551,13 +602,16 @@ const resources = {
 			updateListLimitModalInputLabel: '新限制:',
 			updateListLimitModalPlaceholder: '输入限制',
 			updateListLimitModalBtn: '设置限制',
+			// notyfications
+			notyficationBuggedMove: '任务不能移到这里，因为它有一个状态',
+			notyficationBuggedMoveStatus: '窃听',
 		},
 	},
 };
 
 i18n.use(initReactI18next).init({
 	resources,
-	lng: 'en',
+	lng: localStorage.getItem('lng') || 'en',
 	fallbackLng: 'en',
 	interpolation: {
 		escapeValue: false,

@@ -86,8 +86,9 @@ export default function List({
 									<div key={group.id} className='pool'>
 										{listIdx === 0 ? (
 											<div className='pool-title'>
-												<div>
-													{group.name}
+												<div className='pool-name-dropdown'>
+													{group.id === UNSIGNED_GROUP_ID ? t('defaultGroup') : (group.name)}
+													{/* {group.name} */}
 													<button
 														onClick={() => {
 															handleToggleCollapse(group.id);

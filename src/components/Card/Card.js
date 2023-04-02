@@ -46,8 +46,8 @@ export default function Card({
 							borderLeft: `10px solid ${card.color}`,
 						}}
 					>
-						<div className='card-title'>{card.title}</div>
-						{card.isBugged && <BuggedStatus />}
+						<div className='card-title'>{card.isBugged && <BuggedStatus />}{card.title}</div>
+						{/* {card.isBugged && <BuggedStatus />} */}
 						<button
 							className='card-edit-name-btn'
 							onClick={() => {

@@ -23,7 +23,7 @@ export default function Title({
 	return (
 		<div className='title-wrap'>
 			<div>
-				{title}
+				{listId === FIRST_COLUMN_BLOCKED ? t('firstColumn') : listId === LAST_COLUMN_BLOCKED ? t('lastColumn') : (title)}
 				<button
 					className='edit-list-name-btn'
 					onClick={() => {
