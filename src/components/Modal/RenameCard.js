@@ -30,7 +30,6 @@ const RenameCardModal = ({
 	const [actualInputValue, setActualInputValue] = useState('');
 	const [choosenColor, setChoosenColor] = useState(cardColor);
 	const [isBugged, setIsBugged] = useState(bugged);
-	console.log(isBugged);
 
 	const isValid = oldCardTitle.trim().length > 0;
 	const colors = ['#8DC44F', '#FFC718', '#FF9E0F', '#DA483B'];

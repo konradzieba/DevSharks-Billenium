@@ -41,8 +41,12 @@ export default function List({
 	usersList,
 	setOldAssignedUser,
 	setIsBugged,
+	toggleSubtaskStatus,
+	removeSubtask,
+	addSubtask,
+	handleToggleSubtaskCollapse,
 }) {
-  const { t } = useTranslation();
+	const { t } = useTranslation();
 
 	const calculateHeight = (group) => {
 		const max = lists
@@ -87,7 +91,7 @@ export default function List({
 										{listIdx === 0 ? (
 											<div className='pool-title'>
 												<div className='pool-name-dropdown'>
-													{group.id === UNSIGNED_GROUP_ID ? t('defaultGroup') : (group.name)}
+													{group.id === UNSIGNED_GROUP_ID ? t('defaultGroup') : group.name}
 													{/* {group.name} */}
 													<button
 														onClick={() => {
@@ -177,6 +181,10 @@ export default function List({
 																	usersList={usersList}
 																	setOldAssignedUser={setOldAssignedUser}
 																	setIsBugged={setIsBugged}
+																	toggleSubtaskStatus={toggleSubtaskStatus}
+																	removeSubtask={removeSubtask}
+																	addSubtask={addSubtask}
+																	handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
 																/>
 															))}
 														{provided.placeholder}

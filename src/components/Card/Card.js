@@ -1,11 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { IconX, IconPencil, IconPlus, IconBug } from '@tabler/icons-react';
+import {
+	IconX,
+	IconPencil,
+	IconPlus,
+	IconBug,
+	IconArrowBarToUp,
+	IconLayoutNavbarCollapse,
+} from '@tabler/icons-react';
 import storeApi from '../../utils/storeApi';
 
 import './styles.scss';
 import Avatar from '../User/Avatar';
 import BuggedStatus from './BuggedStatus';
+import Subtask from './Subtask';
+import ProgressBar from './ProgressBar';
+import AddSubtask from './AddSubtask';
 
 export default function Card({
 	card,
@@ -22,6 +32,10 @@ export default function Card({
 	usersList,
 	setOldAssignedUser,
 	setIsBugged,
+	toggleSubtaskStatus,
+	removeSubtask,
+	handleToggleSubtaskCollapse,
+	addSubtask,
 }) {
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
@@ -46,7 +60,38 @@ export default function Card({
 							borderLeft: `10px solid ${card.color}`,
 						}}
 					>
-						<div className='card-title'>{card.isBugged && <BuggedStatus />}{card.title}</div>
+						<div className='card-title'>
+							{card.isBugged && <BuggedStatus />}
+							<div>
+								{card.title}{' '}
+								<IconArrowBarToUp
+									onClick={() => handleToggleSubtaskCollapse(listId, card.id)}
+									style={{
+										transform: card.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+										transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
+									}}
+								/>
+							</div>
+							<div style={{ display: `${card.isCollapsed ? 'none' : 'block'}` }}>
+								{card.subtasks.map((task) => {
+									return (
+										<Subtask
+											key={task.id}
+											task={task}
+											toggleSubtaskStatus={toggleSubtaskStatus}
+											removeSubtask={removeSubtask}
+											cardId={card.id}
+											listId={listId}
+										/>
+									);
+								})}
+								<AddSubtask listId={listId} cardId={card.id} addSubtask={addSubtask} />
+							</div>
+							{/* PROGRESS BAR */}
+							<div>
+								{card.subtasks.length > 0 && <ProgressBar subtasks={card.subtasks} />}
+							</div>
+						</div>
 						{/* {card.isBugged && <BuggedStatus />} */}
 						<button
 							className='card-edit-name-btn'
