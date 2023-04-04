@@ -1,4 +1,5 @@
 import { Tooltip } from '@mantine/core';
+import NumberOfAssigneds from './NumberOfAssigneds';
 
 const getInitials = (firstName, lastName) => {
 	return firstName.charAt(0) + lastName.charAt(0);
@@ -11,22 +12,9 @@ const Avatar = ({
 	enabledTooltip = true,
 	avatarUrl,
 	assigneds,
-  showAssigneds,
+  showAssigneds = false,
+	assignLimit,
 }) => {
-	const taskNumberStyle = {
-		position: 'absolute',
-		top: '-4px',
-		right: '-2px',
-		display: 'flex',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'limegreen',
-		width: '15px',
-		height: '15px',
-		borderRadius: '50%',
-		color: '#FFF',
-		fontSize: '12px',
-	};
 
 	return (
 		<>
@@ -50,7 +38,7 @@ const Avatar = ({
 							height: '40px',
 						}}
 					>
-            {}
+						{showAssigneds && ( <NumberOfAssigneds assigneds={assigneds} assignLimit={assignLimit} /> )}
 					</div>
 				</Tooltip>
 			) : enabledTooltip && avatarUrl === '' ? (
@@ -63,6 +51,7 @@ const Avatar = ({
 				>
 					<div
 						style={{
+							position: 'relative',
 							backgroundColor: `${avatarColor}`,
 							color: 'white',
 							borderRadius: '50%',
@@ -75,12 +64,13 @@ const Avatar = ({
 						}}
 					>
 						{getInitials(firstName, lastName)}
-						{assigneds}
+						{showAssigneds && ( <NumberOfAssigneds assigneds={assigneds} assignLimit={assignLimit} /> )}
 					</div>
 				</Tooltip>
 			) : !enabledTooltip && avatarUrl !== '' ? (
 				<div
 					style={{
+						position: 'relative',
 						backgroundImage: `url(${avatarUrl})`,
 						backgroundSize: 'cover',
 						backgroundPosition: 'center',
@@ -90,11 +80,11 @@ const Avatar = ({
 						height: '40px',
 					}}
 				>
-					{assigneds}
 				</div>
 			) : (
 				<div
 					style={{
+						position: 'relative',
 						backgroundColor: `${avatarColor}`,
 						color: 'white',
 						borderRadius: '50%',
@@ -107,7 +97,7 @@ const Avatar = ({
 					}}
 				>
 					{getInitials(firstName, lastName)}
-					{assigneds}
+					{showAssigneds && ( <NumberOfAssigneds assigneds={assigneds} assignLimit={assignLimit} /> )}
 				</div>
 			)}
 		</>

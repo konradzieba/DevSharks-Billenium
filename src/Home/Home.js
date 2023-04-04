@@ -19,6 +19,7 @@ import {
 	updateDoc,
 	writeBatch,
 	getDocs,
+	getDoc,
 } from 'firebase/firestore';
 import CreateColumn from '../components/CreateColumn/CreateColumn';
 import DeleteListModal from '../components/Modal/DeleteList';
@@ -44,6 +45,7 @@ export default function Home() {
 	const [lists, setLists] = useState([]);
 	const [groups, setGroups] = useState([]);
 	const [usersList, setUsersList] = useState([]);
+	const [assignLimit, setAssignLimit] = useState(null);
 	// DELETE LIST MODAL
 	const [deleteListModalOpened, setDeleteListModalOpened] = useState(false);
 	const [deleteListId, setDeleteListId] = useState(null);
@@ -91,6 +93,7 @@ export default function Home() {
 		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'));
 		const q2 = query(collection(db, 'groups'), orderBy('timestamp', 'asc'));
 		const users = query(collection(db, 'users'));
+		const assignLimit = doc(db, "assignLimit", "qXV8NMrecqiwE0fUCQBW");
 		onSnapshot(q, (snapShot) => {
 			setLists(
 				snapShot.docs.map((doc) => {
@@ -121,14 +124,15 @@ export default function Home() {
 				})
 			);
 		});
+
+		const docSnap = getDoc(assignLimit).then((doc) => setAssignLimit(doc.data()["limit"]));
+
 	}, []);
 
 	const allAssigneds = lists
 		.map((list) => list.cards.flatMap((card) => card.assignedUser))
 		.flat();
-
-	console.log('allAssigneds: ', allAssigneds);
-
+	// console.log(allAssigneds);
 	useEffect(() => {
 		if (bugMovedNotification) {
 			setTimeout(() => {
@@ -766,6 +770,8 @@ export default function Home() {
 						assignUserToCard={updateAssignUserList}
 						oldAssignedUser={oldAssignUserList}
 						setOldAssignedUser={setOldAssignUserList}
+						allAssigneds={allAssigneds}
+						assignLimit={assignLimit}
 					/>
 				)}
 				<DragDropContext onDragEnd={onDragEnd}>
@@ -817,6 +823,8 @@ export default function Home() {
 													assigneds={
 														allAssigneds.filter((assign) => assign === user.id).length
 													}
+													showAssigneds={true}
+													assignLimit={assignLimit}
 												/>
 											);
 										})}

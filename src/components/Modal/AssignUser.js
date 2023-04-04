@@ -1,7 +1,7 @@
-import { forwardRef, useState } from 'react';
-import { Modal, Button, Group, Text, MultiSelect } from '@mantine/core';
-import { useTranslation } from 'react-i18next';
-import Avatar from '../User/Avatar';
+import { forwardRef, useState } from 'react'
+import { Modal, Button, Group, Text, MultiSelect } from '@mantine/core'
+import { useTranslation } from 'react-i18next'
+import Avatar from '../User/Avatar'
 
 const AssignUserModal = ({
 	setAssignUserModalOpened,
@@ -15,52 +15,57 @@ const AssignUserModal = ({
 	setOldAssignedUser,
 	oldAssignedUser,
 	style,
+	allAssigneds,
+	assignLimit,
 }) => {
-	const { t } = useTranslation();
-	const [isOpened, setIsOpened] = useState(false);
-	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
-	const prevData = users.map((user) => {
+	const usersWithAssigneds = users.filter(user => !(allAssigneds.reduce((n, val) => n + (val === user.id), 0) > assignLimit))
+	const { t } = useTranslation()
+	const [isOpened, setIsOpened] = useState(false)
+	const [notFoundUserInData, setNotFoundUserInData] = useState(false)
+	const prevData = usersWithAssigneds.map(user => {
 		return {
 			label: `${user.firstName} ${user.lastName}`,
 			value: user.id,
-			firstName: user.firstName.toString(),
-			lastName: user.lastName.toString(),
-			avatarColor: user.avatarColor.toString(),
-			avatarUrl: user.avatarUrl.toString(),
-		};
-	});
+			firstname: user.firstName.toString(),
+			lastname: user.lastName.toString(),
+			avatarcolor: user.avatarColor.toString(),
+			avatarurl: user.avatarUrl.toString(),
+			timesassigned: allAssigneds.reduce((n, val) => n + (val === user.id), 0),
+		}
+	})
 
 	const data = [
 		{
 			label: t('assignUserModalNoAssign'),
 			value: '',
-			firstName: '',
-			lastName: '',
-			avatarColor: '',
-			avatarUrl: '',
+			firstname: '',
+			lastname: '',
+			avatarcolor: '',
+			avatarurl: '',
+			timesassigned: 0,
 		},
 		...prevData,
-	];
+	]
 
-	const SelectItem = forwardRef(
-		({ firstName, lastName, avatarColor, label, avatarUrl, ...others }, ref) => (
-			<div ref={ref} {...others}>
-				<Group noWrap>
-					<Avatar
-						style={style}
-						firstName={firstName}
-						lastName={lastName}
-						avatarColor={avatarColor}
-						avatarUrl={avatarUrl}
-						enabledTooltip={false}
-					/>
-					<div>
-						<Text size='sm'>{label}</Text>
-					</div>
-				</Group>
-			</div>
-		)
-	);
+	const SelectItem = forwardRef(({ firstname, lastname, avatarcolor, label, avatarurl, timesassigned, ...others }, ref) => (
+		<div ref={ref} {...others}>
+			<Group noWrap>
+				<Avatar
+					style={style}
+					firstName={firstname}
+					lastName={lastname}
+					avatarColor={avatarcolor}
+					avatarUrl={avatarurl}
+					enabledTooltip={false}
+					showAssigneds={false}
+				/>
+				<div>
+					<Text size='sm'>{label}</Text>
+					<Text size='sm'>{timesassigned}</Text>
+				</div>
+			</Group>
+		</div>
+	))
 
 	return (
 		<Modal
@@ -69,23 +74,20 @@ const AssignUserModal = ({
 			title={t('assignUserModalTitle')}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setAssignUserModalOpened(false)}
-		>
+			closeOnEscape={() => setAssignUserModalOpened(false)}>
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
 				<MultiSelect
 					placeholder={t('assignUserModalPlaceholder')}
 					value={oldAssignedUser}
-					onChange={(value) => {
-						setOldAssignedUser(value);
+					onChange={value => {
+						setOldAssignedUser(value)
 					}}
-					onKeyUp={(e) => {
-						const user = data.find((user) =>
-							user.label.toLowerCase().includes(e.target.value.toLowerCase())
-						);
+					onKeyUp={e => {
+						const user = data.find(user => user.label.toLowerCase().includes(e.target.value.toLowerCase()))
 						if (user) {
-							setNotFoundUserInData(false);
+							setNotFoundUserInData(false)
 						} else {
-							setNotFoundUserInData(true);
+							setNotFoundUserInData(true)
 						}
 					}}
 					label={t('assignUserModalSelectLabel')}
@@ -113,19 +115,18 @@ const AssignUserModal = ({
 					marginTop: '10px',
 				}}
 				onClick={() => {
-					setAssignUserId('');
-					setListId(null);
-					setCardId(null);
-					setOldAssignedUser(null);
-					assignUserToCard(listId, cardId, oldAssignedUser);
-					setAssignUserModalOpened(false);
+					setAssignUserId('')
+					setListId(null)
+					setCardId(null)
+					setOldAssignedUser(null)
+					assignUserToCard(listId, cardId, oldAssignedUser)
+					setAssignUserModalOpened(false)
 				}}
-				disabled={notFoundUserInData}
-			>
+				disabled={notFoundUserInData}>
 				{t('assignUserModalBtn')}
 			</Button>
 		</Modal>
-	);
-};
+	)
+}
 
-export default AssignUserModal;
+export default AssignUserModal

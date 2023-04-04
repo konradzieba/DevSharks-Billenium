@@ -16,6 +16,7 @@ const AssignedUsersAvatars = ({ assignedUser, usersList }) => {
 					avatarColor={user.avatarColor}
 					avatarUrl={user.avatarUrl}
 					enabledTooltip={true}
+					showAssigneds={false}
 				/>
 			))}
 			{/* {filteredUsers.length > 3 && (

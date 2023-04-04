@@ -19,7 +19,7 @@ import { useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../translations/i18n';
 
-const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange'];
+const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange', 'tomato'];
 
 const SignUp = () => {
 	const { t } = useTranslation();
