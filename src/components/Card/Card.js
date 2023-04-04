@@ -4,9 +4,7 @@ import {
 	IconX,
 	IconPencil,
 	IconPlus,
-	IconBug,
 	IconArrowBarToUp,
-	IconLayoutNavbarCollapse,
 } from '@tabler/icons-react';
 import storeApi from '../../utils/storeApi';
 
@@ -16,6 +14,7 @@ import BuggedStatus from './BuggedStatus';
 import Subtask from './Subtask';
 import ProgressBar from './ProgressBar';
 import AddSubtask from './AddSubtask';
+import AssignedUsersAvatars from '../User/AssignedUsersAvatars';
 
 export default function Card({
 	card,
@@ -127,11 +126,15 @@ export default function Card({
 							onClick={() => {
 								setRenameCardId(card.id);
 								setRenameCardListId(listId);
-								setOldAssignedUser(card.assignedUser);
+								setOldAssignedUser(Array.from(card.assignedUser));
 								setAssignUserModalOpened(true);
 							}}
 						>
-							{card.assignedUser === '' ? (
+							<AssignedUsersAvatars
+								assignedUser={card.assignedUser}
+								usersList={usersList}
+							/>
+							{card.assignedUser.length < 4 && (
 								<IconPlus
 									style={{
 										border: '1px solid #ccc',
@@ -142,20 +145,6 @@ export default function Card({
 										padding: '8px',
 									}}
 								/>
-							) : (
-								usersList.map((user) => {
-									if (user.id === card.assignedUser) {
-										return (
-											<Avatar
-												key={user.id}
-												firstName={user.firstName}
-												lastName={user.lastName}
-												avatarColor={user.avatarColor}
-												avatarUrl={user.avatarUrl}
-											/>
-										);
-									}
-								})
 							)}
 						</div>
 					</div>

@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react';
-import { Modal, Button, Group, Text, Select } from '@mantine/core';
+import { Modal, Button, Group, Text, MultiSelect } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../User/Avatar';
 
@@ -14,6 +14,7 @@ const AssignUserModal = ({
 	setAssignUserId,
 	setOldAssignedUser,
 	oldAssignedUser,
+	style,
 }) => {
 	const { t } = useTranslation();
 	const [isOpened, setIsOpened] = useState(false);
@@ -46,6 +47,7 @@ const AssignUserModal = ({
 			<div ref={ref} {...others}>
 				<Group noWrap>
 					<Avatar
+						style={style}
 						firstName={firstName}
 						lastName={lastName}
 						avatarColor={avatarColor}
@@ -70,7 +72,7 @@ const AssignUserModal = ({
 			closeOnEscape={() => setAssignUserModalOpened(false)}
 		>
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
-				<Select
+				<MultiSelect
 					placeholder={t('assignUserModalPlaceholder')}
 					value={oldAssignedUser}
 					onChange={(value) => {
@@ -94,7 +96,7 @@ const AssignUserModal = ({
 					nothingFound={t('assignUserModalNothingFound')}
 					dropdownPosition='bottom'
 					selectOnBlur
-					allowDeselect
+					// allowDeselect
 					onDropdownOpen={() => setIsOpened(true)}
 					onDropdownClose={() => setIsOpened(false)}
 					hoverOnSearchChange

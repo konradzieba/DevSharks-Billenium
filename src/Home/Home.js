@@ -82,8 +82,8 @@ export default function Home() {
 	const [oldGroupName, setOldGroupName] = useState('');
 	// ASSIGN USER TO TASK MODAL
 	const [assignUserModalOpened, setAssignUserModalOpened] = useState(false);
-	const [assignUserId, setAssignUserId] = useState(null);
-	const [oldAssignedUser, setOldAssignedUser] = useState(null);
+	const [assignUserList, setAssignUserList] = useState(null);
+	const [oldAssignUserList, setOldAssignUserList] = useState(null);
 	// NOTIFICATIONS
 	const [bugMovedNotification, setBugMovedNotification] = useState(false);
 
@@ -122,6 +122,12 @@ export default function Home() {
 			);
 		});
 	}, []);
+
+	const allAssigneds = lists
+		.map((list) => list.cards.flatMap((card) => card.assignedUser))
+		.flat();
+
+	console.log('allAssigneds: ', allAssigneds);
 
 	useEffect(() => {
 		if (bugMovedNotification) {
@@ -173,7 +179,7 @@ export default function Home() {
 			title: t('newTaskTitle'),
 			owner: group,
 			color: '#8DC44F',
-			assignedUser: '',
+			assignedUser: [],
 			isBugged: false,
 			subtasks: [],
 			isCollapsed: false,
@@ -471,14 +477,14 @@ export default function Home() {
 		await updateDoc(groupRef, { name: newName });
 	};
 
-	const assignUserToCard = async (listIdToAssign, cardIdToAssign, userId) => {
+	const updateAssignUserList = async (listId, cardId, assignedUser) => {
 		const updatedLists = lists.map((list) => {
-			if (list.id === listIdToAssign) {
+			if (list.id === listId) {
 				return {
 					...list,
 					cards: list.cards.map((card) => {
-						if (card.id === cardIdToAssign) {
-							return { ...card, assignedUser: userId };
+						if (card.id === cardId) {
+							return { ...card, assignedUser };
 						}
 						return card;
 					}),
@@ -497,8 +503,8 @@ export default function Home() {
 			const cards = doc.data().cards;
 
 			const updatedCards = cards.map((card) => {
-				if (card.id === cardIdToAssign) {
-					card.assignedUser = userId;
+				if (card.id === cardId) {
+					card.assignedUser = assignedUser;
 				}
 				return card;
 			});
@@ -755,11 +761,11 @@ export default function Home() {
 						listId={renameCardListId}
 						setCardId={setRenameCardId}
 						setListId={setRenameCardListId}
-						assignUserId={assignUserId}
-						setAssignUserId={setAssignUserId}
-						assignUserToCard={assignUserToCard}
-						oldAssignedUser={oldAssignedUser}
-						setOldAssignedUser={setOldAssignedUser}
+						assignUserId={assignUserList}
+						setAssignUserId={setAssignUserList}
+						assignUserToCard={updateAssignUserList}
+						oldAssignedUser={oldAssignUserList}
+						setOldAssignedUser={setOldAssignUserList}
 					/>
 				)}
 				<DragDropContext onDragEnd={onDragEnd}>
@@ -808,6 +814,9 @@ export default function Home() {
 													key={user.id}
 													avatarUrl={user.avatarUrl}
 													enabledTooltip={true}
+													assigneds={
+														allAssigneds.filter((assign) => assign === user.id).length
+													}
 												/>
 											);
 										})}
@@ -852,12 +861,13 @@ export default function Home() {
 												setCardColor={setCardColor}
 												setAssignUserModalOpened={setAssignUserModalOpened}
 												usersList={usersList}
-												setOldAssignedUser={setOldAssignedUser}
+												setOldAssignedUser={setOldAssignUserList}
 												setIsBugged={setIsBugged}
 												toggleSubtaskStatus={toggleSubtaskStatus}
 												removeSubtask={removeSubtask}
 												addSubtask={addSubtask}
 												handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
+												allAssigneds={allAssigneds}
 											/>
 										);
 									})}
