@@ -1,5 +1,5 @@
 import { forwardRef, useState } from 'react';
-import { Modal, Button, Group, Text, Select } from '@mantine/core';
+import { Modal, Button, Group, Text, MultiSelect } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import Avatar from '../User/Avatar';
 
@@ -14,50 +14,67 @@ const AssignUserModal = ({
 	setAssignUserId,
 	setOldAssignedUser,
 	oldAssignedUser,
+	style,
+	allAssigneds,
+	assignLimit,
 }) => {
+	const usersWithAssigneds = users.filter(
+		(user) =>
+			!(allAssigneds.reduce((n, val) => n + (val === user.id), 0) > assignLimit)
+	);
+	// console.log(usersWithAssigneds);
 	const { t } = useTranslation();
 	const [isOpened, setIsOpened] = useState(false);
 	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
-	const prevData = users.map((user) => {
-		return {
-			label: `${user.firstName} ${user.lastName}`,
-			value: user.id,
-			firstName: user.firstName.toString(),
-			lastName: user.lastName.toString(),
-			avatarColor: user.avatarColor.toString(),
-			avatarUrl: user.avatarUrl.toString(),
-		};
-	});
+	const [data, setData] = useState(
+		usersWithAssigneds.map((user) => {
+			return {
+				label: `${user.firstName} ${user.lastName}`,
+				value: user.id,
+				firstname: user.firstName.toString(),
+				lastname: user.lastName.toString(),
+				avatarcolor: user.avatarColor.toString(),
+				avatarurl: user.avatarUrl.toString(),
+				timesassigned: allAssigneds.reduce((n, val) => n + (val === user.id), 0),
+			};
+		})
+	);
 
-	const data = [
-		{
-			label: t('assignUserModalNoAssign'),
-			value: '',
-			firstName: '',
-			lastName: '',
-			avatarColor: '',
-			avatarUrl: '',
-		},
-		...prevData,
-	];
+	// console.log(prevData);
 
 	const SelectItem = forwardRef(
-		({ firstName, lastName, avatarColor, label, avatarUrl, ...others }, ref) => (
-			<div ref={ref} {...others}>
-				<Group noWrap>
-					<Avatar
-						firstName={firstName}
-						lastName={lastName}
-						avatarColor={avatarColor}
-						avatarUrl={avatarUrl}
-						enabledTooltip={false}
-					/>
-					<div>
-						<Text size='sm'>{label}</Text>
-					</div>
-				</Group>
-			</div>
-		)
+		(
+			{
+				firstname,
+				lastname,
+				avatarcolor,
+				label,
+				avatarurl,
+				timesassigned,
+				value,
+				...others
+			},
+			ref
+		) =>
+			timesassigned === assignLimit ? null : (
+				<div ref={ref} {...others}>
+					<Group noWrap>
+						<Avatar
+							style={style}
+							firstName={firstname}
+							lastName={lastname}
+							avatarColor={avatarcolor}
+							avatarUrl={avatarurl}
+							enabledTooltip={false}
+							showAssigneds={false}
+						/>
+						<div>
+							<Text size='sm'>{label}</Text>
+							{/* <Text size='sm'>{timesassigned}</Text> */}
+						</div>
+					</Group>
+				</div>
+			)
 	);
 
 	return (
@@ -70,11 +87,20 @@ const AssignUserModal = ({
 			closeOnEscape={() => setAssignUserModalOpened(false)}
 		>
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
-				<Select
+				<MultiSelect
 					placeholder={t('assignUserModalPlaceholder')}
 					value={oldAssignedUser}
 					onChange={(value) => {
 						setOldAssignedUser(value);
+						setData((prevData) =>
+							prevData.map((user) => ({
+								...user,
+								timesassigned: allAssigneds.reduce(
+									(n, val) => n + (val === user.id),
+									0
+								),
+							}))
+						);
 					}}
 					onKeyUp={(e) => {
 						const user = data.find((user) =>
@@ -93,11 +119,12 @@ const AssignUserModal = ({
 					maxDropdownHeight={175}
 					nothingFound={t('assignUserModalNothingFound')}
 					dropdownPosition='bottom'
-					selectOnBlur
-					allowDeselect
+					// allowDeselect
 					onDropdownOpen={() => setIsOpened(true)}
 					onDropdownClose={() => setIsOpened(false)}
 					hoverOnSearchChange
+					maxSelectedValues={assignLimit}
+					clearable
 				/>
 			</div>
 			<Button

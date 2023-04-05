@@ -45,6 +45,7 @@ const UserPanel = ({
 								avatarColor={loggedUserInfo.avatarColor}
 								enabledTooltip={false}
 								avatarUrl={loggedUserInfo.avatarUrl}
+								showAssigneds={false}
 							/>
 							<div
 								style={{
