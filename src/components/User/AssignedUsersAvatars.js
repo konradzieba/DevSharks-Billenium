@@ -19,15 +19,6 @@ const AssignedUsersAvatars = ({ assignedUser, usersList }) => {
 					showAssigneds={false}
 				/>
 			))}
-			{/* {filteredUsers.length > 3 && (
-				<Avatar
-					style={{ cursor: 'default', fontsize: '32px' }}
-					firstName='+1'
-					lastName={(filteredUsers.length - 3).toString()}
-					avatarColor='gray'
-					avatarUrl=''
-				/>
-			)} */}
 		</Group>
 	);
 };
