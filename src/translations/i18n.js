@@ -101,6 +101,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'The task cannot be moved here because it has a status',
 			notyficationBuggedMoveStatus: 'Bugged',
+			notyficationBuggedCard: 'This task is bugged',
 		},
 	},
 	pl: {
@@ -202,6 +203,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'Nie można przenieść zadania w to miejsce, ponieważ posiada status',
 			notyficationBuggedMoveStatus: 'Zbugowany',
+			notyficationBuggedCard: 'To zadanie zawiera błąd',
 		},
 	},
 	es: {
@@ -303,6 +305,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'La tarea no se puede mover aquí porque tiene un estado',
 			notyficationBuggedMoveStatus: 'Con errores',
+			notyficationBuggedCard: 'Esta tarea tiene errores',
 		},
 	},
 	fr: {
@@ -405,6 +408,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'La tâche ne peut pas être déplacée ici car elle a un statut',
 			notyficationBuggedMoveStatus: 'Buggé',
+			notyficationBuggedCard: 'Cette tâche est boguée',
 		},
 	},
 	ua: {
@@ -506,6 +510,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'Завдання не можна перемістити сюди, оскільки воно має статус',
 			notyficationBuggedMoveStatus: 'Прослуховується',
+			notyficationBuggedCard: 'Це завдання має помилку'
 		},
 	},
 	zh: {
@@ -605,6 +610,7 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: '任务不能移到这里，因为它有一个状态',
 			notyficationBuggedMoveStatus: '窃听',
+			notyficationBuggedCard: '这个任务有问题',
 		},
 	},
 };

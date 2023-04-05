@@ -62,22 +62,27 @@ export default function Card({
 								/>
 							</div>
 							<div style={{ display: `${card.isCollapsed ? 'none' : 'block'}` }}>
-								{card.subtasks.map(task => {
-									return (
-										<Subtask
-											key={task.id}
-											task={task}
-											toggleSubtaskStatus={toggleSubtaskStatus}
-											removeSubtask={removeSubtask}
-											cardId={card.id}
-											listId={listId}
-										/>
-									)
-								})}
-								<AddSubtask listId={listId} cardId={card.id} addSubtask={addSubtask} />
+								<div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
+									{card.subtasks.map(task => {
+										return (
+											<Subtask
+												key={task.id}
+												task={task}
+												toggleSubtaskStatus={toggleSubtaskStatus}
+												removeSubtask={removeSubtask}
+												cardId={card.id}
+												listId={listId}
+											/>
+										)
+									})}
+									<AddSubtask listId={listId} cardId={card.id} addSubtask={addSubtask} />
+								</div>
+								{/* <AddSubtask listId={listId} cardId={card.id} addSubtask={addSubtask} /> */}
 							</div>
 							{/* PROGRESS BAR */}
-							<div>{card.subtasks.length > 0 && <ProgressBar subtasks={card.subtasks} />}</div>
+							<div style={{ marginTop: '5px' }}>
+								{card.subtasks.length > 0 && <ProgressBar subtasks={card.subtasks} />}
+							</div>
 						</div>
 						{/* {card.isBugged && <BuggedStatus />} */}
 						<button
@@ -115,33 +120,37 @@ export default function Card({
 								setOldAssignedUser(Array.from(card.assignedUser))
 								setAssignUserModalOpened(true)
 							}}>
-							<AssignedUsersAvatars assignedUser={card.assignedUser} usersList={usersList} />
-							{card.assignedUser.length < 4 ? (
-								<IconPlus
-									style={{
-										border: '1px solid #ccc',
-										borderRadius: '50%',
-										width: '40px',
-										height: '40px',
-										marginLeft: '0.625rem',
-										padding: '8px',
-									}}
-								/>
-							) : (
-								<div
-									style={{
-										border: '1px solid #ccc',
-										borderRadius: '50%',
-										width: '40px',
-										height: '40px',
-										marginLeft: '0.625rem',
-										// padding: '10px',
-										display: 'flex',
-										justifyContent: 'center',
-										alignItems: 'center',
-										fontSize: '20px',
-									}}>+{card.assignedUser.length - 3}</div>
-							)}
+							<div style={{display: 'flex', marginTop: '5px'}}>
+								<AssignedUsersAvatars assignedUser={card.assignedUser} usersList={usersList} />
+								{card.assignedUser.length < 4 ? (
+									<IconPlus
+										style={{
+											border: '1px solid #ccc',
+											borderRadius: '50%',
+											width: '40px',
+											height: '40px',
+											marginLeft: '0.625rem',
+											padding: '8px',
+										}}
+									/>
+								) : (
+									<div
+										style={{
+											border: '1px solid #ccc',
+											borderRadius: '50%',
+											width: '40px',
+											height: '40px',
+											marginLeft: '0.625rem',
+											// padding: '10px',
+											display: 'flex',
+											justifyContent: 'center',
+											alignItems: 'center',
+											fontSize: '20px',
+										}}>
+										+{card.assignedUser.length - 3}
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				</div>
