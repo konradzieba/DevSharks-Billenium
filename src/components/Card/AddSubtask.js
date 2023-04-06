@@ -2,8 +2,11 @@ import React, { useState } from 'react'
 import { IconPlus, IconX } from '@tabler/icons-react'
 import { v4 as uuid } from 'uuid'
 import { TextInput, Button } from '@mantine/core'
+import { useTranslation } from 'react-i18next';
+
 const AddSubtask = ({ listId, cardId, addSubtask }) => {
-	const [inputValue, setInputValue] = useState('New subtask')
+	const { t } = useTranslation();
+	const [inputValue, setInputValue] = useState(t('subtask'))
 	const [isInputOpen, setIsInputOpen] = useState(false)
 	const [isError, setIsError] = useState(null)
 
@@ -20,7 +23,7 @@ const AddSubtask = ({ listId, cardId, addSubtask }) => {
 			return
 		}
 		addSubtask(listId, cardId, newSubtask)
-		setInputValue('New subtask')
+		setInputValue(t('subtask'))
 		setIsInputOpen(false)
 	}
 
@@ -37,13 +40,14 @@ const AddSubtask = ({ listId, cardId, addSubtask }) => {
 						<TextInput
 							style={{ flex: 1 }}
 							value={inputValue}
+							size='sm'
 							onChange={e => {
 								setIsError(null)
 								setInputValue(e.target.value)
 							}}
 							error={isError && true}
 						/>
-						<Button ml={6} py={2} px={4} size='xxs' type='submit'>
+						<Button ml={6} py={2} px={2} size='xxs' type='submit' color='green'>
 							<IconPlus size={16}/>
 						</Button>
 					</div>

@@ -1,4 +1,5 @@
 import { Progress, Text } from '@mantine/core';
+import { changeLanguage } from 'i18next';
 
 function ProgressBar({ subtasks }) {
 	const getCompletePercentage = () => {
@@ -6,6 +7,7 @@ function ProgressBar({ subtasks }) {
 		const total = subtasks.length;
 		return total === 0 ? 0 : Math.round((completed / total) * 100);
 	};
+
 
 	const percentageProgress = getCompletePercentage();
 

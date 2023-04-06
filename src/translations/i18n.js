@@ -102,6 +102,10 @@ const resources = {
 			notyficationBuggedMove: 'The task cannot be moved here because it has a status',
 			notyficationBuggedMoveStatus: 'Bugged',
 			notyficationBuggedCard: 'This task is bugged',
+			// add subtask:
+			subtask: 'Subtask',
+			// change assignUserLimit 
+			assignUserLimitPerTask: 'Limit of assignments for one user'
 		},
 	},
 	pl: {
@@ -204,6 +208,10 @@ const resources = {
 			notyficationBuggedMove: 'Nie można przenieść zadania w to miejsce, ponieważ posiada status',
 			notyficationBuggedMoveStatus: 'Zbugowany',
 			notyficationBuggedCard: 'To zadanie zawiera błąd',
+			// add subtask:
+			subtask: 'Podzadanie',
+			// change assignUserLimit 
+			assignUserLimitPerTask: 'Limit przypisań dla jednego użytkownika',
 		},
 	},
 	es: {
@@ -306,6 +314,10 @@ const resources = {
 			notyficationBuggedMove: 'La tarea no se puede mover aquí porque tiene un estado',
 			notyficationBuggedMoveStatus: 'Con errores',
 			notyficationBuggedCard: 'Esta tarea tiene errores',
+			// add subtask:
+			subtask: 'Subtarea',
+			// change assignUserLimit 
+			assignUserLimitPerTask: 'Límite de asignaciones para un usuario',
 		},
 	},
 	fr: {
@@ -409,6 +421,10 @@ const resources = {
 			notyficationBuggedMove: 'La tâche ne peut pas être déplacée ici car elle a un statut',
 			notyficationBuggedMoveStatus: 'Buggé',
 			notyficationBuggedCard: 'Cette tâche est boguée',
+			// add subtask:
+			subtask: 'Sous-tâche',
+			// change assignUserLimit 
+			assignUserLimitPerTask: `Limite d'attributions pour un utilisateur`,
 		},
 	},
 	ua: {
@@ -510,7 +526,11 @@ const resources = {
 			// notyfications
 			notyficationBuggedMove: 'Завдання не можна перемістити сюди, оскільки воно має статус',
 			notyficationBuggedMoveStatus: 'Прослуховується',
-			notyficationBuggedCard: 'Це завдання має помилку'
+			notyficationBuggedCard: 'Це завдання має помилку',
+			// add subtask:
+			subtask: 'Підзавдання', 
+			// change assignUserLimit 
+			assignUserLimitPerTask: `Ліміт призначень для одного користувача`,
 		},
 	},
 	zh: {
@@ -611,6 +631,10 @@ const resources = {
 			notyficationBuggedMove: '任务不能移到这里，因为它有一个状态',
 			notyficationBuggedMoveStatus: '窃听',
 			notyficationBuggedCard: '这个任务有问题',
+			// add subtask:
+			subtask: '子任务',
+			// change assignUserLimit 
+			assignUserLimitPerTask: `一个用户的分配限制`,
 		},
 	},
 };

@@ -20,6 +20,7 @@ import {
 	writeBatch,
 	getDocs,
 	getDoc,
+	increment,
 } from 'firebase/firestore';
 import CreateColumn from '../components/CreateColumn/CreateColumn';
 import DeleteListModal from '../components/Modal/DeleteList';
@@ -35,6 +36,7 @@ import AssignUserModal from '../components/Modal/AssignUser';
 import { useTranslation } from 'react-i18next';
 import i18n from '../translations/i18n';
 import BuggedMoveNotification from '../components/notifications/BuggedMoveNotification';
+import AdjustLimit from '../components/User/AdjustLimit';
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -516,6 +518,10 @@ export default function Home() {
 			updateDoc(docRef, { cards: updatedCards });
 		});
 	};
+	
+
+
+
 
 	const toggleSubtaskStatus = async (listId, cardId, subtaskId) => {
 		const updatedLists = lists.map((list) => {
@@ -793,6 +799,7 @@ export default function Home() {
 										</button>
 									</div>
 								</div>
+									<AdjustLimit assignLimit={assignLimit} setAssignLimit={setAssignLimit}/>
 								<div
 									style={{
 										display: 'flex',
