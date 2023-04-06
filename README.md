@@ -25,6 +25,10 @@ Projekt uruchomi się pod adresem http://localhost:3000/
 
 ## Funkcjonalności 
 
+### Zmiana języka
+Tablica kanban jest dostępna w 6 językach, które po wybraniu zapisują się w localstorage.
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_jezyka.gif)
+
 ### Logowanie
 Logowanie się by uzyskać dostęp do tablicy kanban.\
 ![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Logowanie.gif)
@@ -69,9 +73,21 @@ Nazwę zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy no
 Kolor zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wybieramy jeden z czterach dostepnych kolorów, które oznaczają poziom ważności zadania.\
 ![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_koloru_zadania.gif)
 
+### Status zbugowane
+Status zbugowanego zadania ustawiamy wybierając ikonę edycji i w pop-up wybieramy czy zadanie jest zbugowane. Status zbugowanego zadania uniemożliwia przeniesienie go ostatniej kolumny.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Status_zbugowane.gif)
+
+### Podzadania
+Podzadania możemy dodać kilkając w ikonę plusa pod nazwą zadania. Pasek progresu wyświetla ilość wykonanych zadań. Można również ukryć podzadania wybierając ikonę strzałki.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Podzadania.gif)
+
+### Limit uzytkowników możliwych do przypisania
+Możemy ustalić limit przypisać dla danego użytkownika przypisując wartość w inpucie nad listą dostepnych użytkowników.
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Zmiana_limitu_dla_uzytkownika.gif)
+
 ### Przypisanie użytkownika do zadania
-Przypisujemy użytkownika do zadania poprzez kliknięcie w ikonkę plusa i w pop-up wybieramy z listy użytkownika, którego chcemy przypisać do zadania.\
-![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Przypisanie_uzytkownika_do_zadania.gif)
+Przypisujemy użytkowników do zadania poprzez kliknięcie w ikonkę plusa i w pop-up wybieramy z listy użytkowników, których chcemy przypisać do zadania.\
+![](https://github.com/konradzieba/DevSharks-Billenium/blob/main/Documentation/media/Przypisywanie_uzytkownikow.gif)
 
 ### Usuwanie kolumny, grupy i zadania
 Kolumnę, grupę i zadanie możemy usunąć wybierając ikonę usunięcia i potwierdzając dzialanie w pop-up.
