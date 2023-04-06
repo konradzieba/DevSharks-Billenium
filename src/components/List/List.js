@@ -146,7 +146,7 @@ export default function List({
 											key={group.id}
 											className='pool-task-container'
 											style={{
-												height: calculateHeight(group) * 100 + 500 + 'px',
+												height: calculateHeight(group) * 200 + 150 + 'px',
 												display: group.isCollapsed ? 'none' : 'block',
 												backgroundColor:
 													list.limit !== 0 &&

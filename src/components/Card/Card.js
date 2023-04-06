@@ -51,15 +51,20 @@ export default function Card({
 						}}>
 						<div className='card-title'>
 							{card.isBugged && <BuggedStatus />}
-							<div>
-								{card.title}{' '}
-								<IconArrowBarToUp
-									onClick={() => handleToggleSubtaskCollapse(listId, card.id)}
-									style={{
-										transform: card.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
-										transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
-									}}
-								/>
+							<div style={{ display: 'flex' }}>
+								<div>{card.title} </div>
+								<div style={{ padding: '3px 3px' }}>
+									<IconArrowBarToUp
+										onClick={() => handleToggleSubtaskCollapse(listId, card.id)}
+										style={{
+											transform: card.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+											transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
+											cursor: 'pointer',
+											width: '24px',
+											height: '24px',
+										}}
+									/>
+								</div>
 							</div>
 							<div style={{ display: `${card.isCollapsed ? 'none' : 'block'}` }}>
 								<div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
@@ -120,7 +125,7 @@ export default function Card({
 								setOldAssignedUser(Array.from(card.assignedUser))
 								setAssignUserModalOpened(true)
 							}}>
-							<div style={{display: 'flex', marginTop: '5px'}}>
+							<div style={{ display: 'flex', marginTop: '5px' }}>
 								<AssignedUsersAvatars assignedUser={card.assignedUser} usersList={usersList} />
 								{card.assignedUser.length < 4 ? (
 									<IconPlus

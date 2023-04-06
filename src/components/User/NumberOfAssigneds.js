@@ -1,5 +1,3 @@
-import { IconAlertTriangleFilled } from '@tabler/icons-react';
-
 const NumberOfAssigneds = ({ assigneds, assignLimit }) => {
 	const assignedsLeft = assignLimit - assigneds
 	return (
@@ -8,19 +6,19 @@ const NumberOfAssigneds = ({ assigneds, assignLimit }) => {
 				position: 'absolute',
 				top: '-4px',
 				right: '-2px',
-				display: assignedsLeft === 0 ? 'flex' : 'block',
+				display: assignedsLeft <= 0 ? 'flex' : 'block',
 				justifyContent: 'center',
 				alignItems: 'center',
-				backgroundColor: assignedsLeft === 0 ? 'transparent' : '#8DC44F',
-				width: '15px',
-				height: '15px',
+				backgroundColor: assignedsLeft <= 0 ? 'red' : '#2f9e44',
+				width: '20px',
+				height: '20px',
 				padding: '1px',
-				borderRadius: '50%',
+				borderRadius: '45%',
 				textAlign: 'center',
-				color: assignedsLeft === 0 ? 'red' : '#FFF',
-				fontSize: '10px',
+				color: assignedsLeft <= 0 ? '#FFF' : '#FFF',
+				fontSize: '13px',
 			}}>
-			{assignedsLeft === 0 ? <IconAlertTriangleFilled /> : assignedsLeft}
+			{assignedsLeft <= 0 ? '0' : assignedsLeft}
 		</div>
 	)
 }
