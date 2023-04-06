@@ -104,6 +104,7 @@ const resources = {
 			notyficationBuggedCard: 'This task is bugged',
 			// add subtask:
 			subtask: 'Subtask',
+			addSubtask: 'Add subtask',
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Limit of assignments for one user'
 		},
@@ -210,6 +211,7 @@ const resources = {
 			notyficationBuggedCard: 'To zadanie zawiera błąd',
 			// add subtask:
 			subtask: 'Podzadanie',
+			addSubtask: 'Dodaj podzadanie',
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Limit przypisań dla jednego użytkownika',
 		},
@@ -316,6 +318,7 @@ const resources = {
 			notyficationBuggedCard: 'Esta tarea tiene errores',
 			// add subtask:
 			subtask: 'Subtarea',
+			addSubtask: 'Añadir subtarea',
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Límite de asignaciones para un usuario',
 		},
@@ -423,6 +426,7 @@ const resources = {
 			notyficationBuggedCard: 'Cette tâche est boguée',
 			// add subtask:
 			subtask: 'Sous-tâche',
+			addSubtask: 'Ajouter une sous-tâche',
 			// change assignUserLimit 
 			assignUserLimitPerTask: `Limite d'attributions pour un utilisateur`,
 		},
@@ -529,6 +533,7 @@ const resources = {
 			notyficationBuggedCard: 'Це завдання має помилку',
 			// add subtask:
 			subtask: 'Підзавдання', 
+			addSubtask: 'Додати підзавдання',
 			// change assignUserLimit 
 			assignUserLimitPerTask: `Ліміт призначень для одного користувача`,
 		},
@@ -633,6 +638,7 @@ const resources = {
 			notyficationBuggedCard: '这个任务有问题',
 			// add subtask:
 			subtask: '子任务',
+			addSubtask: '添加子任务',
 			// change assignUserLimit 
 			assignUserLimitPerTask: `一个用户的分配限制`,
 		},

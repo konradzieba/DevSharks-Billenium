@@ -12,7 +12,7 @@ const Subtask = ({ task, toggleSubtaskStatus, removeSubtask, cardId, listId }) =
 				checked={task.isDone}
 				onChange={e => toggleSubtaskStatus(listId, cardId, task.id)}
 			/>
-			{task.name}
+			{task.isDone ? (<span style={{color: 'gray'}}>{task.name}</span>) : (<span>{task.name}</span>)}
 			{isOpen ? (
 				<>
 					<IconX cursor={'pointer'} size={16} onClick={() => setIsOpen(false)} 
