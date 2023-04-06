@@ -125,7 +125,7 @@ export default function Card({
 								setOldAssignedUser(Array.from(card.assignedUser))
 								setAssignUserModalOpened(true)
 							}}>
-							<div style={{ display: 'flex', marginTop: '5px' }}>
+							<div style={{ display: 'flex', marginTop: '5px'}}>
 								<AssignedUsersAvatars assignedUser={card.assignedUser} usersList={usersList} />
 								{card.assignedUser.length < 4 ? (
 									<IconPlus

@@ -19,7 +19,7 @@ const AdjustLimit = ({ assignLimit, setAssignLimit }) => {
 		<div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
 			<Text mb={5}>{t('assignUserLimitPerTask')}</Text>
 			<Group spacing={5}>
-				<ActionIcon size={29} color="blue" variant='filled' onClick={() => handlers.current.decrement()}>
+				<ActionIcon size={30} variant='default' onClick={() => handlers.current.decrement()}>
 					–
 				</ActionIcon>
 
@@ -34,7 +34,7 @@ const AdjustLimit = ({ assignLimit, setAssignLimit }) => {
 					styles={{ input: { width: rem(54), textAlign: 'center', fontSize: '16px' } }}
 				/>
 
-				<ActionIcon size={29} color="blue" variant='filled' onClick={() => handlers.current.increment()}>
+				<ActionIcon size={30} variant='default' onClick={() => handlers.current.increment()}>
 					+
 				</ActionIcon>
 			</Group>

@@ -123,7 +123,7 @@ const AssignUserModal = ({
 					onDropdownOpen={() => setIsOpened(true)}
 					onDropdownClose={() => setIsOpened(false)}
 					hoverOnSearchChange
-					maxSelectedValues={assignLimit}
+					// maxSelectedValues={assignLimit}
 					clearable
 				/>
 			</div>
