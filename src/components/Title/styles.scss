@@ -1,4 +1,4 @@
-.title-wrap {
+.column-title-container {
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -8,38 +8,30 @@
 	font-size: 24px;
 	font-weight: bold;
 
-	.list-limit {
-		color: #808080;
-		font-size: 16px;
-	}
-
-	.edit-list-name-btn {
+	.column-btn {
 		position: absolute;
+		background: none;
+		border: none;
+		color: #e4e4e4;
+		cursor: pointer;
+	}
+	.column-edit-name-btn {
 		top: 3px;
 		padding-left: 5px;
-		background: none;
-		border: none;
-		color: #e4e4e4;
-		cursor: pointer;
 	}
-
-	.edit-list-limit-btn {
-		position: absolute;
+	
+	.column-edit-limit-btn {
 		top: -20px;
 		right: 0px;
-		background: none;
-		border: none;
-		color: #e4e4e4;
-		cursor: pointer;
 	}
-
-	.delete-list-btn {
-		position: absolute;
+	
+	.column-delete-btn {
 		top: -20px;
 		right: -20px;
-		background: none;
-		border: none;
-		color: #e4e4e4;
-		cursor: pointer;
+	}
+
+	.column-limit {
+		color: #808080;
+		font-size: 16px;
 	}
 }

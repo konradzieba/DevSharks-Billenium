@@ -1,53 +1,55 @@
-.list-cards {
+.column-container {
 	background-color: #383838;
 	padding: 5px;
 	width: 400px;
 	border-top-right-radius: 20px;
 	border-bottom-left-radius: 20px;
 
-	.container-cards {
-		.pool {
+	.task-container {
+		.group-container {
 			padding: 10px 0;
-
-			.pool-name-dropdown {
-				display: flex;
-				// border: 1px solid black;
-			}
-			.pool-title {
+			.group-title-container {
 				padding-left: 10px;
 				position: relative;
 				font-size: 24px;
 				display: flex;
 				justify-content: space-between;
 
-				.pool-title-delete-btn {
+				.group-title-wrap {
+					display: flex;
+				}
+
+				.group-title-btns {
 					background: none;
 					border: none;
-					padding: 3px 3px;
 					cursor: pointer;
 				}
 
-				.pool-title-wrap-btn {
-					background: none;
-					border: none;
-					cursor: pointer;
+				.group-title-wrap-btn {
 					padding: 3px 3px;
 				}
 
-				.pool-title-edit-btn {
-					background: none;
-					border: none;
+				.group-title-edit-btn {
 					padding: 0 3px;
-					cursor: pointer;
+				}
+
+				.group-title-delete-btn {
+					padding: 3px 3px;
 				}
 			}
-			.pool-task-container {
+
+			.group-dropdown {
+				height: 30px;
+			}
+
+			.group-task-droppable-container {
 				position: relative;
 				margin-top: 5px;
 				padding: 20px 0;
 				border-top-right-radius: 20px;
 				border-bottom-left-radius: 20px;
-				.card-container {
+
+				.group-task-container {
 					min-height: 200px;
 				}
 			}
@@ -55,10 +57,6 @@
 	}
 }
 
-.list-opacity {
+.column-opacity {
 	opacity: 0.8;
-}
-
-.pool-wrapped {
-	height: 30px;
 }

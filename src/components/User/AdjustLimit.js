@@ -3,6 +3,7 @@ import { useRef } from 'react'
 import { db } from '../../firebase'
 import { doc, writeBatch } from 'firebase/firestore'
 import { useTranslation } from 'react-i18next';
+import './styles.scss';
 
 const AdjustLimit = ({ assignLimit, setAssignLimit }) => {
 	const handlers = useRef()
@@ -16,7 +17,7 @@ const AdjustLimit = ({ assignLimit, setAssignLimit }) => {
 	}
 
 	return (
-		<div style={{display: 'flex', flexDirection: 'column', alignItems:'center'}}>
+		<div className='adjust-limit-container'>
 			<Text mb={5}>{t('assignUserLimitPerTask')}</Text>
 			<Group spacing={5}>
 				<ActionIcon size={30} variant='default' onClick={() => handlers.current.decrement()}>

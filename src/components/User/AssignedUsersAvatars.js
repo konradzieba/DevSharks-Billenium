@@ -1,7 +1,6 @@
 import { Group } from '@mantine/core';
 import Avatar from './Avatar';
 const AssignedUsersAvatars = ({ assignedUser, usersList }) => {
-	// console.log(assignedUser);
 	const filteredUsers = usersList.filter((user) =>
 		assignedUser.includes(user.id)
 	);

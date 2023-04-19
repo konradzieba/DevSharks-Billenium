@@ -19,8 +19,6 @@ const LanguageSelector = ({ className, style }) => {
 		i18n.changeLanguage(lng);
 		localStorage.setItem('lng', lng);
 	};
-	// console.log(i18n.language);
-	// console.log(i18n.languages[i18n.language]);
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark', fontFamily: 'Lato' }}>
 			<div className={className} style={style}>
@@ -36,7 +34,6 @@ const LanguageSelector = ({ className, style }) => {
 								style={{
 									width: rem(45),
 									height: rem(30),
-									// border: '2px solid pink',
 								}}
 								countryCode={langName}
 								svg

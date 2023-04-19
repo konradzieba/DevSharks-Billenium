@@ -21,11 +21,11 @@ export default function Title({
 	const { t } = useTranslation();
 	const { setDeleteListModalOpened } = useContext(storeApi);
 	return (
-		<div className='title-wrap'>
+		<div className='column-title-container'>
 			<div>
 				{listId === FIRST_COLUMN_BLOCKED ? t('firstColumn') : listId === LAST_COLUMN_BLOCKED ? t('lastColumn') : (title)}
 				<button
-					className='edit-list-name-btn'
+					className='column-edit-name-btn column-btn'
 					onClick={() => {
 						setRenameListId(listId);
 						setOldListTitle(title);
@@ -36,7 +36,7 @@ export default function Title({
 				</button>
 				{listId !== FIRST_COLUMN_BLOCKED && listId !== LAST_COLUMN_BLOCKED && (
 					<button
-						className='edit-list-limit-btn'
+						className='column-edit-limit-btn column-btn'
 						onClick={() => {
 							setUpdateListLimitId(listId);
 							setOldListLimit(limit);
@@ -49,7 +49,7 @@ export default function Title({
 
 				{listId !== FIRST_COLUMN_BLOCKED && listId !== LAST_COLUMN_BLOCKED && (
 					<button
-						className='delete-list-btn'
+						className='column-delete-btn column-btn'
 						onClick={() => {
 							setDeleteListId(listId);
 							setDeleteListModalOpened(true);
@@ -60,7 +60,7 @@ export default function Title({
 				)}
 			</div>
 			<div>
-				<p className='list-limit'>
+				<p className='column-limit'>
 					{limit === 0 ? t('noLimit') : `${t('limit')}: ${limit}`}
 				</p>
 			</div>

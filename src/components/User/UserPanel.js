@@ -1,23 +1,11 @@
 import { useEffect } from 'react';
 import Avatar from './Avatar';
-import {
-	Menu,
-	rem,
-	MantineProvider,
-	Flex,
-	FileButton,
-	Text,
-} from '@mantine/core';
+import { Menu, rem, MantineProvider, Flex, FileButton, Text } from '@mantine/core';
 import { IconUpload, IconLogout } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
+import './styles.scss';
 
-const UserPanel = ({
-	loggedUserInfo,
-	handleLogout,
-	uploadUserAvatar,
-	setFile,
-	file,
-}) => {
+const UserPanel = ({ loggedUserInfo, handleLogout, uploadUserAvatar, setFile, file }) => {
 	useEffect(() => {
 		if (file && loggedUserInfo.id) {
 			uploadUserAvatar(loggedUserInfo.id);
@@ -31,14 +19,7 @@ const UserPanel = ({
 			<div>
 				<Menu closeOnItemClick={false}>
 					<Menu.Target>
-						<button
-							style={{
-								display: 'flex',
-								cursor: 'pointer',
-								background: 'none',
-								border: 'none',
-							}}
-						>
+						<button className='user-menu-conainer'>
 							<Avatar
 								firstName={loggedUserInfo.firstName}
 								lastName={loggedUserInfo.lastName}
@@ -47,18 +28,7 @@ const UserPanel = ({
 								avatarUrl={loggedUserInfo.avatarUrl}
 								showAssigneds={false}
 							/>
-							<div
-								style={{
-									display: 'flex',
-									flexDirection: 'column',
-									marginLeft: '5px',
-									alignItems: 'flex-start',
-									justifyContent: 'center',
-									height: '40px',
-									marginRight: '5px',
-									color: '#e4e4e4',
-								}}
-							>
+							<div className='user-menu-info'>
 								<Text fz={16} fw={500}>
 									{loggedUserInfo.firstName} {loggedUserInfo.lastName}
 								</Text>
@@ -72,21 +42,13 @@ const UserPanel = ({
 					<Menu.Dropdown>
 						<Flex direction='column'>
 							<FileButton onChange={setFile} accept='image/png,image/jpeg'>
-								{(props) => (
-									<Menu.Item
-										style={{ fontSize: '0.875rem' }}
-										{...props}
-										icon={<IconUpload size={rem(16)} />}
-									>
+								{props => (
+									<Menu.Item className='user-menu-upload-avatar-btn' {...props} icon={<IconUpload size={rem(16)} />}>
 										{t('changeAvatar')}
 									</Menu.Item>
 								)}
 							</FileButton>
-							<Menu.Item
-								color='red'
-								onClick={handleLogout}
-								icon={<IconLogout size={rem(16)} />}
-							>
+							<Menu.Item color='red' onClick={handleLogout} icon={<IconLogout size={rem(16)} />}>
 								{t('logout')}
 							</Menu.Item>
 						</Flex>

@@ -22,7 +22,6 @@ const AssignUserModal = ({
 		(user) =>
 			!(allAssigneds.reduce((n, val) => n + (val === user.id), 0) > assignLimit)
 	);
-	// console.log(usersWithAssigneds);
 	const { t } = useTranslation();
 	const [isOpened, setIsOpened] = useState(false);
 	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
@@ -39,8 +38,6 @@ const AssignUserModal = ({
 			};
 		})
 	);
-
-	// console.log(prevData);
 
 	const SelectItem = forwardRef(
 		(
@@ -70,7 +67,6 @@ const AssignUserModal = ({
 						/>
 						<div>
 							<Text size='sm'>{label}</Text>
-							{/* <Text size='sm'>{timesassigned}</Text> */}
 						</div>
 					</Group>
 				</div>

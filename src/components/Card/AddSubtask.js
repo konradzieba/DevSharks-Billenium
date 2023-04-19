@@ -3,6 +3,7 @@ import { IconPlus, IconX } from '@tabler/icons-react'
 import { v4 as uuid } from 'uuid'
 import { TextInput, Button } from '@mantine/core'
 import { useTranslation } from 'react-i18next'
+import './styles.scss'
 
 const AddSubtask = ({ listId, cardId, addSubtask }) => {
 	const { t } = useTranslation()
@@ -28,18 +29,18 @@ const AddSubtask = ({ listId, cardId, addSubtask }) => {
 	}
 
 	return (
-		<div style={{ display: 'flex', alignItems: 'center' }}>
+		<div className='add-subtask'>
 			{isInputOpen ? (
 				<IconX size={16} cursor='pointer' onClick={() => setIsInputOpen(prev => !prev)} />
 			) : (
-				<div onClick={() => setIsInputOpen(prev => !prev)} style={{cursor: 'pointer', display: 'flex', }}>
+				<div onClick={() => setIsInputOpen(prev => !prev)} className='add-subtask__show-input'>
 					<IconPlus size={16} cursor='pointer'  />
-					<span style={{fontSize: '14px', marginLeft: '5px'}}>{t('addSubtask')}</span>
+					<span className='add-subtask__show-input-span'>{t('addSubtask')}</span>
 				</div>
 			)}
 			{isInputOpen && (
 				<form onSubmit={handleSubmit}>
-					<div style={{ display: 'flex', alignItems: 'center', marginLeft: '5px' }}>
+					<div className='add-subtask__input'>
 						<TextInput
 							style={{ flex: 1 }}
 							value={inputValue}

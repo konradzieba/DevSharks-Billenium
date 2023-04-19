@@ -15,7 +15,7 @@ const BuggedStatus = () => {
 			openDelay={200}
 			position='right-end'
 			color='#373A40'
-			style={{ border: '2px solid #25262B' }}
+			className='bugged-status__tooltip'
 		>
 			<div className='card-bug'>
 				<p>

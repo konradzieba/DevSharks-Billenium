@@ -1,4 +1,4 @@
-.wrapper {
+.home {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -6,30 +6,45 @@
 	min-width: 100%;
 	width: fit-content;
 
-	.wrapper-buttons {
+	.column-grup-add-buttons {
 		display: flex;
 		gap: 20px;
-	}
 
-	.create-btn {
-		button {
-			width: 170px;
-			background: none;
-			background-color: none;
-			padding: 10px 20px;
-			border: 1px solid #e4e4e4;
-			color: #e4e4e4;
-			transition: ease-out 0.2s;
-			letter-spacing: 3px;
-			cursor: pointer;
-			&:hover {
-				background-color: #e4e4e4;
-				color: #212121;
+		.create-btn {
+			button {
+				width: 170px;
+				background: none;
+				background-color: none;
+				padding: 10px 20px;
+				border: 1px solid #e4e4e4;
+				color: #e4e4e4;
+				transition: ease-out 0.2s;
+				letter-spacing: 3px;
+				cursor: pointer;
+				&:hover {
+					background-color: #e4e4e4;
+					color: #212121;
+				}
 			}
 		}
 	}
 
-	.cards {
+	.users-list-container {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+
+		.users-list-avatars {
+			height: 60px;
+			color: black;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 10px;
+		}
+	}
+
+	.columns {
 		display: flex;
 		flex-direction: row;
 		gap: 20px;

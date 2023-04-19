@@ -1,0 +1,65 @@
+.avatar-image {
+	position: relative;
+	background-size: cover;
+	background-position: center;
+	color: white;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+}
+
+.avatar-no-image {
+	position: relative;
+	color: white;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 16px;
+}
+
+.number-of-assigeds-info {
+	position: absolute;
+  display: flex;
+	top: -4px;
+	right: -2px;
+	justify-content: center;
+	align-items: center;
+	width: 20px;
+	height: 20px;
+	padding: 1px;
+	border-radius: 45%;
+	text-align: center;
+	font-size: 13px;
+  color: #FFF;
+}
+
+.user-menu-conainer {
+  display: flex;
+  cursor: pointer;
+  background: none;
+  border: none;
+
+  .user-menu-info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 5px;
+    align-items: flex-start;
+    justify-content: center;
+    height: 40px;
+    margin-right: 5px;
+    color: #e4e4e4;
+  }
+}
+
+.user-menu-upload-avatar-btn {
+  font-size: 0.875rem;
+}
+
+.adjust-limit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
