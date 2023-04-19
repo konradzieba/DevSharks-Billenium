@@ -1,9 +1,9 @@
-import { Checkbox } from '@mantine/core'
-import { IconX, IconCheck } from '@tabler/icons-react'
-import { useState } from 'react'
+import { Checkbox } from '@mantine/core';
+import { IconX, IconCheck } from '@tabler/icons-react';
+import { useState } from 'react';
 
 const Subtask = ({ task, toggleSubtaskStatus, removeSubtask, cardId, listId }) => {
-	const [isOpen, setIsOpen] = useState(false)
+	const [isOpen, setIsOpen] = useState(false);
 	return (
 		<div className='subtask-container'>
 			<Checkbox
@@ -27,7 +27,7 @@ const Subtask = ({ task, toggleSubtaskStatus, removeSubtask, cardId, listId }) =
 				<IconX cursor={'pointer'} size={16} onClick={() => setIsOpen(true)} className='subtask-container-iconX' />
 			)}
 		</div>
-	)
-}
+	);
+};
 
-export default Subtask
+export default Subtask;

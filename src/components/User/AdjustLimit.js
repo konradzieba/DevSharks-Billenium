@@ -32,7 +32,9 @@ const AdjustLimit = ({ assignLimit, setAssignLimit }) => {
 					min={1}
 					step={1}
           size={30}
-					styles={{ input: { width: rem(54), textAlign: 'center', fontSize: '16px' } }}
+					className='adjust-limit-input'
+					// className=''
+					// styles={{ input: { width: rem(54), textAlign: 'center', fontSize: '16px' } }}
 				/>
 
 				<ActionIcon size={30} variant='default' onClick={() => handlers.current.increment()}>

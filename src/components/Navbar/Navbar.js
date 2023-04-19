@@ -85,7 +85,7 @@ const Navbar = () => {
 				<div>
 					<h1>{t('kanbanTitle')}</h1>
 				</div>
-				<div style={{ position: 'absolute', right: '1%' }}>
+				<div className='nav-avatar'>
 					{loggedUserInfo && (
 						<UserPanel
 							file={file}

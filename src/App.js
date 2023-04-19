@@ -11,7 +11,7 @@ import LanguageSelector from './components/User/LanguageSelector';
 const App = () => {
 	return (
 		<div>
-			<LanguageSelector style={{ position: 'absolute', top: '1%', left: '1%', zIndex: '1' }} />
+			<LanguageSelector className='lang-selector' />
 			<AuthContextProvider>
 				<Routes>
 					<Route path='/' element={<SignIn />} />

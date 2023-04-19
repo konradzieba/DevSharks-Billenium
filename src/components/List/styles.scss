@@ -38,14 +38,17 @@
 				}
 			}
 
+			.test {
+				visibility: hidden;
+			}
+
 			.group-dropdown {
-				height: 30px;
+				// margin-top: 33px;
+				// height: 20px;
 			}
 
 			.group-task-droppable-container {
 				position: relative;
-				margin-top: 5px;
-				padding: 20px 0;
 				border-top-right-radius: 20px;
 				border-bottom-left-radius: 20px;
 

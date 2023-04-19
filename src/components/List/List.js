@@ -1,13 +1,13 @@
-import React from 'react'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
-import Title from '../Title/Title'
-import Card from '../Card/Card'
-import './styles.scss'
-import CreateTask from '../CreateTask/CreateTask'
-import { IconX, IconPencil, IconArrowBarToUp } from '@tabler/icons-react'
-import { useTranslation } from 'react-i18next'
+import React from 'react';
+import { Draggable, Droppable } from 'react-beautiful-dnd';
+import Title from '../Title/Title';
+import Card from '../Card/Card';
+import './styles.scss';
+import CreateTask from '../CreateTask/CreateTask';
+import { IconX, IconPencil, IconArrowBarToUp } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
-const UNSIGNED_GROUP_ID = 'QFzlKyV24rq8Vtmyz6Ai'
+const UNSIGNED_GROUP_ID = 'QFzlKyV24rq8Vtmyz6Ai';
 
 export default function List({
 	list,
@@ -46,20 +46,20 @@ export default function List({
 	addSubtask,
 	handleToggleSubtaskCollapse,
 }) {
-	const { t } = useTranslation()
+	const { t } = useTranslation();
 
 	const calculateHeight = group => {
 		const max = lists
 			.map(list => list.cards.filter(card => card.owner === group.name).length)
 			.flat()
-			.reduce((max, test) => Math.max(max, test), 0)
-		return max
-	}
+			.reduce((max, test) => Math.max(max, test), 0);
+		return max;
+	};
 
 	const cardCount = (group, list) => {
-		const count = list.cards.filter(card => card.owner === group.name).length
-		return count
-	}
+		const count = list.cards.filter(card => card.owner === group.name).length;
+		return count;
+	};
 
 	return (
 		<Draggable draggableId={list.id} index={index}>
@@ -91,7 +91,7 @@ export default function List({
 													{group.id === UNSIGNED_GROUP_ID ? t('defaultGroup') : group.name}
 													<button
 														onClick={() => {
-															handleToggleCollapse(group.id)
+															handleToggleCollapse(group.id);
 														}}
 														className='group-title-wrap-btn group-title-btns'>
 														<IconArrowBarToUp
@@ -109,19 +109,19 @@ export default function List({
 													<div>
 														<button
 															onClick={() => {
-																setRenameGroupId(group)
-																setOldGroupName(group.name)
-																setRenameGroupListId(list.id)
-																setRenameGroupModalOpened(true)
+																setRenameGroupId(group);
+																setOldGroupName(group.name);
+																setRenameGroupListId(list.id);
+																setRenameGroupModalOpened(true);
 															}}
 															className='group-title-edit-btn group-title-btns'>
 															<IconPencil size={24} color={'white'} />
 														</button>
 														<button
 															onClick={() => {
-																setDeleteGroupId(group)
-																setDeleteGroupListId(list.id)
-																setDeleteGroupModalOpened(true)
+																setDeleteGroupId(group);
+																setDeleteGroupListId(list.id);
+																setDeleteGroupModalOpened(true);
 															}}
 															className='group-title-delete-btn group-title-btns'>
 															<IconX size={24} strokeWidth={2} color={'white'} />
@@ -130,16 +130,59 @@ export default function List({
 												)}
 											</div>
 										) : (
-											<div className='group-dropdown'></div>
-											)}
+											<div className='group-title-container test'>
+												<div className='group-title-wrap'>
+													{group.id === UNSIGNED_GROUP_ID ? t('defaultGroup') : group.name}
+													<button
+														onClick={() => {
+															handleToggleCollapse(group.id);
+														}}
+														className='group-title-wrap-btn group-title-btns'>
+														<IconArrowBarToUp
+															size={24}
+															strokeWidth={2}
+															color={'white'}
+															style={{
+																transform: group.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+																transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
+															}}
+														/>
+													</button>
+												</div>
+												{group.id !== UNSIGNED_GROUP_ID && (
+													<div>
+														<button
+															onClick={() => {
+																setRenameGroupId(group);
+																setOldGroupName(group.name);
+																setRenameGroupListId(list.id);
+																setRenameGroupModalOpened(true);
+															}}
+															className='group-title-edit-btn group-title-btns'>
+															<IconPencil size={24} color={'white'} />
+														</button>
+														<button
+															onClick={() => {
+																setDeleteGroupId(group);
+																setDeleteGroupListId(list.id);
+																setDeleteGroupModalOpened(true);
+															}}
+															className='group-title-delete-btn group-title-btns'>
+															<IconX size={24} strokeWidth={2} color={'white'} />
+														</button>
+													</div>
+												)}
+											</div>
+										)}
 										<div
 											key={group.id}
 											className='group-task-droppable-container'
 											style={{
-												height: calculateHeight(group) * 200 + 150 + 'px',
+												height: calculateHeight(group) * 200 + 100 + 'px',
 												display: group.isCollapsed ? 'none' : 'block',
 												backgroundColor: list.limit !== 0 && list.limit < cardCount(group, list) && '#C22C3B',
 											}}>
+											{!group.isCollapsed && <CreateTask group={group} listId={list.id} type='card' listIdx={listIdx}/>}
 											<Droppable droppableId={`${list.id}:${group.name}`} type='task'>
 												{provided => (
 													<div ref={provided.innerRef} {...provided.droppableProps} className='group-task-container'>
@@ -173,18 +216,14 @@ export default function List({
 													</div>
 												)}
 											</Droppable>
-											{!group.isCollapsed && listIdx === 0 && (
-												<CreateTask group={group} listId={list.id} type='card' />
-											)}
-											
 										</div>
 									</div>
-								)
+								);
 							})}
 						</div>
 					</div>
 				</div>
 			)}
 		</Draggable>
-	)
+	);
 }
