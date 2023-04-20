@@ -19,14 +19,13 @@ const AssignUserModal = ({
 	assignLimit,
 }) => {
 	const usersWithAssigneds = users.filter(
-		(user) =>
-			!(allAssigneds.reduce((n, val) => n + (val === user.id), 0) > assignLimit)
+		user => !(allAssigneds.reduce((n, val) => n + (val === user.id), 0) > assignLimit)
 	);
 	const { t } = useTranslation();
 	const [isOpened, setIsOpened] = useState(false);
 	const [notFoundUserInData, setNotFoundUserInData] = useState(false);
 	const [data, setData] = useState(
-		usersWithAssigneds.map((user) => {
+		usersWithAssigneds.map(user => {
 			return {
 				label: `${user.firstName} ${user.lastName}`,
 				value: user.id,
@@ -40,19 +39,7 @@ const AssignUserModal = ({
 	);
 
 	const SelectItem = forwardRef(
-		(
-			{
-				firstname,
-				lastname,
-				avatarcolor,
-				label,
-				avatarurl,
-				timesassigned,
-				value,
-				...others
-			},
-			ref
-		) =>
+		({ firstname, lastname, avatarcolor, label, avatarurl, timesassigned, value, ...others }, ref) =>
 			timesassigned === assignLimit ? null : (
 				<div ref={ref} {...others}>
 					<Group noWrap>
@@ -75,33 +62,28 @@ const AssignUserModal = ({
 
 	return (
 		<Modal
+			className='modal-font'
 			opened
 			onClose={() => setAssignUserModalOpened(false)}
 			title={t('assignUserModalTitle')}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setAssignUserModalOpened(false)}
-		>
+			closeOnEscape={() => setAssignUserModalOpened(false)}>
 			<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
 				<MultiSelect
 					placeholder={t('assignUserModalPlaceholder')}
 					value={oldAssignedUser}
-					onChange={(value) => {
+					onChange={value => {
 						setOldAssignedUser(value);
-						setData((prevData) =>
-							prevData.map((user) => ({
+						setData(prevData =>
+							prevData.map(user => ({
 								...user,
-								timesassigned: allAssigneds.reduce(
-									(n, val) => n + (val === user.id),
-									0
-								),
+								timesassigned: allAssigneds.reduce((n, val) => n + (val === user.id), 0),
 							}))
 						);
 					}}
-					onKeyUp={(e) => {
-						const user = data.find((user) =>
-							user.label.toLowerCase().includes(e.target.value.toLowerCase())
-						);
+					onKeyUp={e => {
+						const user = data.find(user => user.label.toLowerCase().includes(e.target.value.toLowerCase()));
 						if (user) {
 							setNotFoundUserInData(false);
 						} else {
@@ -141,8 +123,7 @@ const AssignUserModal = ({
 					assignUserToCard(listId, cardId, oldAssignedUser);
 					setAssignUserModalOpened(false);
 				}}
-				disabled={notFoundUserInData}
-			>
+				disabled={notFoundUserInData}>
 				{t('assignUserModalBtn')}
 			</Button>
 		</Modal>

@@ -11,9 +11,7 @@ const UpdateListLimitModal = ({
 	setOldListLimit,
 }) => {
 	const { t } = useTranslation();
-	const descriptionInfo = (
-		<p style={{ fontSize: '1rem' }}>{t('updateListLimitModalInfo')}</p>
-	);
+	const descriptionInfo = <p style={{ fontSize: '1rem' }}>{t('updateListLimitModalInfo')}</p>;
 	const [newLimit, setNewLimit] = useState(oldListLimit);
 	// const isValid = newLimit >= minValue || newLimit === 0
 	const changeLimitInfo = <p>{t('updateListLimitModalTitle')}</p>;
@@ -26,13 +24,13 @@ const UpdateListLimitModal = ({
 		size: 'sm',
 	};
 
-	const handleChangeLimit = (value) => {
+	const handleChangeLimit = value => {
 		if (/^[0-9\b]+$/.test(value)) {
 			setNewLimit(value);
 		}
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		updateListLimit(updateListLimitId, newLimit);
 		setUpdateListLimitId(null);
@@ -42,13 +40,13 @@ const UpdateListLimitModal = ({
 
 	return (
 		<Modal
+			className='modal-font'
 			opened
 			onClose={() => setUpdateListLimitModalOpened(false)}
 			title={changeLimitInfo}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setUpdateListLimitModalOpened(false)}
-		>
+			closeOnEscape={() => setUpdateListLimitModalOpened(false)}>
 			<form>
 				<NumberInput
 					value={newLimit}
@@ -58,10 +56,8 @@ const UpdateListLimitModal = ({
 					size='md'
 					description={descriptionInfo}
 					min={0}
-					formatter={(value) =>
-						value === '0' ? t('noLimit') : value.replace(/\D/g, '')
-					}
-					onChange={(e) => handleChangeLimit(e)}
+					formatter={value => (value === '0' ? t('noLimit') : value.replace(/\D/g, ''))}
+					onChange={e => handleChangeLimit(e)}
 				/>
 				<Button
 					{...buttonDynamicProps}

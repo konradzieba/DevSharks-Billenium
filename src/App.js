@@ -14,8 +14,8 @@ const App = () => {
 			<LanguageSelector className='lang-selector' />
 			<AuthContextProvider>
 				<Routes>
-					<Route path='/' element={<SignIn />} />
-					<Route path='/signup' element={<SignUp />} />
+						<Route path='/' element={<SignIn />} />
+						<Route path='/signup' element={<SignUp />} />
 					<Route
 						path='/kanban'
 						element={

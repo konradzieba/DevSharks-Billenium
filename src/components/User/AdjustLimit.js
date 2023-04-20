@@ -1,4 +1,4 @@
-import { NumberInput, Group, ActionIcon, rem, Text } from '@mantine/core'
+import { NumberInput, Group, ActionIcon, Text } from '@mantine/core'
 import { useRef } from 'react'
 import { db } from '../../firebase'
 import { doc, writeBatch } from 'firebase/firestore'

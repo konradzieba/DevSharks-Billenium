@@ -17,7 +17,7 @@ import i18n from '../../translations/i18n';
 
 const SignIn = () => {
 	const { t } = useTranslation();
-	const changeLanguage = (lng) => {
+	const changeLanguage = lng => {
 		i18n.changeLanguage(lng);
 	};
 
@@ -29,27 +29,16 @@ const SignIn = () => {
 
 	const suggestedEmails =
 		email.trim().length > 0 && !email.includes('@')
-			? ['gmail.com', 'outlook.com', 'yahoo.com', 'wp.pl', 'o2.pl'].map(
-					(provider) => `${email}@${provider}`
-			  )
+			? ['gmail.com', 'outlook.com', 'yahoo.com', 'wp.pl', 'o2.pl'].map(provider => `${email}@${provider}`)
 			: [];
 
-	const invalidEmailError =
-		error === 'Firebase: Error (auth/invalid-email).'
-			? t('signInInvalidEmailError')
-			: false;
+	const invalidEmailError = error === 'Firebase: Error (auth/invalid-email).' ? t('signInInvalidEmailError') : false;
 
-	const userNotFoundError =
-		error === 'Firebase: Error (auth/user-not-found).'
-			? t('signInUserNotFoundError')
-			: false;
+	const userNotFoundError = error === 'Firebase: Error (auth/user-not-found).' ? t('signInUserNotFoundError') : false;
 
-	const passwordError =
-		error === 'Firebase: Error (auth/wrong-password).'
-			? t('signInPasswordError')
-			: false;
+	const passwordError = error === 'Firebase: Error (auth/wrong-password).' ? t('signInPasswordError') : false;
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async e => {
 		e.preventDefault();
 		setError('');
 		try {
@@ -62,14 +51,13 @@ const SignIn = () => {
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
 			<form onSubmit={handleSubmit}>
-				<Container size={420} py={100}>
+				<Container size={420} py={100} className='modal-font'>
 					<Title
 						align='center'
-						sx={(theme) => ({
+						sx={theme => ({
 							fontFamily: `Lato, ${theme.fontFamily}`,
 							fontWeight: 700,
-						})}
-					>
+						})}>
 						{t('loginPanelTitle')}
 					</Title>
 					<Text color='dimmed' size='sm' align='center' mt={5}>
@@ -83,7 +71,7 @@ const SignIn = () => {
 					<Paper withBorder shadow='md' p={30} mt={20} radius='md'>
 						<Autocomplete
 							value={email}
-							onChange={(value) => {
+							onChange={value => {
 								setError('');
 								setEmail(value);
 							}}
@@ -99,7 +87,7 @@ const SignIn = () => {
 							placeholder={t('passwordPlaceholder')}
 							required
 							mt='md'
-							onChange={(e) => {
+							onChange={e => {
 								setError('');
 								setPassword(e.target.value);
 							}}

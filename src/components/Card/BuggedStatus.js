@@ -1,5 +1,5 @@
 import { IconBug } from '@tabler/icons-react';
-import { MantineProvider, Tooltip, Text } from '@mantine/core';
+import { Tooltip, Text } from '@mantine/core';
 import './styles.scss';
 import { useTranslation } from 'react-i18next';
 

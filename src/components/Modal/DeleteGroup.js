@@ -19,30 +19,23 @@ const DeleteGroupModal = ({
 	};
 	return (
 		<Modal
+			className='modal-font'
 			opened
 			onClose={() => setDeleteGroupModalOpened(false)}
 			title={t('deleteGroupModalTitle')}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setDeleteGroupModalOpened(false)}
-		>
+			closeOnEscape={() => setDeleteGroupModalOpened(false)}>
 			<div style={{ display: 'flex', justifyContent: 'center', gap: '1rem' }}>
 				<Button
 					color='gray'
 					radius='md'
 					size='sm'
 					style={{ fontWeight: 'normal' }}
-					onClick={() => setDeleteGroupModalOpened(false)}
-				>
+					onClick={() => setDeleteGroupModalOpened(false)}>
 					{t('deleteGroupModalCancelBtn')}
 				</Button>
-				<Button
-					color='red'
-					radius='md'
-					size='sm'
-					onClick={handleDelete}
-					style={{ fontWeight: 'normal' }}
-				>
+				<Button color='red' radius='md' size='sm' onClick={handleDelete} style={{ fontWeight: 'normal' }}>
 					{t('deleteGroupModalDeleteBtn')}
 				</Button>
 			</div>

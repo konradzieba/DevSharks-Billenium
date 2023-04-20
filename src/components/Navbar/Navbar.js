@@ -2,14 +2,12 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles.scss';
 import { UserAuth } from '../../context/AuthContext';
-import Avatar from '../User/Avatar';
 import UserPanel from '../User/UserPanel';
 import { db, storage } from '../../firebase';
 import { collection, onSnapshot, query } from 'firebase/firestore';
 import { ref, getDownloadURL, uploadBytesResumable } from 'firebase/storage';
 import { doc, updateDoc } from 'firebase/firestore';
 import { useTranslation } from 'react-i18next';
-import LanguageSelector from '../User/LanguageSelector';
 
 const Navbar = () => {
 	const { t } = useTranslation();

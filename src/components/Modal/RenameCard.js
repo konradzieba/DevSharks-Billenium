@@ -1,12 +1,4 @@
-import {
-	Modal,
-	TextInput,
-	Button,
-	Box,
-	Text,
-	Group,
-	Switch,
-} from '@mantine/core';
+import { Modal, TextInput, Button, Box, Text, Group, Switch } from '@mantine/core';
 import { IconBug } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -47,15 +39,9 @@ const RenameCardModal = ({
 		...(!isValid && { disabled: true }),
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
-		updateCardTitle(
-			oldCardTitle,
-			renameCardListId,
-			renameCardId,
-			choosenColor,
-			isBugged
-		);
+		updateCardTitle(oldCardTitle, renameCardListId, renameCardId, choosenColor, isBugged);
 		setRenameCardModalOpened(false);
 		setOldCardTitle('');
 		setRenameCardId('');
@@ -65,18 +51,18 @@ const RenameCardModal = ({
 
 	return (
 		<Modal
+			className='modal-font'
 			opened={renameCardModalOpened}
 			onClose={() => setRenameCardModalOpened(false)}
 			title={selectedColumnInfo}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setRenameCardModalOpened(false)}
-		>
+			closeOnEscape={() => setRenameCardModalOpened(false)}>
 			<form>
 				<TextInput
 					{...inputDynamicProps}
 					value={oldCardTitle}
-					onChange={(e) => {
+					onChange={e => {
 						setOldCardTitle(e.target.value);
 						setActualInputValue(e.target.value);
 					}}
@@ -98,8 +84,7 @@ const RenameCardModal = ({
 							}}
 							onClick={() => {
 								setChoosenColor(color);
-							}}
-						></button>
+							}}></button>
 					))}
 				</Box>
 				<Text mt={10}>{t('renameCardModalIsBugged')}</Text>
@@ -111,14 +96,13 @@ const RenameCardModal = ({
 					color='red.8'
 					onLabel={<IconBug size='1.1rem' stroke={2} color='white' />}
 					onChange={() => {
-						setIsBugged((prevState) => !isBugged);
+						setIsBugged(prevState => !isBugged);
 					}}
 				/>
 				<Button
 					{...buttonDynamicProps}
 					onClick={handleSubmit}
-					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}
-				>
+					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}>
 					{t('renameCardModalBtn')}
 				</Button>
 			</form>

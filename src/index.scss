@@ -39,12 +39,19 @@ body {
 		font-size: 10px;
 	}
 
+	.modal-font {
+		label, input, p, svg, span, div, button {
+			font-size: 1.2rem;
+		}
+	}
+
 	.lang-selector {
 		top: 1%;
 		left: 2%;
 	}
 
 	.home {
+		align-items: normal;
 		width: auto;
 
 		& .column-grup-add-buttons {
@@ -187,5 +194,9 @@ body {
 
 	.group-title-wrap-btn{
 		padding: 0px 3px;
+	}
+
+	.notyfication-text{
+		font-size: 1.4rem;
 	}
 }

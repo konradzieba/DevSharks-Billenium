@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../../context/AuthContext';
 import { addDoc, collection } from 'firebase/firestore';
@@ -17,7 +17,6 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
-import i18n from '../../translations/i18n';
 
 const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange', 'tomato'];
 
@@ -81,7 +80,7 @@ const SignUp = () => {
 					handleSubmit(values);
 				})}
 			>
-				<Container size={420} py={100}>
+				<Container size={420} py={100} className='modal-font'>
 					<Title
 						align='center'
 						sx={(theme) => ({
@@ -145,6 +144,7 @@ const SignUp = () => {
 					</Paper>
 				</Container>
 			</form>
+			
 		</MantineProvider>
 	);
 };

@@ -7,8 +7,8 @@ const BuggedMoveNotification = () => {
 	const { t } = useTranslation();
 	return (
 		<Notification className='notyfication-container' icon={<IconX size='1rem' />} withCloseButton={false} color='red.9'>
-			{t('notyficationBuggedMove')}{' '}
-			<Text color='red.6' display={'inline-block'}>
+			<span className='notyfication-text'>{t('notyficationBuggedMove')}{' '}</span>
+			<Text className='notyfication-text' color='red.6' display={'inline-block'}>
 				{t('notyficationBuggedMoveStatus')}
 			</Text>
 		</Notification>

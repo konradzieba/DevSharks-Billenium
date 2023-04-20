@@ -30,7 +30,7 @@ const RenameListModal = ({
 		...(!isValid && { disabled: true }),
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		updateListTitle(oldListTitle, renameListId);
 		setRenameListModalOpened(false);
@@ -40,18 +40,18 @@ const RenameListModal = ({
 
 	return (
 		<Modal
+			className='modal-font'
 			opened={renameListModalOpened}
 			onClose={() => setRenameListModalOpened(false)}
 			title={selectedColumnInfo}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setRenameListModalOpened(false)}
-		>
+			closeOnEscape={() => setRenameListModalOpened(false)}>
 			<form>
 				<TextInput
 					{...inputDynamicProps}
 					value={oldListTitle}
-					onChange={(e) => {
+					onChange={e => {
 						setOldListTitle(e.target.value);
 						setActualInputValue(e.target.value);
 					}}
@@ -59,8 +59,7 @@ const RenameListModal = ({
 				<Button
 					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}
 					{...buttonDynamicProps}
-					onClick={handleSubmit}
-				>
+					onClick={handleSubmit}>
 					{t('renameListModalBtn')}
 				</Button>
 			</form>

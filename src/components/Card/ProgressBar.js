@@ -1,5 +1,4 @@
 import { Progress, Text } from '@mantine/core';
-import { changeLanguage } from 'i18next';
 
 function ProgressBar({ subtasks }) {
 	const getCompletePercentage = () => {

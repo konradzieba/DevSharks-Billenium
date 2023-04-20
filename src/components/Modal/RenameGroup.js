@@ -13,9 +13,7 @@ const RenameGroupModal = ({
 	const { t } = useTranslation();
 	const selectedColumnInfo = <p>{t('renameGroupModalTitle')}</p>;
 	const isUnique = groups.every(
-		(group) =>
-			group.id === renameGroupId.id ||
-			group.name.toLowerCase() !== oldGroupName.toLowerCase()
+		group => group.id === renameGroupId.id || group.name.toLowerCase() !== oldGroupName.toLowerCase()
 	);
 	const isValid = oldGroupName.trim().length > 0;
 
@@ -34,7 +32,7 @@ const RenameGroupModal = ({
 		...(!isValid && { disabled: true }),
 	};
 
-	const handleSubmit = (e) => {
+	const handleSubmit = e => {
 		e.preventDefault();
 		renameGroup(renameGroupListId, renameGroupId, oldGroupName);
 		setOldGroupName('');
@@ -44,26 +42,25 @@ const RenameGroupModal = ({
 
 	return (
 		<Modal
+			className='modal-font'
 			opened
 			onClose={() => setRenameGroupModalOpened(false)}
 			title={selectedColumnInfo}
 			overlayProps={{ blur: 3 }}
 			radius='md'
-			closeOnEscape={() => setRenameGroupModalOpened(false)}
-		>
+			closeOnEscape={() => setRenameGroupModalOpened(false)}>
 			<form>
 				<TextInput
 					{...inputDynamicProps}
 					value={oldGroupName}
-					onChange={(e) => {
+					onChange={e => {
 						setOldGroupName(e.target.value);
 					}}
 				/>
 				<Button
 					{...buttonDynamicProps}
 					onClick={handleSubmit}
-					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}
-				>
+					style={{ display: 'block', margin: '20px auto 0', fontWeight: 'normal' }}>
 					{t('renameGroupModalBtn')}
 				</Button>
 			</form>

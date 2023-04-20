@@ -33,6 +33,7 @@ const AddGroupModal = ({ setAddGroupModalOpened, addMoreGroup, groups }) => {
 	};
 	return (
 		<Modal
+			className='modal-font'
 			opened
 			onClose={() => setAddGroupModalOpened(false)}
 			title={selectedColumnInfo}

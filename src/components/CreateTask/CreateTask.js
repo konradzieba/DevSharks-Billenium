@@ -2,7 +2,6 @@ import React, { useContext, useState } from 'react';
 import storeApi from '../../utils/storeApi';
 import { useTranslation } from 'react-i18next';
 import './styles.scss';
-import { Visibility } from '@mui/icons-material';
 
 export default function CreateTask({ listId, type, group, listIdx }) {
 	const { t } = useTranslation();
