@@ -14,6 +14,7 @@
 		.create-btn {
 			button {
 				width: 170px;
+				height: 100%;
 				background: none;
 				background-color: none;
 				padding: 10px 20px;
@@ -34,7 +35,6 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-	
 
 		.users-list-avatars {
 			height: 60px;
