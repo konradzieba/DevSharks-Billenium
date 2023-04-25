@@ -39,7 +39,7 @@ import AdjustLimit from '../components/User/AdjustLimit';
 
 export default function Home() {
 	const { t } = useTranslation();
-	const changeLanguage = lng => {
+	const changeLanguage = (lng) => {
 		i18n.changeLanguage(lng);
 	};
 
@@ -65,8 +65,10 @@ export default function Home() {
 	const [oldCardTitle, setOldCardTitle] = useState('');
 	const [cardColor, setCardColor] = useState('');
 	const [isBugged, setIsBugged] = useState(null);
+	const [oldChildren, setOldChildren] = useState(null);
 	// UPDATE LIST LIMIT
-	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] = useState(false);
+	const [updateListLimitModalOpened, setUpdateListLimitModalOpened] =
+		useState(false);
 	const [updateListLimitId, setUpdateListLimitId] = useState(null);
 	const [oldListLimit, setOldListLimit] = useState(null);
 	//ERROR ANIMATION
@@ -94,9 +96,9 @@ export default function Home() {
 		const q2 = query(collection(db, 'groups'), orderBy('timestamp', 'asc'));
 		const users = query(collection(db, 'users'));
 		const assignLimit = doc(db, 'assignLimit', 'qXV8NMrecqiwE0fUCQBW');
-		onSnapshot(q, snapShot => {
+		onSnapshot(q, (snapShot) => {
 			setLists(
-				snapShot.docs.map(doc => {
+				snapShot.docs.map((doc) => {
 					return {
 						id: doc.id,
 						...doc.data(),
@@ -104,9 +106,9 @@ export default function Home() {
 				})
 			);
 		});
-		onSnapshot(q2, snapShot => {
+		onSnapshot(q2, (snapShot) => {
 			setGroups(
-				snapShot.docs.map(doc => {
+				snapShot.docs.map((doc) => {
 					return {
 						id: doc.id,
 						...doc.data(),
@@ -114,9 +116,9 @@ export default function Home() {
 				})
 			);
 		});
-		onSnapshot(users, snapShot => {
+		onSnapshot(users, (snapShot) => {
 			setUsersList(
-				snapShot.docs.map(doc => {
+				snapShot.docs.map((doc) => {
 					return {
 						id: doc.id,
 						...doc.data(),
@@ -125,10 +127,14 @@ export default function Home() {
 			);
 		});
 
-		const docSnap = getDoc(assignLimit).then(doc => setAssignLimit(doc.data()['limit']));
+		const docSnap = getDoc(assignLimit).then((doc) =>
+			setAssignLimit(doc.data()['limit'])
+		);
 	}, []);
 
-	const allAssigneds = lists.map(list => list.cards.flatMap(card => card.assignedUser)).flat();
+	const allAssigneds = lists
+		.map((list) => list.cards.flatMap((card) => card.assignedUser))
+		.flat();
 	// console.log(allAssigneds);
 	useEffect(() => {
 		if (bugMovedNotification) {
@@ -142,19 +148,19 @@ export default function Home() {
 		};
 	}, [bugMovedNotification]);
 
-	const handleToggleCollapse = async id => {
+	const handleToggleCollapse = async (id) => {
 		const groupRef = doc(db, 'groups', id);
-		const group = groups.find(group => group.id === id);
+		const group = groups.find((group) => group.id === id);
 		await updateDoc(groupRef, { isCollapsed: !group.isCollapsed });
 	};
 
 	const handleToggleSubtaskCollapse = async (listId, cardId) => {
 		const listRef = doc(db, 'tests', listId);
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.map(card => {
+					cards: list.cards.map((card) => {
 						if (card.id === cardId) {
 							return {
 								...card,
@@ -170,7 +176,7 @@ export default function Home() {
 			}
 		});
 		await updateDoc(listRef, {
-			cards: updatedLists.find(list => list.id === listId).cards,
+			cards: updatedLists.find((list) => list.id === listId).cards,
 		});
 	};
 
@@ -184,6 +190,9 @@ export default function Home() {
 			isBugged: false,
 			subtasks: [],
 			isCollapsed: false,
+			isDone: false,
+			children: [],
+			isChild: false,
 		};
 		const listRef = doc(db, 'tests', listId);
 
@@ -193,24 +202,24 @@ export default function Home() {
 	};
 	const removeCard = async (listId, cardId) => {
 		const listRef = doc(db, 'tests', listId);
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.filter(card => card.id !== cardId),
+					cards: list.cards.filter((card) => card.id !== cardId),
 				};
 			}
 			return list;
 		});
 		setLists(updatedLists);
 		await updateDoc(listRef, {
-			cards: updatedLists.find(list => list.id === listId).cards,
+			cards: updatedLists.find((list) => list.id === listId).cards,
 		});
 	};
 
 	const updateListLimit = async (listId, limit) => {
 		const listRef = doc(db, 'tests', listId);
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
@@ -221,26 +230,37 @@ export default function Home() {
 		});
 		setLists(updatedLists);
 		await updateDoc(listRef, {
-			limit: updatedLists.find(list => list.id === listId).limit,
+			limit: updatedLists.find((list) => list.id === listId).limit,
 		});
 	};
 
-	const updateCardTitle = async (title, listId, cardId, color, isBugged) => {
+	const updateCardTitle = async (
+		title,
+		listId,
+		cardId,
+		color,
+		isBugged,
+		children
+	) => {
 		const listRef = doc(db, 'tests', listId);
 
-		const listIndex = lists.findIndex(list => list.id === listId);
+		const listIndex = lists.findIndex((list) => list.id === listId);
 		if (listIndex < 0) {
 			return;
 		}
 
-		const cardIndex = lists[listIndex].cards.findIndex(card => card.id === cardId);
+		const cardIndex = lists[listIndex].cards.findIndex(
+			(card) => card.id === cardId
+		);
 		if (cardIndex < 0) {
 			return;
 		}
 
 		lists[listIndex].cards[cardIndex].title = title;
 		await updateDoc(listRef, {
-			cards: lists[listIndex].cards.map(card => (card.id === cardId ? { ...card, title, color, isBugged } : card)),
+			cards: lists[listIndex].cards.map((card) =>
+				card.id === cardId ? { ...card, title, color, isBugged, children } : card
+			),
 		});
 
 		return lists[listIndex].cards[cardIndex];
@@ -255,7 +275,7 @@ export default function Home() {
 		});
 	};
 
-	const addMoreGroup = async groupName => {
+	const addMoreGroup = async (groupName) => {
 		await addDoc(collection(db, 'groups'), {
 			isCollapsed: false,
 			name: groupName,
@@ -265,7 +285,7 @@ export default function Home() {
 
 	const updateListTitle = async (title, listId) => {
 		const listRef = doc(db, 'tests', listId);
-		const index = lists.findIndex(list => list.id === listId);
+		const index = lists.findIndex((list) => list.id === listId);
 		if (index < 0) {
 			return;
 		}
@@ -276,11 +296,11 @@ export default function Home() {
 		return lists[index];
 	};
 
-	const deleteList = async listId => {
+	const deleteList = async (listId) => {
 		const listRef = doc(db, 'tests', listId);
-		const list = lists.find(list => list.id === listId);
+		const list = lists.find((list) => list.id === listId);
 		const cards = list.cards;
-		const defaultListRef = doc(db, 'tests', 'JDFaQcxiM4CmBnEYcVQ4');
+		const defaultListRef = doc(db, 'tests', 'V3hWR9ETcwyU973VDXvP');
 		await updateDoc(defaultListRef, {
 			cards: arrayUnion(...cards),
 		});
@@ -288,7 +308,7 @@ export default function Home() {
 		await deleteDoc(doc(db, 'tests', listId));
 	};
 
-	const onDragEnd = async result => {
+	const onDragEnd = async (result) => {
 		const { destination, source, draggableId, type } = result;
 		if (!destination) {
 			return;
@@ -318,20 +338,28 @@ export default function Home() {
 		const splittedSource = source.droppableId.split(':');
 		const splittedDestination = destination.droppableId.split(':');
 
-		const cardBugFlag = lists.find(list => list.id === splittedSource[0]).cards.find(card => card.id === draggableId);
-		if (cardBugFlag.isBugged && splittedDestination[0] === 'HE79KxdSDne6hCCGbz45') {
+		const cardBugFlag = lists
+			.find((list) => list.id === splittedSource[0])
+			.cards.find((card) => card.id === draggableId);
+		if (
+			cardBugFlag.isBugged &&
+			splittedDestination[0] === 'mZTPFCSFozxolWX4V85v'
+		) {
 			setBugMovedNotification(true);
 			return;
 		}
 
-		const sourceTask = lists.find(list => list.id === splittedSource[0]);
+		const sourceTask = lists.find((list) => list.id === splittedSource[0]);
 		if (splittedSource[0] === splittedDestination[0]) {
-			const list = lists.find(list => list.id === splittedSource[0]);
+			const list = lists.find((list) => list.id === splittedSource[0]);
 			const updatedCards = Array.from(list.cards);
 			const [removedCard] = updatedCards.splice(source.index, 1);
 			updatedCards.splice(destination.index, 0, removedCard);
-			updatedCards.map(card => {
-				if (splittedSource[1] === card.owner && card.id === sourceTask.cards.find(card => card.id === draggableId).id) {
+			updatedCards.map((card) => {
+				if (
+					splittedSource[1] === card.owner &&
+					card.id === sourceTask.cards.find((card) => card.id === draggableId).id
+				) {
 					card.owner = splittedDestination[1];
 				}
 				return card;
@@ -340,7 +368,7 @@ export default function Home() {
 			const listRef = doc(db, 'tests', splittedDestination[0]);
 			await updateDoc(listRef, { cards: updatedCards });
 
-			const updatedLists = lists.map(list => {
+			const updatedLists = lists.map((list) => {
 				if (list.id === splittedSource[0]) {
 					return { ...list, cards: updatedCards };
 				}
@@ -350,24 +378,37 @@ export default function Home() {
 			setLists(updatedLists);
 		} else {
 			const sourceListRef = doc(db, 'tests', source.droppableId.split(':')[0]);
-			const destinationListRef = doc(db, 'tests', destination.droppableId.split(':')[0]);
+			const destinationListRef = doc(
+				db,
+				'tests',
+				destination.droppableId.split(':')[0]
+			);
 
 			const batch = writeBatch(db);
-			const sourceList = lists.find(list => list.id === source.droppableId.split(':')[0]);
-			const destinationList = lists.find(list => list.id === destination.droppableId.split(':')[0]);
-			const draggingCardPrev = sourceList.cards.find(card => card.id === draggableId);
+			const sourceList = lists.find(
+				(list) => list.id === source.droppableId.split(':')[0]
+			);
+			const destinationList = lists.find(
+				(list) => list.id === destination.droppableId.split(':')[0]
+			);
+			const draggingCardPrev = sourceList.cards.find(
+				(card) => card.id === draggableId
+			);
 
 			const draggingCard = {
 				...draggingCardPrev,
 				owner: destination.droppableId.split(':')[1],
+				isDone: splittedDestination[0] === 'mZTPFCSFozxolWX4V85v',
 			};
 
-			sourceList.cards = sourceList.cards.filter(card => card.id !== draggableId);
+			sourceList.cards = sourceList.cards.filter(
+				(card) => card.id !== draggableId
+			);
 			destinationList.cards.splice(destination.index, 0, draggingCard);
 			batch.update(sourceListRef, { cards: sourceList.cards });
 			batch.update(destinationListRef, { cards: destinationList.cards });
 
-			const updatedLists = lists.map(list => {
+			const updatedLists = lists.map((list) => {
 				if (list.id === source.droppableId) {
 					return { ...list, cards: sourceList.cards };
 				}
@@ -386,12 +427,12 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
 			// const updatedCards = cards.filter(card => card.owner !== group.name)
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.owner === group.name) {
 					return { ...card, owner: 'Nieprzypisane' };
 				}
@@ -399,7 +440,7 @@ export default function Home() {
 			});
 			updateDoc(docRef, { cards: updatedCards });
 		});
-		const updatedGroups = groups.filter(g => g.id !== group.id);
+		const updatedGroups = groups.filter((g) => g.id !== group.id);
 		setGroups(updatedGroups);
 
 		await deleteDoc(doc(db, 'groups', group.id));
@@ -409,12 +450,12 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		setLists(lists => {
-			return lists.map(list => {
+		setLists((lists) => {
+			return lists.map((list) => {
 				if (list.id === listId) {
 					return {
 						...list,
-						cards: list.cards.map(card => {
+						cards: list.cards.map((card) => {
 							if (card.owner === group.name) {
 								return { ...card, owner: newName };
 							}
@@ -426,8 +467,8 @@ export default function Home() {
 			});
 		});
 
-		setGroups(groups => {
-			return groups.map(g => {
+		setGroups((groups) => {
+			return groups.map((g) => {
 				if (g.id === group.id) {
 					return { ...g, name: newName };
 				}
@@ -435,11 +476,11 @@ export default function Home() {
 			});
 		});
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.owner === group.name) {
 					card.owner = newName;
 				}
@@ -455,11 +496,11 @@ export default function Home() {
 	};
 
 	const updateAssignUserList = async (listId, cardId, assignedUser) => {
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.map(card => {
+					cards: list.cards.map((card) => {
 						if (card.id === cardId) {
 							return { ...card, assignedUser };
 						}
@@ -475,11 +516,11 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.id === cardId) {
 					card.assignedUser = assignedUser;
 				}
@@ -491,15 +532,15 @@ export default function Home() {
 	};
 
 	const toggleSubtaskStatus = async (listId, cardId, subtaskId) => {
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.map(card => {
+					cards: list.cards.map((card) => {
 						if (card.id === cardId) {
 							return {
 								...card,
-								subtasks: card.subtasks.map(subtask => {
+								subtasks: card.subtasks.map((subtask) => {
 									if (subtask.id === subtaskId) {
 										return {
 											...subtask,
@@ -522,13 +563,13 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.id === cardId) {
-					card.subtasks = card.subtasks.map(subtask => {
+					card.subtasks = card.subtasks.map((subtask) => {
 						if (subtask.id === subtaskId) {
 							subtask.isDone = !subtask.isDone;
 						}
@@ -543,11 +584,11 @@ export default function Home() {
 	};
 
 	const addSubtask = async (listId, cardId, subtask) => {
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.map(card => {
+					cards: list.cards.map((card) => {
 						if (card.id === cardId) {
 							return {
 								...card,
@@ -566,11 +607,11 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.id === cardId) {
 					card.subtasks = [...card.subtasks, subtask];
 				}
@@ -582,15 +623,15 @@ export default function Home() {
 	};
 
 	const removeSubtask = async (listId, cardId, subtaskId) => {
-		const updatedLists = lists.map(list => {
+		const updatedLists = lists.map((list) => {
 			if (list.id === listId) {
 				return {
 					...list,
-					cards: list.cards.map(card => {
+					cards: list.cards.map((card) => {
 						if (card.id === cardId) {
 							return {
 								...card,
-								subtasks: card.subtasks.filter(subtask => subtask.id !== subtaskId),
+								subtasks: card.subtasks.filter((subtask) => subtask.id !== subtaskId),
 							};
 						}
 						return card;
@@ -605,13 +646,15 @@ export default function Home() {
 		const collectionRef = collection(db, 'tests');
 		const querySnapshot = await getDocs(collectionRef);
 
-		querySnapshot.forEach(doc => {
+		querySnapshot.forEach((doc) => {
 			const docRef = doc.ref;
 			const cards = doc.data().cards;
 
-			const updatedCards = cards.map(card => {
+			const updatedCards = cards.map((card) => {
 				if (card.id === cardId) {
-					card.subtasks = card.subtasks.filter(subtask => subtask.id !== subtaskId);
+					card.subtasks = card.subtasks.filter(
+						(subtask) => subtask.id !== subtaskId
+					);
 				}
 				return card;
 			});
@@ -633,7 +676,8 @@ export default function Home() {
 					setDeleteListModalOpened,
 					setDeleteListId,
 					setRenameCardModalOpened,
-				}}>
+				}}
+			>
 				{deleteListModalOpened && (
 					<DeleteListModal
 						deleteListModalOpened={deleteListModalOpened}
@@ -679,6 +723,10 @@ export default function Home() {
 						cardColor={cardColor}
 						setCardColor={setCardColor}
 						bugged={isBugged}
+						lists={lists}
+						oldChildren={oldChildren}
+						setOldChildren={setOldChildren}
+						setLists={setLists}
 					/>
 				)}
 
@@ -691,7 +739,9 @@ export default function Home() {
 						updateListLimitId={updateListLimitId}
 						setUpdateListLimitId={setUpdateListLimitId}
 						setOldListLimit={setOldListLimit}
-						minValue={lists.find(list => list.id === updateListLimitId).cards.length || 0}
+						minValue={
+							lists.find((list) => list.id === updateListLimitId).cards.length || 0
+						}
 					/>
 				)}
 				{deleteGroupModalOpened && (
@@ -744,22 +794,31 @@ export default function Home() {
 				)}
 				<DragDropContext onDragEnd={onDragEnd}>
 					<Droppable droppableId='app' type='list' direction='horizontal'>
-						{provided => (
-							<div className='home' ref={provided.innerRef} {...provided.droppableProps}>
+						{(provided) => (
+							<div
+								className='home'
+								ref={provided.innerRef}
+								{...provided.droppableProps}
+							>
 								<Navbar />
 								<div className='column-grup-add-buttons'>
 									<div className='create-btn'>
 										<CreateColumn type='list' />
 									</div>
 									<div className='create-btn'>
-										<button onClick={() => setAddGroupModalOpened(true)}>{t('addGroup')}</button>
+										<button onClick={() => setAddGroupModalOpened(true)}>
+											{t('addGroup')}
+										</button>
 									</div>
 								</div>
-								<AdjustLimit assignLimit={assignLimit} setAssignLimit={setAssignLimit} />
+								<AdjustLimit
+									assignLimit={assignLimit}
+									setAssignLimit={setAssignLimit}
+								/>
 								<div className='users-list-container'>
 									<div className='users-list-title'>{t('usersList')}</div>
 									<div className='users-list-avatars'>
-										{usersList.map(user => {
+										{usersList.map((user) => {
 											return (
 												<Avatar
 													firstName={user.firstName}
@@ -768,7 +827,9 @@ export default function Home() {
 													key={user.id}
 													avatarUrl={user.avatarUrl}
 													enabledTooltip={true}
-													assigneds={allAssigneds.filter(assign => assign === user.id).length}
+													assigneds={
+														allAssigneds.filter((assign) => assign === user.id).length
+													}
 													showAssigneds={true}
 													assignLimit={assignLimit}
 												/>
@@ -822,6 +883,7 @@ export default function Home() {
 												addSubtask={addSubtask}
 												handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
 												allAssigneds={allAssigneds}
+												setOldChildren={setOldChildren}
 											/>
 										);
 									})}

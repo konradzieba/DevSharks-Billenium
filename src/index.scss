@@ -40,7 +40,13 @@ body {
 	}
 
 	.modal-font {
-		label, input, p, svg, span, div, button {
+		label,
+		input,
+		p,
+		svg,
+		span,
+		div,
+		button {
 			font-size: 1.2rem;
 		}
 	}
@@ -170,7 +176,11 @@ body {
 	.card-wrap {
 		font-size: 1.6rem;
 	}
-	.card-wrap .card-title .card-title-container .card-title-container__icon-container .card-title-container__icon-container__icon {
+	.card-wrap
+		.card-title
+		.card-title-container
+		.card-title-container__icon-container
+		.card-title-container__icon-container__icon {
 		width: 1.6rem;
 		height: 1.6rem;
 	}
@@ -192,11 +202,11 @@ body {
 		height: 30px;
 	}
 
-	.group-title-wrap-btn{
+	.group-title-wrap-btn {
 		padding: 0px 3px;
 	}
 
-	.notyfication-text{
+	.notyfication-text {
 		font-size: 1.4rem;
 	}
 }
