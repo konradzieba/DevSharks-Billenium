@@ -265,6 +265,7 @@ export default function Home() {
 				card.id === cardId ? { ...card, title, color, isBugged, children } : card
 			),
 		});
+
 		return lists[listIndex].cards[cardIndex];
 	};
 

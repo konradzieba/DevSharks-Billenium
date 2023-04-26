@@ -29,17 +29,27 @@ const RenameCardModal = ({
 	const [choosenColor, setChoosenColor] = useState(cardColor);
 	const [isBugged, setIsBugged] = useState(bugged);
 
+	//find in list card with renameCardId
+	const renameCard = lists.flatMap(column => column.cards).find(card => card.id === renameCardId);
+	// console.log('all children', allChildren);
 	// console.log('old children: ', oldChildren);
-
-	const dataList = lists
+	// console.log(allChildren);
+	const prevDataList = lists
 		.flatMap(column => column.cards)
 		.filter(
-			card =>
-				card.isChild === false &&
-				card.id !== renameCardId &&
-				card.children.length === 0 &&
-				!allChildren.includes(card.id) //TU DODAŁEM KOD
+			card => !card.isChild && card.id !== renameCardId && (!card.children || card.children.length === 0)
+
+			//&& (renameCard.children.includes(card.id) || !renameCard.children.includes(card.id))
+			//TU DODAŁEM KOD
 		);
+	const dataList = prevDataList.map(card => {
+		return {
+			...card,
+			isChild: oldChildren.includes(card.id),
+		};
+	});
+	
+	console.log(dataList);
 
 	const [data, setData] = useState(
 		dataList.map(card => {
@@ -146,13 +156,13 @@ const RenameCardModal = ({
 					value={oldChildren}
 					onChange={value => {
 						setOldChildren(value);
-						setData(
-							prevData =>
-								prevData.map(card => ({
-									...card,
-									ischild: value.toString(),
-								})) // TU COS TRZEBA KURWA ZROBIC
-						);
+						// setData(
+						// 	prevData =>
+						// 		prevData.map(card => ({
+						// 			...card,
+						// 			children: value.includes(card.id),
+						// 		})) // TU COS TRZEBA KURWA ZROBIC
+						// );
 					}}
 					label={t('assignUserModalSelectLabel')}
 					data={data}
@@ -168,7 +178,7 @@ const RenameCardModal = ({
 					clearable
 				/>
 				<pre>{JSON.stringify(data, null, 2)}</pre>
-				<pre>{JSON.stringify(oldChildren, null, 2)}</pre>
+				{/* <pre>{JSON.stringify(oldChildren, null, 2)}</pre> */}
 
 				<Button
 					{...buttonDynamicProps}
