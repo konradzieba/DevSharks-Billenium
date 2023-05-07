@@ -20,8 +20,6 @@ import {
 	writeBatch,
 	getDocs,
 	getDoc,
-	setDoc,
-	where,
 } from 'firebase/firestore';
 import CreateColumn from '../components/CreateColumn/CreateColumn';
 import DeleteListModal from '../components/Modal/DeleteList';
@@ -38,6 +36,7 @@ import { useTranslation } from 'react-i18next';
 import i18n from '../translations/i18n';
 import BuggedMoveNotification from '../components/notifications/BuggedMoveNotification';
 import AdjustLimit from '../components/User/AdjustLimit';
+import ChildNotDoneNotyfication from '../components/notifications/ChildNotDoneNotyfication';
 
 export default function Home() {
 	const { t } = useTranslation();
@@ -91,8 +90,7 @@ export default function Home() {
 	const [oldAssignUserList, setOldAssignUserList] = useState(null);
 	// NOTIFICATIONS
 	const [bugMovedNotification, setBugMovedNotification] = useState(false);
-
-	// const [childrenList, setChildrenList] = useState([]);
+	const [childNotDoneNotyfication, setChildNotDoneNotyfication] = useState(false);
 
 	useEffect(() => {
 		const q = query(collection(db, 'tests'), orderBy('timestamp', 'asc'));
@@ -134,7 +132,7 @@ export default function Home() {
 	}, []);
 
 	const allAssigneds = lists.map(list => list.cards.flatMap(card => card.assignedUser)).flat();
-	const allChildren = lists.map(list => list.cards.flatMap(card => card.children)).flat(); // TU DODAŁEM KOD
+	const allChildren = lists.map(list => list.cards.flatMap(card => card.children)).flat();
 
 	useEffect(() => {
 		if (bugMovedNotification) {
@@ -147,6 +145,18 @@ export default function Home() {
 			clearTimeout();
 		};
 	}, [bugMovedNotification]);
+
+	useEffect(() => {
+		if (childNotDoneNotyfication) {
+			setTimeout(() => {
+				setChildNotDoneNotyfication(false);
+			}, 3000);
+		}
+
+		return () => {
+			clearTimeout();
+		};
+	}, [childNotDoneNotyfication]);
 
 	const handleToggleCollapse = async id => {
 		const groupRef = doc(db, 'groups', id);
@@ -192,7 +202,6 @@ export default function Home() {
 			isCollapsed: false,
 			isDone: false,
 			children: [],
-			isChild: false,
 		};
 		const listRef = doc(db, 'tests', listId);
 
@@ -201,33 +210,52 @@ export default function Home() {
 		});
 	};
 
+	const removeCard = async (listId, cardId) => {
+		lists.forEach(list => {
+			list.cards.forEach(card => {
+				if (card.children.includes(cardId)) {
+					card.children = card.children.filter(child => child !== cardId);
+				}
+			});
+		});
+		const updatedLists = lists.map(list => {
+			if (list.id === listId) {
+				return {
+					...list,
+					cards: list.cards.filter(card => card.id !== cardId),
+				};
+			}
+			return list;
+		});
+		setLists(updatedLists);
+		updatedLists.forEach(list => {
+			updateDoc(doc(db, 'tests', list.id), {
+				cards: list.cards,
+			})
+		});
+	};
+
 	// const removeCard = async (listId, cardId) => {
-	// 	const listRef = doc(db, 'tests', listId);
-	// 	const updatedLists = lists.map(list => {
-	// 		if (list.id === listId) {
-	// 			return {
-	// 				...list,
-	// 				cards: list.cards.filter(card => card.id !== cardId),
-	// 			};
+	// 	const updatedLists = [...lists];
+		
+	// 	updatedLists.forEach(list => {
+	// 		const cardIndex = list.cards.findIndex(card => card.children.includes(cardId));
+			
+	// 		if (cardIndex !== -1) {
+	// 			list.cards[cardIndex].children = list.cards[cardIndex].children.filter(child => child !== cardId);
 	// 		}
-	// 		return list;
+			
+	// 		list.cards = list.cards.filter(card => card.id !== cardId);
 	// 	});
-	// 	console.log(updatedLists);
+	
 	// 	setLists(updatedLists);
-	// 	await updateDoc(listRef, {
-	// 		cards: updatedLists.find(list => list.id === listId).cards,
+		
+	// 	updatedLists.forEach(list => {
+	// 		updateDoc(doc(db, 'tests', list.id), {
+	// 			cards: list.cards,
+	// 		});
 	// 	});
 	// };
-
-	const removeCard = async (listId, cardId) => {
-		const listRef = collection(db, 'tests');
-		const querySnapshot = await getDocs(listRef);
-		querySnapshot.forEach(doc => {
-			// console.log(doc.data());
-			console.log(doc.data());
-		});
-		// console.log(lists);
-	}; // TU DODALEM KOD
 
 	const updateListLimit = async (listId, limit) => {
 		const listRef = doc(db, 'tests', listId);
@@ -347,6 +375,22 @@ export default function Home() {
 			return;
 		}
 
+		const parentCard = lists.find(list => list.id === splittedSource[0]).cards.find(card => card.id === draggableId);
+		if (parentCard.children.length > 0 && splittedDestination[0] === 'mZTPFCSFozxolWX4V85v') {
+			const childIsDone = []
+			parentCard.children.forEach(child => {
+				const tmp = lists.map(list => list.cards)
+				const tmp2 = tmp.map(card => card.filter(card => card.id === child)).flat()
+				if (tmp2.length > 0) {
+					childIsDone.push(tmp2[0].isDone)
+				}
+			})
+			if(childIsDone.includes(false)) {
+				setChildNotDoneNotyfication(true);
+				return;
+			}
+		}
+
 		const sourceTask = lists.find(list => list.id === splittedSource[0]);
 		if (splittedSource[0] === splittedDestination[0]) {
 			const list = lists.find(list => list.id === splittedSource[0]);
@@ -416,7 +460,7 @@ export default function Home() {
 
 			const updatedCards = cards.map(card => {
 				if (card.owner === group.name) {
-					return { ...card, owner: 'Nieprzypisane' };
+					return { ...card, owner: 'Unassigned' };
 				}
 				return card;
 			});
@@ -675,7 +719,6 @@ export default function Home() {
 						deleteCardListId={deleteCardListId}
 						setDeleteCardId={setDeleteCardId}
 						setDeleteCardListId={setDeleteCardListId}
-						// removeChildConnection={removeChildConnection}
 					/>
 				)}
 				{renameListModalOpened && (
@@ -707,7 +750,7 @@ export default function Home() {
 						oldChildren={oldChildren}
 						setOldChildren={setOldChildren}
 						setLists={setLists}
-						allChildren={allChildren} // TU DODAŁEM KOD
+						allChildren={allChildren}
 					/>
 				)}
 
@@ -852,6 +895,7 @@ export default function Home() {
 												handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
 												allAssigneds={allAssigneds}
 												setOldChildren={setOldChildren}
+												allChildren={allChildren}
 											/>
 										);
 									})}
@@ -863,6 +907,8 @@ export default function Home() {
 				</DragDropContext>
 			</StoreApi.Provider>
 			{bugMovedNotification && <BuggedMoveNotification />}
+			{/* const [childNotDoneNotyfication, setChildNotDoneNotyfication] = useState(false); */}
+			{childNotDoneNotyfication && <ChildNotDoneNotyfication />}
 		</MantineProvider>
 	);
 }

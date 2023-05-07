@@ -1,6 +1,6 @@
 import { forwardRef } from 'react';
-import { Modal, TextInput, Button, Box, Text, Switch, Group, MultiSelect } from '@mantine/core';
-import { IconBug } from '@tabler/icons-react';
+import { Modal, TextInput, Button, Box, Text, Switch, Group, MultiSelect, Tooltip } from '@mantine/core';
+import { IconBug, IconInfoCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -28,41 +28,28 @@ const RenameCardModal = ({
 	const [actualInputValue, setActualInputValue] = useState('');
 	const [choosenColor, setChoosenColor] = useState(cardColor);
 	const [isBugged, setIsBugged] = useState(bugged);
+	const [isOpened, setIsOpened] = useState(false);
 
-	//find in list card with renameCardId
-	const renameCard = lists.flatMap(column => column.cards).find(card => card.id === renameCardId);
-	// console.log('all children', allChildren);
-	// console.log('old children: ', oldChildren);
-	// console.log(allChildren);
+	const renameCardObj = lists.flatMap(column => column.cards).find(card => card.id === renameCardId).children;
 	const prevDataList = lists
 		.flatMap(column => column.cards)
-		.filter(
-			card => !card.isChild && card.id !== renameCardId && (!card.children || card.children.length === 0)
-
-			//&& (renameCard.children.includes(card.id) || !renameCard.children.includes(card.id))
-			//TU DODAŁEM KOD
+		.filter(card =>
+			renameCardObj.length > 0 && renameCardObj.includes(`${card.id}`)
+				? card.id !== renameCardId && card.children.length === 0
+				: !allChildren.includes(card.id) && card.id !== renameCardId && card.children.length === 0
 		);
-	const dataList = prevDataList.map(card => {
-		return {
-			...card,
-			isChild: oldChildren.includes(card.id),
-		};
-	});
-	
-	console.log(dataList);
 
 	const [data, setData] = useState(
-		dataList.map(card => {
+		prevDataList.map(card => {
 			return {
 				label: card.title,
 				value: card.id,
 				color: card.color,
-				ischild: card.isChild,
 			};
 		})
 	);
 
-	const SelectItem = forwardRef(({ label, value, color, ischild, ...others }, ref) => (
+	const SelectItem = forwardRef(({ label, value, color, ...others }, ref) => (
 		<div ref={ref} {...others}>
 			<Group noWrap>
 				<div style={{ width: '20px', height: '20px', backgroundColor: color }}></div>
@@ -119,8 +106,13 @@ const RenameCardModal = ({
 						setActualInputValue(e.target.value);
 					}}
 				/>
-				<Text mt={10}>{t('renameCardModalSelectColor')}</Text>
-				<Box mt={3} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+				<Box mt={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+					<Text>{t('renameCardModalSelectColor')}</Text>
+					<Tooltip multiline width={225} position='right-start' label={t('renameCardModalColorTooltip')}>
+						<IconInfoCircle size={18} />
+					</Tooltip>
+				</Box>
+				<Box mt={3} style={{ display: 'flex' }}>
 					{colors.map((color, index) => (
 						<button
 							key={index}
@@ -151,34 +143,33 @@ const RenameCardModal = ({
 						setIsBugged(prevState => !prevState);
 					}}
 				/>
-				<MultiSelect
-					placeholder={t('assignUserModalPlaceholder')}
-					value={oldChildren}
-					onChange={value => {
-						setOldChildren(value);
-						// setData(
-						// 	prevData =>
-						// 		prevData.map(card => ({
-						// 			...card,
-						// 			children: value.includes(card.id),
-						// 		})) // TU COS TRZEBA KURWA ZROBIC
-						// );
-					}}
-					label={t('assignUserModalSelectLabel')}
-					data={data}
-					itemComponent={SelectItem}
-					searchable={true}
-					maxDropdownHeight={175}
-					nothingFound={t('assignUserModalNothingFound')}
-					dropdownPosition='bottom'
-					// allowDeselect
-					// onDropdownOpen={() => setIsOpened(true)}
-					// onDropdownClose={() => setIsOpened(false)}
-					hoverOnSearchChange
-					clearable
-				/>
-				<pre>{JSON.stringify(data, null, 2)}</pre>
-				{/* <pre>{JSON.stringify(oldChildren, null, 2)}</pre> */}
+				{allChildren.includes(renameCardId) ? (
+					<Text mt={10} c='dimmed' align='center'>
+						{t('assignTaskChildInfo')}
+					</Text>
+				) : (
+					<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
+						<Text mt={10}>{t('assignTaskModalSelectLabel')}</Text>
+						<MultiSelect
+							mt={3}
+							placeholder={t('assignTaskModalPlaceholder')}
+							value={oldChildren}
+							onChange={value => {
+								setOldChildren(value);
+							}}
+							data={data}
+							itemComponent={SelectItem}
+							searchable={true}
+							maxDropdownHeight={175}
+							nothingFound={t('assignTaskModalNothingFound')}
+							dropdownPosition='bottom'
+							onDropdownOpen={() => setIsOpened(true)}
+							onDropdownClose={() => setIsOpened(false)}
+							hoverOnSearchChange
+							clearable
+						/>
+					</div>
+				)}
 
 				<Button
 					{...buttonDynamicProps}

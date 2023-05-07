@@ -23,11 +23,13 @@
     "react-country-flag": "^3.1.0",
     "react-dom": "^18.2.0",
     "react-i18next": "^12.2.0",
+    "react-markdown": "^8.0.7",
     "react-onclickout": "^2.0.8",
     "react-router-dom": "^6.9.0",
     "react-scripts": "5.0.1",
     "react-textarea-autosize": "^8.4.0",
     "sass": "^1.58.3",
+    "tabler-icons-react": "^1.56.0",
     "uuid": "^9.0.0",
     "web-vitals": "^2.1.0"
   },

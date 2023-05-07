@@ -97,11 +97,9 @@ const AssignUserModal = ({
 					maxDropdownHeight={175}
 					nothingFound={t('assignUserModalNothingFound')}
 					dropdownPosition='bottom'
-					// allowDeselect
 					onDropdownOpen={() => setIsOpened(true)}
 					onDropdownClose={() => setIsOpened(false)}
 					hoverOnSearchChange
-					// maxSelectedValues={assignLimit}
 					clearable
 				/>
 			</div>

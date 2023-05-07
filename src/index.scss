@@ -29,10 +29,25 @@ body {
 
 .lang-selector {
 	position: absolute;
-	top: 1%;
+	display: flex;
+	gap: 2px;
+	top: 15px;
 	left: 1%;
 	z-index: 1;
 }
+
+a:link {
+	color: #e4e4e4;
+}
+
+a:visited {
+	color: #e4e4e4;
+}
+
+a:active {
+	color: #e4e4e4;
+}
+
 
 @media (max-width: 576px) {
 	html {

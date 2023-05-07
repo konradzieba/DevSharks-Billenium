@@ -14,6 +14,7 @@ import {
 } from '@mantine/core';
 import { useTranslation } from 'react-i18next';
 import i18n from '../../translations/i18n';
+import LanguageSelector from '../User/LanguageSelector';
 
 const SignIn = () => {
 	const { t } = useTranslation();
@@ -50,6 +51,7 @@ const SignIn = () => {
 	};
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
+			<LanguageSelector className='lang-selector' />
 			<form onSubmit={handleSubmit}>
 				<Container size={420} py={100} className='modal-font'>
 					<Title

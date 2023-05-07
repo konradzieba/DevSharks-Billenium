@@ -4,9 +4,10 @@ import Title from '../Title/Title';
 import Card from '../Card/Card';
 import './styles.scss';
 import CreateTask from '../CreateTask/CreateTask';
-import { IconX, IconPencil, IconArrowBarToUp } from '@tabler/icons-react';
+import { IconX, IconPencil, IconChevronUp } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-
+import WIPLimitNotification from '../notifications/WIPLimitNotification';
+import { useState, useEffect } from 'react';
 const UNSIGNED_GROUP_ID = 'QFzlKyV24rq8Vtmyz6Ai';
 
 export default function List({
@@ -46,19 +47,20 @@ export default function List({
 	addSubtask,
 	handleToggleSubtaskCollapse,
 	setOldChildren,
+	allChildren,
 }) {
 	const { t } = useTranslation();
-
-	const calculateHeight = (group) => {
+	const [open, setOpen] = useState(false);
+	const calculateHeight = group => {
 		const max = lists
-			.map((list) => list.cards.filter((card) => card.owner === group.name).length)
+			.map(list => list.cards.filter(card => card.owner === group.name).length)
 			.flat()
 			.reduce((max, test) => Math.max(max, test), 0);
 		return max;
 	};
 
 	const cardCount = (group, list) => {
-		const count = list.cards.filter((card) => card.owner === group.name).length;
+		const count = list.cards.filter(card => card.owner === group.name).length;
 		return count;
 	};
 
@@ -66,10 +68,7 @@ export default function List({
 		<Draggable draggableId={list.id} index={index}>
 			{(provided, snapshot) => (
 				<div {...provided.draggableProps} ref={provided.innerRef}>
-					<div
-						className={`column-container ${snapshot.isDragging && 'column-opacity'}`}
-						{...provided.dragHandleProps}
-					>
+					<div className={`column-container ${snapshot.isDragging && 'column-opacity'}`} {...provided.dragHandleProps}>
 						<div>
 							<Title
 								title={list.title}
@@ -97,16 +96,13 @@ export default function List({
 														onClick={() => {
 															handleToggleCollapse(group.id);
 														}}
-														className='group-title-wrap-btn group-title-btns'
-													>
-														<IconArrowBarToUp
+														className='group-title-wrap-btn group-title-btns'>
+														<IconChevronUp
 															size={24}
 															strokeWidth={2}
 															color={'white'}
 															style={{
-																transform: group.isCollapsed
-																	? 'rotate(180deg)'
-																	: 'rotate(0deg)',
+																transform: group.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
 																transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
 															}}
 														/>
@@ -121,8 +117,7 @@ export default function List({
 																setRenameGroupListId(list.id);
 																setRenameGroupModalOpened(true);
 															}}
-															className='group-title-edit-btn group-title-btns'
-														>
+															className='group-title-edit-btn group-title-btns'>
 															<IconPencil size={24} color={'white'} />
 														</button>
 														<button
@@ -131,8 +126,7 @@ export default function List({
 																setDeleteGroupListId(list.id);
 																setDeleteGroupModalOpened(true);
 															}}
-															className='group-title-delete-btn group-title-btns'
-														>
+															className='group-title-delete-btn group-title-btns'>
 															<IconX size={24} strokeWidth={2} color={'white'} />
 														</button>
 													</div>
@@ -146,16 +140,13 @@ export default function List({
 														onClick={() => {
 															handleToggleCollapse(group.id);
 														}}
-														className='group-title-wrap-btn group-title-btns'
-													>
-														<IconArrowBarToUp
+														className='group-title-wrap-btn group-title-btns'>
+														<IconChevronUp
 															size={24}
 															strokeWidth={2}
 															color={'white'}
 															style={{
-																transform: group.isCollapsed
-																	? 'rotate(180deg)'
-																	: 'rotate(0deg)',
+																transform: group.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
 																transition: 'cubic-bezier(0.4, 0, 0.2, 1) 0.1s',
 															}}
 														/>
@@ -170,8 +161,7 @@ export default function List({
 																setRenameGroupListId(list.id);
 																setRenameGroupModalOpened(true);
 															}}
-															className='group-title-edit-btn group-title-btns'
-														>
+															className='group-title-edit-btn group-title-btns'>
 															<IconPencil size={24} color={'white'} />
 														</button>
 														<button
@@ -180,8 +170,7 @@ export default function List({
 																setDeleteGroupListId(list.id);
 																setDeleteGroupModalOpened(true);
 															}}
-															className='group-title-delete-btn group-title-btns'
-														>
+															className='group-title-delete-btn group-title-btns'>
 															<IconX size={24} strokeWidth={2} color={'white'} />
 														</button>
 													</div>
@@ -194,29 +183,17 @@ export default function List({
 											style={{
 												height: calculateHeight(group) * 200 + 100 + 'px',
 												display: group.isCollapsed ? 'none' : 'block',
-												backgroundColor:
-													list.limit !== 0 &&
-													list.limit < cardCount(group, list) &&
-													'#C22C3B',
-											}}
-										>
+												backgroundColor: list.limit !== 0 && list.limit < cardCount(group, list) && '#C22C3B',
+											}}>
+											{list.limit < cardCount(group, list) && list.limit !== 0 && (<WIPLimitNotification />)}
 											{!group.isCollapsed && (
-												<CreateTask
-													group={group}
-													listId={list.id}
-													type='card'
-													listIdx={listIdx}
-												/>
+												<CreateTask group={group} listId={list.id} type='card' listIdx={listIdx} />
 											)}
 											<Droppable droppableId={`${list.id}:${group.name}`} type='task'>
-												{(provided) => (
-													<div
-														ref={provided.innerRef}
-														{...provided.droppableProps}
-														className='group-task-container'
-													>
+												{provided => (
+													<div ref={provided.innerRef} {...provided.droppableProps} className='group-task-container'>
 														{list.cards
-															.filter((card) => card.owner === group.name)
+															.filter(card => card.owner === group.name)
 															.map((card, index) => (
 																<Card
 																	key={card.id + group.id}
@@ -240,6 +217,8 @@ export default function List({
 																	addSubtask={addSubtask}
 																	handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
 																	setOldChildren={setOldChildren}
+																	allChildren={allChildren}
+																	lists={lists}
 																/>
 															))}
 														{provided.placeholder}
