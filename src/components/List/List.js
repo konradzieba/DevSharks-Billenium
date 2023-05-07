@@ -185,7 +185,7 @@ export default function List({
 												display: group.isCollapsed ? 'none' : 'block',
 												backgroundColor: list.limit !== 0 && list.limit < cardCount(group, list) && '#C22C3B',
 											}}>
-											{list.limit < cardCount(group, list) && list.limit !== 0 && (<WIPLimitNotification />)}
+											{/* {list.limit < cardCount(group, list) && list.limit !== 0 && (<WIPLimitNotification />)} */}
 											{!group.isCollapsed && (
 												<CreateTask group={group} listId={list.id} type='card' listIdx={listIdx} />
 											)}

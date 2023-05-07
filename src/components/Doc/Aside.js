@@ -1,102 +1,14 @@
 import {
-	UnstyledButton,
-	Menu,
 	Button,
 	Box,
 	rem,
 	MantineProvider,
 	ScrollArea,
-	Group,
 } from '@mantine/core';
 import './styles.scss';
 import { useState } from 'react';
 import { ChevronDown, ChevronUp } from 'tabler-icons-react';
-
-const mainButtons = [
-	{
-		label: 'Start',
-		link: '#',
-	},
-	{
-		label: 'Technologie',
-		link: '#Technologies',
-	},
-	{
-		label: 'Instalacja',
-		link: '#Installation',
-	},
-];
-
-const menuButtons = [
-	{
-		label: 'Zmiana języka',
-		link: '#LanguageChange',
-	},
-	{
-		label: 'Logowanie',
-		link: '#SignIn',
-	},
-	{
-		label: 'Rejestracja',
-		link: '#SignUp',
-	},
-	{
-		label: 'Zmiana avatara',
-		link: '#AssignAvatar',
-	},
-	{
-		label: 'Tworzenie kolumny',
-		link: '#CreateColumn',
-	},
-	{
-		label: 'Zmiana nazwy kolumny',
-		link: '#ChangeColumnName',
-	},
-	{
-		label: 'Zmiana limitu zadań w kolumnie',
-		link: '#ChangeTaskLimitInColumn',
-	},
-	{
-		label: 'Tworzenie grupy',
-		link: '#CreateGroup',
-	},
-	{
-		label: 'Zmiana nazwy grupy',
-		link: '#ChangeGroupName',
-	},
-	{
-		label: 'Tworzenie zadania',
-		link: '#CreateTask',
-	},
-	{
-		label: 'Zmiana nazwy zadania',
-		link: '#ChangeTaskName',
-	},
-	{
-		label: 'Zmiana koloru zadania',
-		link: '#ChangeTaskColor',
-	},
-	{
-		label: 'Status zbugowane',
-		link: '#TaskBugStatus',
-	},
-	{
-		label: 'Podzadania',
-		link: '#Subtasks',
-	},
-	{
-		label: 'Limit przydzielonych zadań',
-		link: '#AssignUserLimit',
-	},
-	{
-		label: 'Przypisanie użytkownika do zadania',
-		link: '#AssignUserToTask',
-	},
-	{
-		label: 'Usuwanie kolumny, grupy i zadania',
-		link: '#Delete',
-	},
-];
+import { useTranslation } from 'react-i18next';
 
 const props = {
 	margin: '0 auto',
@@ -107,6 +19,93 @@ const props = {
 };
 
 export const AsideMenu = () => {
+	const { t } = useTranslation();
+	const mainButtons = [
+		{
+			label: t('docStart'),
+			link: '#',
+		},
+		{
+			label: t('docTechnologies'),
+			link: '#Technologies',
+		},
+		{
+			label: t('docInstalation'),
+			link: '#Installation',
+		},
+	];
+	
+	const menuButtons = [
+		{
+			label: t('docLanguageChange'),
+			link: '#LanguageChange',
+		},
+		{
+			label: t('docSignIn'),
+			link: '#SignIn',
+		},
+		{
+			label: t('docSignUp'),
+			link: '#SignUp',
+		},
+		{
+			label: t('docAssignAvatar'),
+			link: '#AssignAvatar',
+		},
+		{
+			label: t('docCreateColumn'),
+			link: '#CreateColumn',
+		},
+		{
+			label: t('docChangeColumnName'),
+			link: '#ChangeColumnName',
+		},
+		{
+			label: t('docChangeTaskLimitInColumn'),
+			link: '#ChangeTaskLimitInColumn',
+		},
+		{
+			label: t('docCreateGroup'),
+			link: '#CreateGroup',
+		},
+		{
+			label: t('docChangeGroupName'),
+			link: '#ChangeGroupName',
+		},
+		{
+			label: t('docCreateTask'),
+			link: '#CreateTask',
+		},
+		{
+			label: t('docChangeTaskName'),
+			link: '#ChangeTaskName',
+		},
+		{
+			label: t('docChangeTaskColor'),
+			link: '#ChangeTaskColor',
+		},
+		{
+			label: t('docTaskBugStatus'),
+			link: '#TaskBugStatus',
+		},
+		{
+			label: t('docSubtasks'),
+			link: '#Subtasks',
+		},
+		{
+			label: t('docAssignUserLimit'),
+			link: '#AssignUserLimit',
+		},
+		{
+			label: t('docAssignUserToTask'),
+			link: '#AssignUserToTask',
+		},
+		{
+			label: t('docDelete'),
+			link: '#Delete',
+		},
+	];
+
 	const [isMenuOpen, setIsMenuOpen] = useState(false);
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark' }}>
@@ -137,7 +136,7 @@ export const AsideMenu = () => {
 								isMenuOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />
 							}
 						>
-							Funkcjonalności
+							{t('docFunctionalities')}
 						</Button>
 					</Box>
 					<Box

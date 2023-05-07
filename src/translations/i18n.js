@@ -117,6 +117,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Limit of assignments for one user',
 			// documentation
+			docStart: 'Start',
 			docTitleDescription: 'The repository of the DevSharks team, created to implement the project of the Interactive Kanban board.',
 			docTechnologies: 'Technologies',
 			docTests: 'Tests',
@@ -277,6 +278,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Limit przypisań dla jednego użytkownika',
 			// documentation
+			docStart: 'Start',
 			docTitleDescription: `Repozytorium zespołu DevSharks, storzone w celu realizacji projektu Interaktywnej tablicy Kanban.`,
 			docTechnologies: `Technologie`,
 			docTests: `Testy`,
@@ -437,6 +439,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: 'Límite de asignaciones para un usuario',
 			// documentation
+			docStart: 'Inicio',
 			docTitleDescription: `El repositorio del equipo DevSharks, creado para implementar el proyecto del tablero Interactive Kanban.`,
 			docTechnologies: `Tecnologías`,
 			docTests: `Pruebas`,
@@ -598,6 +601,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: `Limite d'attributions pour un utilisateur`,
 			// documentation
+			docStart: 'Début',
 			docTitleDescription: `Le référentiel de l'équipe DevSharks, créé pour implémenter le projet du tableau Interactive Kanban.`,
 			docTechnologies: `Les technologies`,
 			docTests: `Essais`,
@@ -758,6 +762,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: `Ліміт призначень для одного користувача`,
 			// documentation
+			docStart: `Початок роботи`,
 			docTitleDescription: `Репозиторій команди DevSharks, створений для реалізації проекту Інтерактивної дошки Канбан.`,
 			docTechnologies: `Технології`,
 			docTests: `Тести`,
@@ -916,6 +921,7 @@ const resources = {
 			// change assignUserLimit 
 			assignUserLimitPerTask: `一个用户的分配限制`,
 			// documentation
+			docStart: `开始`,
 			docTitleDescription: `DevSharks 团队的存储库，创建用于实施交互式看板项目.`,
 			docTechnologies: `技术`,
 			docTests: `测试`,
