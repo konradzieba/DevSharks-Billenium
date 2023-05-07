@@ -30,12 +30,12 @@ const Doc = () => {
 					<ReactMarkdown>
 						{`
 # DevSharks - Billenium
-Repozytorium zespołu DevSharks, storzone w celu realizacji projektu Interaktywnej tablicy Kanban.
+${t('docTitleDescription')}
 `}
 					</ReactMarkdown>
 				</div>
 				<div id='Technoologie'>
-					<ReactMarkdown>{`## Technologie`}</ReactMarkdown>
+					<ReactMarkdown>{`## ${t('docTechnologies')}`}</ReactMarkdown>
 				</div>
 				<div id='Frontend'>
 					<ReactMarkdown>
@@ -52,8 +52,8 @@ Repozytorium zespołu DevSharks, storzone w celu realizacji projektu Interaktywn
 				</div>
 				<div id='Testy'>
 					<ReactMarkdown>
-						{`### Testy
-Testy jednostkowe:
+						{`### ${t('docTests')}
+${t('docTestUnit')}
 `}
 					</ReactMarkdown>
 					<ReactMarkdown>
@@ -61,7 +61,7 @@ Testy jednostkowe:
 					</ReactMarkdown>
 					<ReactMarkdown>
 						{`
-Testy e2e:
+${t('docTestE2E')}
 `}
 					</ReactMarkdown>
 					<ReactMarkdown>
@@ -76,97 +76,96 @@ Testy e2e:
 				</div>
 				<div id='Instalacja'>
 					<ReactMarkdown>
-						{`## Instalacja
-By uruchomić projekt lokalnie po instalacji środowiska [Node.js](https://nodejs.org/en), menadżera pakietów [Yarn](https://yarnpkg.com/getting-started/install) i pobraniu plików, znajdując się w folderze z plikami w terminalu inicjujemy komendy:
-bash yarn install yarn start. Projekt uruchomi się pod adresem http://localhost:3000/`}
+						{`## ${t('docInstalation')}
+${t('docinstalationDescription')}`}
 					</ReactMarkdown>
 				</div>
 				<div id='Funkcjonalnosci'>
-					<ReactMarkdown>{`## Funkcjonalności `}</ReactMarkdown>
+					<ReactMarkdown>{`## ${t('docFunctionalities')} `}</ReactMarkdown>
 				</div>
 				<div id='Zmiana-jezyka'>
-					<ReactMarkdown>{`### Zmiana języka
-Tablica kanban jest dostępna w 6 językach, które po wybraniu zapisują się w localstorage.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docLanguageChange')}
+${t('docLanguageChangeDescription')}`}</ReactMarkdown>
 				<img src={ZamianaJezyka} alt='Zmiana języka' />
 				</div>
 				<div id='Logowanie'>
-					<ReactMarkdown>{`### Logowanie
-Logowanie się by uzyskać dostęp do tablicy kanban.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docSignIn')}
+${t('docSignInDescription')}`}</ReactMarkdown>
 					<img src={Logowanie} alt='Logowanie' />
 				</div>
 				<div id='Rejestracja'>
-					<ReactMarkdown>{`### Rejestracja
-Zarejestorwanie się użytkownika by uzyskać dostęp do tablicy kanban, po prawidłowej rejestracji strona przekieruje do ekranu tablicy kanban.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docSignUp')}
+${t('docSignUpDescription')}`}</ReactMarkdown>
 					<img src={Rejestracja} alt='Rejestracja' />
 				</div>
 				<div id='Przypisanie-zdjecia'>
-					<ReactMarkdown>{`### Przypisanie zdjęcia 
-Przypisać zdjęcie możemy będąc zalogowanym użytkownikiem i w prawym roku wybieramy swoje zdjęcie i z menu rozwijanego wybieramy opcję **'Zmień avatar'**.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docAssignAvatar')}
+${t('docAssignAvatarDescription')}`}</ReactMarkdown>
 					<img src={ZmianaAvatara} alt='Zmiana avatara' />
 				</div>
 				<div id='Tworzenie-kolumny'>
-					<ReactMarkdown>{`### Tworzenie kolumny
-Nową kolumnę tworzymy przy przyciśnięciu przycisku **'Dodaj kolumnę'**.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docCreateColumn')}
+${t('docCreateColumnDescription')}`}</ReactMarkdown>
 					<img src={TworzenieKolumny} alt='Tworzenie kolumny' />
 				</div>
 				<div id='Zmiana-nazwy-kolumny'>
-					<ReactMarkdown>{`### Zmiana nazwy kolumny
-Nazwę kolumny zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docChangeColumnName')}
+${t('docChangeColumnNameDescription')}`}</ReactMarkdown>
 				<img src={ZmianaNazwyKolumny} alt='Zmiana nazwy kolumny' />
 				</div>
 				<div id='Zmiana-limitu-zadan-w-kolumnie'>
-					<ReactMarkdown>{`### Zmiana limitu zadań w kolumnie
-Limit zadań w kolumnie zmieniamy poprzez wybranie ikony ustawień i w pop-up wpisujemy lub wybieramy nowy limit. Wybranie 0 spowoduje ustawienie braku limitu.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docChangeTaskLimitInColumn')}
+${t('docChangeTaskLimitInColumnDescription')}`}</ReactMarkdown>
 				<img src={ZmianaLimitu} alt='Zmiana limitu zadań'/>
 				</div>
 				<div id='Tworzenie-grupy'>
-					<ReactMarkdown>{`### Tworzenie grupy
-Nową grupę tworzymy przy przyciśnięciu przycisku **'Dodaj grupę'** i w pop-up wpisujemy nową unikalną nazwę grupy.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docCreateGroup')}
+${t('docCreateGroupDescription')}`}</ReactMarkdown>
 					<img src={TworzenieGrupy} alt='Tworzenie grupy' />
 				</div>
 				<div id='Zmiana-nazwy-grupy'>
-					<ReactMarkdown>{`### Zmiana nazwy grupy
-Nazwę grupy zmienamiy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową unikalną nazwę.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docChangeGroupName')}
+${t('docChangeGroupNameDescription')}`}</ReactMarkdown>
 				<img src={ZmianaNazwyGrupy} alt='Zmiana nazwy grupy' />
 				</div>
 				<div id='Tworzenie-zadania'>
-					<ReactMarkdown>{`### Tworzenie zadania
-Nowe zadanie tworzymy w każdej grupie w pierwszej kolumnie przyciskając przycisk **'Dodaj zadanie'**.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docCreateTask')}
+${t('docCreateTaskDescription')}`}</ReactMarkdown>
 					<img src={TworzenieZadania} alt='Tworzenie zadania' />
 				</div>
 				<div id='Zmiana-nazwy-zadania'>
-					<ReactMarkdown>{`### Zmiana nazwy zadania
-Nazwę zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wpisujemy nową nazwę zadania.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docChangeTaskName')}
+${t('docChangeTaskNameDescription')}`}</ReactMarkdown>
 				<img src={ZmianaNazwyZadania} alt='Zmiana nazwy zadania' />
 				</div>
 				<div id='Zmiana-koloru-zadania'>
-					<ReactMarkdown>{`### Zmiana koloru zadania
-Kolor zadania zmieniamy wybierając ikonę zmiany nazwy i w pop-up wybieramy jeden z czterach dostepnych kolorów, które oznaczają poziom ważności zadania.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docChangeTaskColor')}
+${t('docChangeTaskColorDescription')}`}</ReactMarkdown>
 				<img src={ZmianaKoloruZadania} alt='Zmiana koloru zadania' />
 				</div>
 				<div id='Status-zbuowane'>
-					<ReactMarkdown>{`### Status zbugowane
-Status zbugowanego zadania ustawiamy wybierając ikonę edycji i w pop-up wybieramy czy zadanie jest zbugowane. Status zbugowanego zadania uniemożliwia przeniesienie go ostatniej kolumny.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docTaskBugStatus')}
+${t('docTaskBugStatusDescription')}`}</ReactMarkdown>
 					<img src={StatusZbugowane} alt='Status zbugowane' />
 				</div>
 				<div id='Podzadania'>
-					<ReactMarkdown>{`### Podzadania
-Podzadania możemy dodać kilkając w ikonę plusa pod nazwą zadania. Pasek progresu wyświetla ilość wykonanych zadań. Można również ukryć podzadania wybierając ikonę strzałki.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docSubtasks')}
+${t('docSubtasksDescription')}`}</ReactMarkdown>
 					<img src={Podzadania} alt='Podzadania' />
 				</div>
 				<div id='Limit-uzytkownikow-mozliwych-do-przypisania'>
-					<ReactMarkdown>{`### Limit uzytkowników możliwych do przypisania
-Możemy ustalić limit przypisać dla danego użytkownika przypisując wartość w inpucie nad listą dostepnych użytkowników.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docAssignUserLimit')}
+${t('docAssignUserLimitDescription')}`}</ReactMarkdown>
 				<img src={ZmianaLimituDlaUzytkownika} alt='Zmiana limitu dla użytkownika' />
 				</div>
 				<div id='Przypisanie-uzytkownika-do-zadania'>
-					<ReactMarkdown>{`### Przypisanie użytkownika do zadania
-Przypisujemy użytkowników do zadania poprzez kliknięcie w ikonkę plusa i w pop-up wybieramy z listy użytkowników, których chcemy przypisać do zadania.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docAssignUserToTask')}
+${t('docAssignUserToTaskDescription')}`}</ReactMarkdown>
 					<img src={PrzypisanieUzytkownikow} alt='Przypisanie użytkowników' />
 				</div>
 				<div id='Usuwanie-grupy-kolumny-zadania'>
-					<ReactMarkdown>{`### Usuwanie kolumny, grupy i zadania
-Kolumnę, grupę i zadanie możemy usunąć wybierając ikonę usunięcia i potwierdzając dzialanie w pop-up.`}</ReactMarkdown>
+					<ReactMarkdown>{`### ${t('docDelete')}
+${t('docDeleteDescription')}`}</ReactMarkdown>
 					<img src={Usuwanie} alt='Usuwanie' />
 				</div>
 			</div>
