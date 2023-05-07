@@ -1,9 +1,26 @@
+.doc {
+	display: flex;
+}
+
 .doc-container {
-	width: 80%;
+	width: 60%;
 	height: 100%;
 	margin: 0 auto;
-	padding: 0 1.5rem;
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
+	padding: 0 2rem;
+
+	div {
+		padding: 0.5rem 0;
+	}
+	img {
+		justify-self: center;
+		padding: 1rem 0;
+		display: inline;
+		margin: 0 auto;
+	}
+}
+
+aside {
+	position: fixed;
+	top: 9.5%;
+	left: 3%;
 }
