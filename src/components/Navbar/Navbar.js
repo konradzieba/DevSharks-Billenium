@@ -83,7 +83,6 @@ const Navbar = () => {
 			<div className='container' style={{ position: 'relative', width: '100%' }}>
 				<div className='lang-selector'>
 					<LanguageSelector />
-					{location.pathname === '/kanban' ? <Link to='/kanban/doc'><IconFileText size={36} /></Link> : <Link to='/kanban'><IconBrandTrello size={36} /></Link>}
 				</div>
 				<div>
 				{location.pathname === '/kanban' ? <h1>{t('kanbanTitle')}</h1> : <h1>{t('documentationTitle')}</h1>}

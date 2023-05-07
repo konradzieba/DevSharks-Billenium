@@ -1,9 +1,10 @@
 import { useEffect } from 'react';
 import Avatar from './Avatar';
 import { Menu, rem, MantineProvider, Flex, FileButton, Text } from '@mantine/core';
-import { IconUpload, IconLogout } from '@tabler/icons-react';
+import { IconUpload, IconLogout,IconFileText,IconBrandTrello, IconArrowBack } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 import './styles.scss';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 
 const UserPanel = ({ loggedUserInfo, handleLogout, uploadUserAvatar, setFile, file }) => {
 	useEffect(() => {
@@ -11,12 +12,13 @@ const UserPanel = ({ loggedUserInfo, handleLogout, uploadUserAvatar, setFile, fi
 			uploadUserAvatar(loggedUserInfo.id);
 		}
 	}, [file, loggedUserInfo.id]);
-
+	const navigate = useNavigate();
 	const { t } = useTranslation();
-
+	const location = useLocation();
 	return (
 		<MantineProvider theme={{ colorScheme: 'dark', fontFamily: 'Lato' }}>
 			<div>
+			{location.pathname === '/kanban' ? <Link to='/kanban/doc'><IconFileText size={36} /></Link> : <Link to='/kanban'><IconArrowBack size={36} /></Link>}
 				<Menu closeOnItemClick={false}>
 					<Menu.Target>
 						<button className='user-menu-conainer'>

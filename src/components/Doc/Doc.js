@@ -26,7 +26,7 @@ const Doc = () => {
 	return (
 		<div className='doc'>
 			<AsideMenu />
-			<section>
+			<div>
 				<Navbar />
 				<div className='doc-container'>
 					<div id='DevSharks-Bilenium'>
@@ -175,7 +175,7 @@ ${t('docDeleteDescription')}`}</ReactMarkdown>
 						<img src={Usuwanie} alt='Usuwanie' />
 					</div>
 				</div>
-			</section>
+			</div>
 		</div>
 	);
 };

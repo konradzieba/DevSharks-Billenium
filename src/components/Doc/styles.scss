@@ -1,5 +1,7 @@
 .doc {
-	display: flex;
+	width: 100%;
+	margin: 0;
+	padding: 0;
 }
 
 .doc-container {
@@ -7,15 +9,20 @@
 	height: 100%;
 	margin: 0 auto;
 	padding: 0 2rem;
-
 	div {
 		padding: 0.5rem 0;
+		margin: 0 auto;
+		display: flex;
+		flex-direction: column;
 	}
 	img {
-		justify-self: center;
+		align-self: center;
 		padding: 1rem 0;
 		display: inline;
 		margin: 0 auto;
+	}
+	p {
+		padding: 0.4rem 0 0.4rem 0.5rem;
 	}
 }
 
