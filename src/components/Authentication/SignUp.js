@@ -17,6 +17,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useTranslation } from 'react-i18next';
+import LanguageSelector from '../User/LanguageSelector';
 
 const avatarColors = ['yellowgreen', 'royalblue', 'lime', 'orange', 'tomato'];
 
@@ -80,6 +81,7 @@ const SignUp = () => {
 					handleSubmit(values);
 				})}
 			>
+				<LanguageSelector className='lang-selector' />
 				<Container size={420} py={100} className='modal-font'>
 					<Title
 						align='center'

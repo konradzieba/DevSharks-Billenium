@@ -16,14 +16,18 @@ export default function Title({
 	setUpdateListLimitId,
 	setOldListLimit,
 }) {
-	const FIRST_COLUMN_BLOCKED = 'JDFaQcxiM4CmBnEYcVQ4';
-	const LAST_COLUMN_BLOCKED = 'HE79KxdSDne6hCCGbz45';
+	const FIRST_COLUMN_BLOCKED = 'V3hWR9ETcwyU973VDXvP';
+	const LAST_COLUMN_BLOCKED = 'mZTPFCSFozxolWX4V85v';
 	const { t } = useTranslation();
 	const { setDeleteListModalOpened } = useContext(storeApi);
 	return (
 		<div className='column-title-container'>
 			<div>
-				{listId === FIRST_COLUMN_BLOCKED ? t('firstColumn') : listId === LAST_COLUMN_BLOCKED ? t('lastColumn') : (title)}
+				{listId === FIRST_COLUMN_BLOCKED
+					? t('firstColumn')
+					: listId === LAST_COLUMN_BLOCKED
+					? t('lastColumn')
+					: title}
 				<button
 					className='column-edit-name-btn column-btn'
 					onClick={() => {

@@ -4,9 +4,10 @@ import Title from '../Title/Title';
 import Card from '../Card/Card';
 import './styles.scss';
 import CreateTask from '../CreateTask/CreateTask';
-import { IconX, IconPencil, IconArrowBarToUp } from '@tabler/icons-react';
+import { IconX, IconPencil, IconChevronUp } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
-
+import WIPLimitNotification from '../notifications/WIPLimitNotification';
+import { useState, useEffect } from 'react';
 const UNSIGNED_GROUP_ID = 'QFzlKyV24rq8Vtmyz6Ai';
 
 export default function List({
@@ -45,9 +46,11 @@ export default function List({
 	removeSubtask,
 	addSubtask,
 	handleToggleSubtaskCollapse,
+	setOldChildren,
+	allChildren,
 }) {
 	const { t } = useTranslation();
-
+	const [open, setOpen] = useState(false);
 	const calculateHeight = group => {
 		const max = lists
 			.map(list => list.cards.filter(card => card.owner === group.name).length)
@@ -94,7 +97,7 @@ export default function List({
 															handleToggleCollapse(group.id);
 														}}
 														className='group-title-wrap-btn group-title-btns'>
-														<IconArrowBarToUp
+														<IconChevronUp
 															size={24}
 															strokeWidth={2}
 															color={'white'}
@@ -138,7 +141,7 @@ export default function List({
 															handleToggleCollapse(group.id);
 														}}
 														className='group-title-wrap-btn group-title-btns'>
-														<IconArrowBarToUp
+														<IconChevronUp
 															size={24}
 															strokeWidth={2}
 															color={'white'}
@@ -182,7 +185,10 @@ export default function List({
 												display: group.isCollapsed ? 'none' : 'block',
 												backgroundColor: list.limit !== 0 && list.limit < cardCount(group, list) && '#C22C3B',
 											}}>
-											{!group.isCollapsed && <CreateTask group={group} listId={list.id} type='card' listIdx={listIdx}/>}
+											{/* {list.limit < cardCount(group, list) && list.limit !== 0 && (<WIPLimitNotification />)} */}
+											{!group.isCollapsed && (
+												<CreateTask group={group} listId={list.id} type='card' listIdx={listIdx} />
+											)}
 											<Droppable droppableId={`${list.id}:${group.name}`} type='task'>
 												{provided => (
 													<div ref={provided.innerRef} {...provided.droppableProps} className='group-task-container'>
@@ -210,6 +216,9 @@ export default function List({
 																	removeSubtask={removeSubtask}
 																	addSubtask={addSubtask}
 																	handleToggleSubtaskCollapse={handleToggleSubtaskCollapse}
+																	setOldChildren={setOldChildren}
+																	allChildren={allChildren}
+																	lists={lists}
 																/>
 															))}
 														{provided.placeholder}

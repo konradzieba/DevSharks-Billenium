@@ -6,21 +6,28 @@ import SignIn from './components/Authentication/SignIn';
 import SignUp from './components/Authentication/SignUp';
 import ProtectedRoute from './components/Authentication/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
-import LanguageSelector from './components/User/LanguageSelector';
+import Doc from './components/Doc/Doc';
 
 const App = () => {
 	return (
 		<div>
-			<LanguageSelector className='lang-selector' />
 			<AuthContextProvider>
 				<Routes>
-						<Route path='/' element={<SignIn />} />
-						<Route path='/signup' element={<SignUp />} />
+					<Route path='/' element={<SignIn />} />
+					<Route path='/signup' element={<SignUp />} />
 					<Route
 						path='/kanban'
 						element={
 							<ProtectedRoute>
 								<Home />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path='/kanban/doc'
+						element={
+							<ProtectedRoute>
+								<Doc />
 							</ProtectedRoute>
 						}
 					/>

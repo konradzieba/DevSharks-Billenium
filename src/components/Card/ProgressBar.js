@@ -18,7 +18,7 @@ function ProgressBar({ subtasks }) {
 				color={percentageProgress >= 100 ? 'green' : 'blue'}
 				size='lg'
 				radius='xl'
-				animate
+				// animate
 			/>
 		)
 	);

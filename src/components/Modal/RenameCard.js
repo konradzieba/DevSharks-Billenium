@@ -1,5 +1,6 @@
-import { Modal, TextInput, Button, Box, Text, Group, Switch } from '@mantine/core';
-import { IconBug } from '@tabler/icons-react';
+import { forwardRef } from 'react';
+import { Modal, TextInput, Button, Box, Text, Switch, Group, MultiSelect, Tooltip } from '@mantine/core';
+import { IconBug, IconInfoCircle } from '@tabler/icons-react';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -16,12 +17,48 @@ const RenameCardModal = ({
 	setCardColor,
 	cardColor,
 	bugged,
+	lists,
+	oldChildren,
+	setOldChildren,
+	setLists,
+	allChildren, // TU DODAŁEM KOD
 }) => {
 	const { t } = useTranslation();
 	const selectedColumnInfo = <p>{t('renameCardModalTitle')}</p>;
 	const [actualInputValue, setActualInputValue] = useState('');
 	const [choosenColor, setChoosenColor] = useState(cardColor);
 	const [isBugged, setIsBugged] = useState(bugged);
+	const [isOpened, setIsOpened] = useState(false);
+
+	const renameCardObj = lists.flatMap(column => column.cards).find(card => card.id === renameCardId).children;
+	const prevDataList = lists
+		.flatMap(column => column.cards)
+		.filter(card =>
+			renameCardObj.length > 0 && renameCardObj.includes(`${card.id}`)
+				? card.id !== renameCardId && card.children.length === 0
+				: !allChildren.includes(card.id) && card.id !== renameCardId && card.children.length === 0
+		);
+
+	const [data, setData] = useState(
+		prevDataList.map(card => {
+			return {
+				label: card.title,
+				value: card.id,
+				color: card.color,
+			};
+		})
+	);
+
+	const SelectItem = forwardRef(({ label, value, color, ...others }, ref) => (
+		<div ref={ref} {...others}>
+			<Group noWrap>
+				<div style={{ width: '20px', height: '20px', backgroundColor: color }}></div>
+				<div>
+					<Text size='sm'>{label}</Text>
+				</div>
+			</Group>
+		</div>
+	));
 
 	const isValid = oldCardTitle.trim().length > 0;
 	const colors = ['#8DC44F', '#FFC718', '#FF9E0F', '#DA483B'];
@@ -41,12 +78,14 @@ const RenameCardModal = ({
 
 	const handleSubmit = e => {
 		e.preventDefault();
-		updateCardTitle(oldCardTitle, renameCardListId, renameCardId, choosenColor, isBugged);
+
+		updateCardTitle(oldCardTitle, renameCardListId, renameCardId, choosenColor, isBugged, oldChildren);
 		setRenameCardModalOpened(false);
 		setOldCardTitle('');
 		setRenameCardId('');
 		setRenameCardListId('');
 		setCardColor('');
+		setOldChildren(null);
 	};
 
 	return (
@@ -67,8 +106,13 @@ const RenameCardModal = ({
 						setActualInputValue(e.target.value);
 					}}
 				/>
-				<Text mt={10}>{t('renameCardModalSelectColor')}</Text>
-				<Box mt={3} style={{ display: 'flex', justifyContent: 'flex-start' }}>
+				<Box mt={10} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+					<Text>{t('renameCardModalSelectColor')}</Text>
+					<Tooltip multiline width={225} position='right-start' label={t('renameCardModalColorTooltip')}>
+						<IconInfoCircle size={18} />
+					</Tooltip>
+				</Box>
+				<Box mt={3} style={{ display: 'flex' }}>
 					{colors.map((color, index) => (
 						<button
 							key={index}
@@ -96,9 +140,37 @@ const RenameCardModal = ({
 					color='red.8'
 					onLabel={<IconBug size='1.1rem' stroke={2} color='white' />}
 					onChange={() => {
-						setIsBugged(prevState => !isBugged);
+						setIsBugged(prevState => !prevState);
 					}}
 				/>
+				{allChildren.includes(renameCardId) ? (
+					<Text mt={10} c='dimmed' align='center'>
+						{t('assignTaskChildInfo')}
+					</Text>
+				) : (
+					<div style={{ height: `${isOpened ? '250px' : 'auto'}` }}>
+						<Text mt={10}>{t('assignTaskModalSelectLabel')}</Text>
+						<MultiSelect
+							mt={3}
+							placeholder={t('assignTaskModalPlaceholder')}
+							value={oldChildren}
+							onChange={value => {
+								setOldChildren(value);
+							}}
+							data={data}
+							itemComponent={SelectItem}
+							searchable={true}
+							maxDropdownHeight={175}
+							nothingFound={t('assignTaskModalNothingFound')}
+							dropdownPosition='bottom'
+							onDropdownOpen={() => setIsOpened(true)}
+							onDropdownClose={() => setIsOpened(false)}
+							hoverOnSearchChange
+							clearable
+						/>
+					</div>
+				)}
+
 				<Button
 					{...buttonDynamicProps}
 					onClick={handleSubmit}

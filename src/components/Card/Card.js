@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useRef } from 'react';
 import { Draggable } from 'react-beautiful-dnd';
-import { IconX, IconPencil, IconPlus, IconArrowBarToUp } from '@tabler/icons-react';
+import { IconX, IconPencil, IconPlus, IconChevronUp, IconCrown, IconCirclesRelation } from '@tabler/icons-react';
 import storeApi from '../../utils/storeApi';
 import './styles.scss';
 import BuggedStatus from './BuggedStatus';
@@ -28,14 +28,35 @@ export default function Card({
 	removeSubtask,
 	handleToggleSubtaskCollapse,
 	addSubtask,
+	setOldChildren,
+	allChildren,
+	lists,
 }) {
 	const [open, setOpen] = useState(false);
 	const [newTitle, setNewTitle] = useState(card.title);
 	const { updateCardTitle, setRenameCardModalOpened } = useContext(storeApi);
 
-	const handleOnBlur = cardId => {
-		updateCardTitle(newTitle, index, listId);
-		setOpen(!open);
+	const cards = lists.flatMap(list => list.cards);
+	const parent = cards.find(cardT => cardT.children.includes(card.id));
+	const ids = parent ? parent.children : card.children;
+	const handleOnMouseEnter = () => {
+		ids.forEach(id => document.getElementById(id).classList.add('animation'));
+		if (parent) {
+			document.getElementById(parent.id).classList.add('animation');
+		}
+		else {
+			document.getElementById(card.id).classList.add('animation');
+		}
+	};
+
+	const handleOnMouseLeave = () => {
+			ids.forEach(id => document.getElementById(id).classList.remove('animation'));
+		if (parent) {
+			document.getElementById(parent.id).classList.remove('animation');
+		}
+		else {
+			document.getElementById(card.id).classList.remove('animation');
+		}
 	};
 
 	return (
@@ -43,18 +64,43 @@ export default function Card({
 			{(provided, snapshot) => (
 				<div ref={provided.innerRef} {...provided.dragHandleProps} {...provided.draggableProps}>
 					<div
+						id={card.id}
 						className={`card-wrap ${snapshot.isDragging && 'card-opacity'}`}
 						style={{
 							borderLeft: `10px solid ${card.color}`,
 						}}>
+						{card.children.length > 0 && (
+							<button
+								style={{ alignSelf: 'center', marginTop: '3px', background: 'none', border: 'none', cursor: 'pointer' }}
+								onMouseEnter={handleOnMouseEnter}
+								onMouseLeave={handleOnMouseLeave}>
+								<IconCrown color={'gold'} size={26} strokeWidth='2' />
+							</button>
+						)}
+						{allChildren.includes(card.id) && (
+							<button
+								style={{
+									alignSelf: 'center',
+									marginTop: '3px',
+									background: 'none',
+									border: 'none',
+									cursor: 'pointer',
+								}}
+								onMouseEnter={handleOnMouseEnter}
+								onMouseLeave={handleOnMouseLeave}>
+								<IconCirclesRelation color={'royalblue'} size={26} strokeWidth='2' />
+							</button>
+						)}
 						<div className='card-title'>
 							{card.isBugged && <BuggedStatus />}
 							<div className='card-title-container'>
 								<div>{card.title}</div>
 								<div className='card-title-container__icon-container'>
-									<IconArrowBarToUp
+									<IconChevronUp
 										onClick={() => handleToggleSubtaskCollapse(listId, card.id)}
-										style={{ transform: card.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)' }}
+										style={{
+											transform: card.isCollapsed ? 'rotate(180deg)' : 'rotate(0deg)',
+										}}
 										className='card-title-container__icon-container__icon'
 									/>
 								</div>
@@ -90,6 +136,7 @@ export default function Card({
 								setOldCardTitle(card.title);
 								setIsBugged(card.isBugged);
 								setRenameCardModalOpened(true);
+								setOldChildren(card.children);
 							}}>
 							<IconPencil />
 						</button>

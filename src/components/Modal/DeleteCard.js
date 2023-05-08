@@ -9,10 +9,14 @@ const DeleteCardModal = ({
 	deleteCardListId,
 	setDeleteCardListId,
 	removeCard,
+	removeChildConnection,
 }) => {
 	const { t } = useTranslation();
 	const modalTitle = <p>{t('deleteCardModalTitle')}</p>;
 	const handleDelete = () => {
+		// setTimeout(() => {
+		// 	removeChildConnection(deleteCardId);
+		// }, 1000);
 		removeCard(deleteCardListId, deleteCardId);
 		setDeleteCardId(null);
 		setDeleteCardListId(null);
