@@ -101,6 +101,10 @@ export const AsideMenu = () => {
 			link: '#AssignUserToTask',
 		},
 		{
+			label: t('docParentKidRelationship'), 
+			link: '#ParentKidRelationship',
+		},
+		{
 			label: t('docDelete'),
 			link: '#Delete',
 		},
