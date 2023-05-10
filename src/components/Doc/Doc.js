@@ -18,6 +18,7 @@ import ZmianaLimitu from './media/Zmiana_limitu.gif';
 import ZmianaNazwyKolumny from './media/Zmiana_nazwy_kolumny.gif';
 import ZmianaNazwyGrupy from './media/Zmiana_nazwy_grupy.gif';
 import ZmianaNazwyZadania from './media/Zmiana_nazwy_zadania.gif';
+import Rodzic_dziecko from './media/Rodzic_dziecko.gif';
 import { useTranslation } from 'react-i18next';
 import { AsideMenu } from './Aside';
 
@@ -89,90 +90,92 @@ ${t('docinstalationDescription')}`}
 					<div id='LanguageChange'>
 						<ReactMarkdown>{`### ${t('docLanguageChange')}
 ${t('docLanguageChangeDescription')}`}</ReactMarkdown>
-						<img src={ZamianaJezyka} alt='Zmiana języka' />
+						<img src={ZamianaJezyka} alt={t('docLanguageChange')} />
 					</div>
 					<div id='SignIn'>
 						<ReactMarkdown>{`### ${t('docSignIn')}
 ${t('docSignInDescription')}`}</ReactMarkdown>
-						<img src={Logowanie} alt='Logowanie' />
+						<img src={Logowanie} alt={t('docSignIn')} />
 					</div>
 					<div id='SignUp'>
 						<ReactMarkdown>{`### ${t('docSignUp')}
 ${t('docSignUpDescription')}`}</ReactMarkdown>
-						<img src={Rejestracja} alt='Rejestracja' />
+						<img src={Rejestracja} alt={t('docSignUp')} />
 					</div>
 					<div id='AssignAvatar'>
 						<ReactMarkdown>{`### ${t('docAssignAvatar')}
 ${t('docAssignAvatarDescription')}`}</ReactMarkdown>
-						<img src={ZmianaAvatara} alt='Zmiana avatara' />
+						<img src={ZmianaAvatara} alt={t('docAssignAvatar')} />
 					</div>
 					<div id='CreateColumn'>
 						<ReactMarkdown>{`### ${t('docCreateColumn')}
 ${t('docCreateColumnDescription')}`}</ReactMarkdown>
-						<img src={TworzenieKolumny} alt='Tworzenie kolumny' />
+						<img src={TworzenieKolumny} alt={t('docCreateColumn')} />
 					</div>
 					<div id='ChangeColumnName'>
 						<ReactMarkdown>{`### ${t('docChangeColumnName')}
 ${t('docChangeColumnNameDescription')}`}</ReactMarkdown>
-						<img src={ZmianaNazwyKolumny} alt='Zmiana nazwy kolumny' />
+						<img src={ZmianaNazwyKolumny} alt={t('docChangeColumnName')} />
 					</div>
 					<div id='ChangeTaskLimitInColumn'>
 						<ReactMarkdown>{`### ${t('docChangeTaskLimitInColumn')}
 ${t('docChangeTaskLimitInColumnDescription')}`}</ReactMarkdown>
-						<img src={ZmianaLimitu} alt='Zmiana limitu zadań' />
+						<img src={ZmianaLimitu} alt={t('docChangeTaskLimitInColumn')} />
 					</div>
 					<div id='CreateGroup'>
 						<ReactMarkdown>{`### ${t('docCreateGroup')}
 ${t('docCreateGroupDescription')}`}</ReactMarkdown>
-						<img src={TworzenieGrupy} alt='Tworzenie grupy' />
+						<img src={TworzenieGrupy} alt={t('docCreateGroup')} />
 					</div>
 					<div id='ChangeGroupName'>
 						<ReactMarkdown>{`### ${t('docChangeGroupName')}
 ${t('docChangeGroupNameDescription')}`}</ReactMarkdown>
-						<img src={ZmianaNazwyGrupy} alt='Zmiana nazwy grupy' />
+						<img src={ZmianaNazwyGrupy} alt={t('docChangeGroupName')} />
 					</div>
 					<div id='CreateTask'>
 						<ReactMarkdown>{`### ${t('docCreateTask')}
 ${t('docCreateTaskDescription')}`}</ReactMarkdown>
-						<img src={TworzenieZadania} alt='Tworzenie zadania' />
+						<img src={TworzenieZadania} alt={t('docCreateTask')} />
 					</div>
 					<div id='ChangeTaskName'>
 						<ReactMarkdown>{`### ${t('docChangeTaskName')}
 ${t('docChangeTaskNameDescription')}`}</ReactMarkdown>
-						<img src={ZmianaNazwyZadania} alt='Zmiana nazwy zadania' />
+						<img src={ZmianaNazwyZadania} alt={t('docChangeTaskName')} />
 					</div>
 					<div id='ChangeTaskColor'>
 						<ReactMarkdown>{`### ${t('docChangeTaskColor')}
 ${t('docChangeTaskColorDescription')}`}</ReactMarkdown>
-						<img src={ZmianaKoloruZadania} alt='Zmiana koloru zadania' />
+						<img src={ZmianaKoloruZadania} alt={t('docChangeTaskColor')} />
 					</div>
 					<div id='TaskBugStatus'>
 						<ReactMarkdown>{`### ${t('docTaskBugStatus')}
 ${t('docTaskBugStatusDescription')}`}</ReactMarkdown>
-						<img src={StatusZbugowane} alt='Status zbugowane' />
+						<img src={StatusZbugowane} alt={t('docTaskBugStatus')} />
 					</div>
 					<div id='Subtasks'>
 						<ReactMarkdown>{`### ${t('docSubtasks')}
 ${t('docSubtasksDescription')}`}</ReactMarkdown>
-						<img src={Podzadania} alt='Subtasks' />
+						<img src={Podzadania} alt={t('docSubtasks')} />
 					</div>
 					<div id='AssignUserLimit'>
 						<ReactMarkdown>{`### ${t('docAssignUserLimit')}
 ${t('docAssignUserLimitDescription')}`}</ReactMarkdown>
-						<img
-							src={ZmianaLimituDlaUzytkownika}
-							alt='Zmiana limitu dla użytkownika'
-						/>
+						<img src={ZmianaLimituDlaUzytkownika} alt={t('docAssignUserLimit')} />
 					</div>
 					<div id='AssignUserToTask'>
 						<ReactMarkdown>{`### ${t('docAssignUserToTask')}
 ${t('docAssignUserToTaskDescription')}`}</ReactMarkdown>
-						<img src={PrzypisanieUzytkownikow} alt='Przypisanie użytkowników' />
+						<img src={PrzypisanieUzytkownikow} alt={t('docAssignUserToTask')} />
+					</div>
+					<div id='ParentKidRelationship'>
+						<ReactMarkdown>{`### ${t('docParentKidRelationship')}
+${t('docParentKidRelationshipDescription')}`}</ReactMarkdown>
+						<img src={Rodzic_dziecko} alt={t('docParentKidRelationship')} />
 					</div>
 					<div id='Delete'>
 						<ReactMarkdown>{`### ${t('docDelete')}
 ${t('docDeleteDescription')}`}</ReactMarkdown>
-						<img src={Usuwanie} alt='Usuwanie' />
+						<img src={Usuwanie} alt={t('docDelete')} />
 					</div>
 				</div>
 			</div>
