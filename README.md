@@ -23,6 +23,9 @@ Testy e2e:\
 
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
+## Demo
+Link do demo naszej aplikacj mozna znaleźć pod https://kanban-devsharks.web.app/
+
 ## Instalacja
 
 By uruchomić projekt lokalnie po instalacji środowiska [Node.js](https://nodejs.org/en), menadżera pakietów [Yarn](https://yarnpkg.com/getting-started/install) i pobraniu plików, znajdując się w folderze z plikami w terminalu inicjujemy komendy:
