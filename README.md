@@ -24,7 +24,10 @@ Testy e2e:\
 ![Firebase](https://img.shields.io/badge/firebase-%23039BE5.svg?style=for-the-badge&logo=firebase)
 
 ## Demo
-Link do demo naszej aplikacj mozna znaleźć pod https://kanban-devsharks.web.app/
+Link do demo naszej aplikacji mozna znaleźć pod https://kanban-devsharks.web.app/
+
+## User guide
+User Guide dostępny w sześciu językach po zalogowaniu się do aplikacji.
 
 ## Instalacja
 
